@@ -1,0 +1,4 @@
+key,name,vatNumber,summary,link,key:userAccount
+company-01,Company 01,123456789,Summary 01,http://www.example.com,user-account-administrator-01
+company-02,Company 02,987654321,Summary 02,http://www.example.com,user-account-administrator-01
+company-03,Company 03,123456789,Summary 03,http://www.example.com,user-account-administrator-01

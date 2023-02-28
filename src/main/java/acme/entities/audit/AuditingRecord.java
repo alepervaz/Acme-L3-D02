@@ -54,6 +54,7 @@ public class AuditingRecord extends AbstractEntity {
 
 	@Override
 	public String toString() {
+		//I adjust the getMark to get A+ or F- in case AP or FL
 		return "AuditingRecord [subject=" + this.subject + ", assessment=" + this.assessment + ", startAudit=" + this.startAudit + ", endAudit=" + this.endAudit + ", mark=" + this.mark.getMark() + ", link=" + this.link + "]";
 	}
 

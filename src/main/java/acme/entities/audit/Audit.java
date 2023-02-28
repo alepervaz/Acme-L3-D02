@@ -48,7 +48,7 @@ public class Audit extends AbstractEntity {
 	@Length(max = 101)
 	private String					weakPoints;
 
-	@Size(min = 1)
+	@Size(min = 1) //must be one almost
 	@OneToMany
 	private List<AuditingRecord>	auditingRecords;
 
@@ -57,6 +57,7 @@ public class Audit extends AbstractEntity {
 
 	@Transient
 	public Mark mark() {
+		//from all AuditingRecords we collect the map<Mark, CountOfMark> and we get the most popular mark
 		final Map<Mark, Long> stats = this.auditingRecords.stream().map(recordAudit -> recordAudit.getMark()).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 		return stats.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue)).orElseThrow(null).getKey();
 

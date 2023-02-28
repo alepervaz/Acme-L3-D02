@@ -12,7 +12,9 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public class Auditor extends AbstractEntity {
 
 	// Serialisation identifier

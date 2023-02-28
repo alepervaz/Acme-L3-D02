@@ -18,26 +18,31 @@ public class AdminDashboard extends AbstractForm {
 	// Attributes -------------------------------------------------------------
 
 	// Total number of principals with each role
-	private Map<String, Integer>	roleCount;
+	private Integer						numberOfAssistants;
+	private Integer						numberOfAuditors;
+	private Integer						numberOfCompanys;
+	private Integer						numberOfConsumers;
+	private Integer						numberOfProviders;
+	private Integer						numberOfLecturers;
 
 	// Ratio of peeps with both an email address and a link
-	private double					emailAndLinkRatio;
+	private double					linkAndEmailPeepsRatio;
 
 	// Ratios of critical and non-critical bulletins
 	private double					criticalBulletinsRatio;
 	private double					nonCriticalBulletinsRatio;
 
 	// Average, minimum, maximum, and standard deviation of the budget in the offers grouped by currency
-	private Map<String, Double>		averageBudget;
-	private Map<String, Double>		minimumBudget;
-	private Map<String, Double>		maximumBudget;
-	private Map<String, Double>		standardDeviationBudget;
+	private Map<String, Double>		averageBudgetByCurrency;
+	private Map<String, Double>		minimumBudgetByCurrency;
+	private Map<String, Double>		maximumBudgetByCurrency;
+	private Map<String, Double>		standardDeviationBudgetByCurrency;
 
 	// Average, minimum, maximum, and standard deviation of the number of notes posted over the last 10 weeks
-	private double					averageNotes;
-	private double					minimumNotes;
-	private double					maximumNotes;
-	private double					standardDeviationNotes;
+	private double					averageNotesInLast10Weeks;
+	private double					minimumNotesInLast10Weeks;
+	private double					maximumNotesInLast10Weeks;
+	private double					standardDeviationNotesInLast10Weeks;
 
 	// Derived attributes -----------------------------------------------------
 

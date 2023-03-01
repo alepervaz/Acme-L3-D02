@@ -1,7 +1,10 @@
 
 package entities;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
@@ -14,6 +17,8 @@ public class Bulletin extends AbstractEntity {
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
+	@Past
+	protected Date				moment;
 
 	@NotBlank
 	@Length(max = 76)
@@ -23,7 +28,7 @@ public class Bulletin extends AbstractEntity {
 	@Length(max = 101)
 	protected String			message;
 
-	protected boolean			critical;
+	protected boolean			flags;
 
 	@URL
 	protected String			link;

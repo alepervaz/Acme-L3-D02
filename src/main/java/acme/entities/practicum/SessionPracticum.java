@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -28,7 +29,7 @@ public class SessionPracticum extends AbstractEntity {
 
 	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "[A-Z]{1,3}[0-9][0-9]{3}")
+	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}")
 	private String				code;
 
 	@NotBlank
@@ -37,16 +38,18 @@ public class SessionPracticum extends AbstractEntity {
 
 	@NotBlank
 	@Length(max = 101)
-	private String				abstractSession; // TODO: Rename
+	private String				abstractSession;
 
 	@NotBlank
 	@Length(max = 101)
 	private String				description;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	private Date start;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	private Date			end;
 
 	@URL

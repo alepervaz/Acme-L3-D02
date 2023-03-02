@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -30,7 +31,7 @@ public class Practicum extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 	@NotBlank(message = "Code must not be blank")
 	@Column(unique = true)
-	@Pattern(regexp = "[A-Z]{1,3}[0-9][0-9]{3}", message = "Code must be in the format 'AAA9999'")
+	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}", message = "Code must be in the format 'AAA9999'")
 	private String					code;
 
 	@NotBlank(message = "Title must not be blank")
@@ -45,6 +46,7 @@ public class Practicum extends AbstractEntity {
 	@Length(max = 101, message = "Description must be shorter than 101 characters")
 	private String					goals;
 
+	@NotNull
 	private Double					estimatedTimeInHours;
 
 	// Derived attributes -----------------------------------------------------

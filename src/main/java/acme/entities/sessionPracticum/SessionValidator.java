@@ -1,5 +1,5 @@
 
-package acme.entities.practicum;
+package acme.entities.sessionPracticum;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

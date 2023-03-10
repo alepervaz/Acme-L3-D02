@@ -1,5 +1,5 @@
 
-package acme.entities.practicum;
+package acme.entities.sessionPracticum;
 
 import java.util.Date;
 
@@ -27,29 +27,29 @@ public class SessionPracticum extends AbstractEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	@NotBlank
+	@NotBlank(message = "Code must not be blank")
 	@Column(unique = true)
-	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}")
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$", message = "Code must be in the format 'AAA999'")
 	private String				code;
 
-	@NotBlank
-	@Length(max = 76)
+	@NotBlank(message = "Title must not be blank")
+	@Length(max = 75, message = "Title must be shorter than 76 characters")
 	private String				title;
 
-	@NotBlank
-	@Length(max = 101)
+	@NotBlank(message = "Abstract session must not be blank")
+	@Length(max = 100, message = "Abstract must be shorter than 101 characters")
 	private String				abstractSession;
 
-	@NotBlank
-	@Length(max = 101)
+	@NotBlank(message = "Description must not be blank")
+	@Length(max = 100, message = "Goals must be shorter than 101 characters")
 	private String				description;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
+	@NotNull(message = "The start date must not be null")
 	private Date start;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull
+	@NotNull(message = "The end date must not be null")
 	private Date			end;
 
 	@URL
@@ -62,5 +62,4 @@ public class SessionPracticum extends AbstractEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	private Practicum			practicum;
-
 }

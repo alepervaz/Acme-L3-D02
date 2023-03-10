@@ -31,19 +31,19 @@ public class Practicum extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 	@NotBlank(message = "Code must not be blank")
 	@Column(unique = true)
-	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}", message = "Code must be in the format 'AAA9999'")
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$", message = "Code must be in the format 'AAA999'")
 	private String					code;
 
 	@NotBlank(message = "Title must not be blank")
-	@Length(max = 76, message = "Title must be shorter than 76 characters")
+	@Length(max = 75, message = "Title must be shorter than 76 characters")
 	private String					title;
 
 	@NotBlank(message = "Credit card number must not be blank")
-	@Length(max = 101, message = "Abstract must be shorter than 101 characters")
-	private String					abstractPracticum; // TODO: Rename
+	@Length(max = 100, message = "Abstract must be shorter than 101 characters")
+	private String					abstractPracticum;
 
 	@NotBlank(message = "Description must not be blank")
-	@Length(max = 101, message = "Description must be shorter than 101 characters")
+	@Length(max = 100, message = "Description must be shorter than 101 characters")
 	private String					goals;
 
 	@NotNull
@@ -52,10 +52,6 @@ public class Practicum extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
-	@Valid
-	@OneToMany(mappedBy = "practicum")
-	private List<SessionPracticum>	sessions;
 
 	@Valid
 	@ManyToOne(optional = false)

@@ -1,8 +1,6 @@
-
 package acme.forms;
 
-import java.time.Month;
-import java.util.Map;
+import java.util.List;
 
 import acme.framework.data.AbstractForm;
 import lombok.Getter;
@@ -18,14 +16,21 @@ public class CompanyDashboard extends AbstractForm {
 
 	// Attributes -------------------------------------------------------------
 
-	private Map<Month, Double>	averageSessionLength;
-	private Map<Month, Double>	deviationSessionLength;
-	private Map<Month, Double>	minimumSessionLength;
-	private Map<Month, Double>	maximumSessionLength;
-	private Map<Month, Double>	averagePracticaLength;
-	private Map<Month, Double>	deviationPracticaLength;
-	private Map<Month, Double>	minimumPracticaLength;
-	private Map<Month, Double>	maximumPracticaLength;
+	// Total number of practicas (the index in the list represent the months).
+	private List<Integer>		totalNumberOfPracticaByMonth;
+
+	// Average, deviation, minimum, and maximum period length of the sessions in their practica.
+	private Double				averageSessionLength;
+	private Double				deviationSessionLength;
+	private Double				minimumSessionLength;
+	private Double				maximumSessionLength;
+
+
+	// Average, deviation, minimum, and maximum period length of their practica.
+	private Double				averagePracticaLength;
+	private Double				deviationPracticaLength;
+	private Double				minimumPracticaLength;
+	private Double				maximumPracticaLength;
 
 	// Derived attributes -----------------------------------------------------
 

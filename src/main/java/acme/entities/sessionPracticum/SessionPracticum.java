@@ -3,7 +3,11 @@ package acme.entities.sessionPracticum;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -46,11 +50,11 @@ public class SessionPracticum extends AbstractEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "The start date must not be null")
-	private Date start;
+	private Date				start;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "The end date must not be null")
-	private Date			end;
+	private Date				end;
 
 	@URL
 	private String				link;

@@ -21,11 +21,11 @@ public class Configuration extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "[A-Z]{3}")
+	@Pattern(regexp = "^[A-Z]{3}$")
 	private String				defaultCurrency;
 
 	@NotBlank
-	@Pattern(regexp = "([A-Z]{3})(-\\s*[A-Z]{3})*")
+	@Pattern(regexp = "^([A-Z]{3})(-\\s*[A-Z]{3})*")
 	private String				acceptedCurrencies;
 
 	// Derived attributes -----------------------------------------------------

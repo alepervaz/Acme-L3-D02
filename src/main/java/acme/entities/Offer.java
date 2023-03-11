@@ -34,7 +34,7 @@ public class Offer extends AbstractEntity {
 	@Length(max = 101)
 	protected String			summary;
 
-	//Al menos un día después de la instaciación
+	//Al menos un día después de la fecha instantation
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	protected Date				startDate;

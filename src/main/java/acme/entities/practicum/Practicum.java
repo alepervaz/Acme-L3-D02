@@ -5,9 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -45,6 +43,7 @@ public class Practicum extends AbstractEntity {
 	private String				goals;
 
 	@NotNull(message = "Estimated time in hours must not be blank")
+	@DecimalMin(value = "0.01", message = "Estimated time in hours must be greater than 0.01")
 	private Double				estimatedTimeInHours;
 
 	// Derived attributes -----------------------------------------------------

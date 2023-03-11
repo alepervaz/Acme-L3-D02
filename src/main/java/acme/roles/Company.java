@@ -27,16 +27,16 @@ public class Company extends AbstractRole {
 
 	// Attributes -------------------------------------------------------------
 
-	@NotBlank
-	@Length(max = 75)
+	@NotBlank(message = "Name must not be blank")
+	@Length(max = 75, message = "Name must be shorter than 76 characters")
 	protected String			name;
 
-	@NotBlank
-	@Length(max = 25)
+	@NotBlank(message = "VAT number must not be blank")
+	@Length(max = 25, message = "VAT number must be shorter than 26 characters")
 	protected String			vatNumber;
 
-	@NotBlank
-	@Length(max = 100)
+	@NotBlank(message = "Summary must not be blank")
+	@Length(max = 100, message = "Summary must be shorter than 101 characters")
 	protected String			summary;
 
 	@URL
@@ -45,9 +45,5 @@ public class Company extends AbstractRole {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
-	@Valid
-	@OneToMany
-	protected List<Practicum>		practicums;
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
@@ -28,7 +29,7 @@ public class Banner extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Past
+	@PastOrPresent(message = "Instant must be in the past")
 	private Date				instant;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -40,7 +41,7 @@ public class Banner extends AbstractEntity {
 	@URL
 	private String				picture;
 
-	@NotBlank
+	@NotBlank(message = "Slogan must not be blank")
 	@Length(max = 76, message = "Slogan must be shorter than 76 characters")
 	private String				slogan;
 

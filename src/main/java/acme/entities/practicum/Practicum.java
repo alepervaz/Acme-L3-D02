@@ -43,7 +43,7 @@ public class Practicum extends AbstractEntity {
 	private String				goals;
 
 	@NotNull(message = "Estimated time in hours must not be blank")
-	@DecimalMin(value = "0.01", message = "Estimated time in hours must be greater than 0.01")
+	@Positive(message = "Estimated time in hours must be positive")
 	private Double				estimatedTimeInHours;
 
 	// Derived attributes -----------------------------------------------------

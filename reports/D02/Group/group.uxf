@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>180</y>
+      <w>330</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Banner
+--
++ instantiation: Date{TIMESTAMP,Past,NotNull}
++ startDate: Date {TIMESTAMP,NotNull}
++ endDate: Date {TIMESTAMP,NotNull}
++ picture: String{URL,NotNull}
++ slogan: String{NotBlank,Length(0,76)}
++ link: String{URL,NotNull}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>180</y>
+      <w>300</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Note
+--
++ instantiation: Date{TIMESTAMP,NotNull}
++ title: String{NotBlank,Length(0,76)}
++ nick: String{NotBlank,Length(0,76)}
++ message: String{NotBlank,Length(0,101)}
++ emailAddress: String{Email,NotNull}
++ link: String{URL}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>180</y>
+      <w>300</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Peep
+--
++ instantiation: Date{NotNull,TIMESTAMP,Past}
++ title: String{NotBlank,Length(0,76)}
++ nick: String{NotBlank,Length(0,76)}
++ message: String{NotBlank,Length(0,101)}
++ emailAddress: String{Email}
++ link: String{URL}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>440</y>
+      <w>340</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Offer
+--
++ instantiation: Date {TIMESTAMP,Past,NotNull}
++ heading: String {NotBlank,Length(0,76)}
++ summary: String {NotBlank,Length(0,101)}
++ startDate: Date {TIMESTAMP,NotNull}
++ endDate: Date {TIMESTAMP,NotNull}
++ price: Double {Min(0),NotNull}
++ link: String {URL}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>440</y>
+      <w>320</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Bulletin
+--
++ instantiation: Date{NotNull,TIMESTAMP,Past}
++ title: String{NotBlank,Length(0,76)}
++ message: String{NotBlank,Length(0,101)}
++ flags: boolean {NotNull}
++ link: String{URL}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

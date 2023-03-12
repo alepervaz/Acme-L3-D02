@@ -1,7 +1,3 @@
-#Individual tasks
-src/main/java/acme/entities/audit
-src/main/java/acme/entities/course
-
 # Compiled class file
 *.class
 

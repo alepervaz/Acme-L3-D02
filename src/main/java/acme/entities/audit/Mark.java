@@ -16,4 +16,5 @@ public enum Mark {
 	public String getMark() {
 		return this.markString;
 	}
+
 }

@@ -1,11 +1,7 @@
 
 package acme.roles;
 
-import java.util.List;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
@@ -25,18 +21,17 @@ public class Auditor extends AbstractEntity {
 
 	@NotBlank
 	@Length(max = 76)
-	private String				firm;
+	protected String			firm;
 
 	@NotBlank
 	@Length(max = 26)
-	private String				proffesionalId;
+	protected String			proffesionalId;
 
-	@NotNull
-	@Valid
+	@NotBlank
 	@Size(max = 101)
-	private List<String>		certifications;
+	protected String			certifications;
 
 	@URL
-	private String				link;
+	protected String			link;
 
 }

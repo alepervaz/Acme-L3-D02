@@ -1,11 +1,13 @@
 
 package acme.entities.audit;
 
+import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -31,31 +33,36 @@ public class AuditingRecord extends AbstractEntity {
 
 	@NotBlank
 	@Length(max = 76)
-	private String				subject;
+	protected String			subject;
 
 	@NotBlank
 	@Length(max = 101)
-	private String				assessment;
+	protected String			assessment;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Past
-	private Date				startAudit;
+	protected Date				startAudit;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Past
-	private Date				endAudit;
+	protected Date				endAudit;
 
 	@NotNull
-	private Mark				mark;
+	protected Mark				mark;
 
 	@URL
-	private String				link;
+	protected String			link;
 
 
 	@Override
 	public String toString() {
 		//I adjust the getMark to get A+ or F- in case AP or FL
 		return "AuditingRecord [subject=" + this.subject + ", assessment=" + this.assessment + ", startAudit=" + this.startAudit + ", endAudit=" + this.endAudit + ", mark=" + this.mark.getMark() + ", link=" + this.link + "]";
+	}
+
+	@Transient
+	public Duration getPeriodRecord() {
+		return Duration.between(this.startAudit.toInstant(), this.endAudit.toInstant());
 	}
 
 }

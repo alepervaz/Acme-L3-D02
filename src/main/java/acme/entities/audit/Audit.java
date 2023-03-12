@@ -1,29 +1,30 @@
 
 package acme.entities.audit;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
+import acme.entities.course.Course;
 import acme.framework.data.AbstractEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Audit extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
@@ -31,35 +32,39 @@ public class Audit extends AbstractEntity {
 
 	// Attributes -------------------------------------------------------------
 
+	@NotNull
+	protected Course				course;
+
 	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "[A-Z]{1,3}[0-9][0-9]{3}", message = "Letras de A-Z entre 1 y 3 veces, seguidas de tres numeros entre 0 y 9")
-	private String					code;
+	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}", message = "Letras de A-Z entre 1 y 3 veces, seguidas de tres numeros entre 0 y 9")
+	protected String				code;
 
 	@NotBlank
 	@Length(max = 101)
-	private String					conclusion;
+	protected String				conclusion;
 
 	@NotBlank
 	@Length(max = 101)
-	private String					strongPoints;
+	protected String				strongPoints;
 
 	@NotBlank
 	@Length(max = 101)
-	private String					weakPoints;
+	protected String				weakPoints;
 
-	@Size(min = 1) //must be one almost
 	@OneToMany
-	private List<AuditingRecord>	auditingRecords;
+	protected List<AuditingRecord>	auditingRecords;
+
+	@NotNull
+	protected Boolean				draftMode			= true;
 
 	// Derived attributes -----------------------------------------------------
 
 
 	@Transient
-	public Mark mark() {
-		//from all AuditingRecords we collect the map<Mark, CountOfMark> and we get the most popular mark
-		final Map<Mark, Long> stats = this.auditingRecords.stream().map(recordAudit -> recordAudit.getMark()).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-		return stats.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue)).orElseThrow(null).getKey();
+	public String mark() {
+		final String result = this.auditingRecords.toString();
+		return result.substring(1, result.length() - 1);
 
 	}
 

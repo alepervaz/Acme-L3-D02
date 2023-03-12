@@ -2,10 +2,7 @@
 package acme.entities.practicum;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 
 import acme.framework.helpers.MomentHelper;
 import org.springframework.validation.Errors;

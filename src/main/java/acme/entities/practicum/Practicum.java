@@ -4,11 +4,16 @@ package acme.entities.practicum;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
+import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.data.AbstractEntity;
 import acme.roles.Company;
 import acme.roles.Course;
@@ -22,29 +27,29 @@ public class Practicum extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long		serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 	@NotBlank(message = "Code must not be blank")
 	@Column(unique = true)
 	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$", message = "Code must be in the format 'AAA999'")
-	private String				code;
+	private String					code;
 
 	@NotBlank(message = "Title must not be blank")
 	@Length(max = 75, message = "Title must be shorter than 76 characters")
-	private String				title;
+	private String					title;
 
 	@NotBlank(message = "Credit card number must not be blank")
 	@Length(max = 100, message = "Abstract must be shorter than 101 characters")
-	private String				abstractPracticum;
+	private String					abstractPracticum;
 
 	@NotBlank(message = "Description must not be blank")
 	@Length(max = 100, message = "Description must be shorter than 101 characters")
-	private String				goals;
+	private String					goals;
 
 	@NotNull(message = "Estimated time in hours must not be blank")
 	@Positive(message = "Estimated time in hours must be positive")
-	private Double				estimatedTimeInHours;
+	private Double					estimatedTimeInHours;
 
 	// Derived attributes -----------------------------------------------------
 
@@ -52,9 +57,13 @@ public class Practicum extends AbstractEntity {
 
 	@Valid
 	@ManyToOne(optional = false)
-	private Company				company;
+	private Company					company;
 
 	@Valid
 	@ManyToOne(optional = false)
-	private Course				course;
+	private Course					course;
+
+	@Valid
+	@OneToMany(mappedBy = "practicum")
+	private List<SessionPracticum>	sessions;
 }

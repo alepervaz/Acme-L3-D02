@@ -1,8 +1,6 @@
 
 package acme.entities.sessionPracticum;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 

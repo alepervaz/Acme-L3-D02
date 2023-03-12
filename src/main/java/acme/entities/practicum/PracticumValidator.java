@@ -4,8 +4,10 @@ package acme.entities.practicum;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
+import acme.framework.helpers.MomentHelper;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -21,13 +23,13 @@ public class PracticumValidator implements Validator {
 		final Practicum practicum = (Practicum) target;
 		final List<SessionPracticum> sessions = practicum.getSessions();
 		final Double estimatedTimeInHours = practicum.getEstimatedTimeInHours();
-		final ZoneId zoneId = ZoneId.systemDefault();
 		double totalHours = 0.0;
 
 		for (final SessionPracticum session : sessions) {
-			final LocalDateTime start = LocalDateTime.ofInstant(session.getStart().toInstant(), zoneId);
-			final LocalDateTime end = LocalDateTime.ofInstant(session.getEnd().toInstant(), zoneId);
-			final Duration duration = Duration.between(start, end);
+
+			final Date start = session.getStart();
+			final Date end = session.getEnd();
+			final Duration duration = MomentHelper.computeDuration(start, end);
 			totalHours += duration.toHours();
 		}
 		if (totalHours < estimatedTimeInHours * 0.9 || totalHours > estimatedTimeInHours * 1.1)

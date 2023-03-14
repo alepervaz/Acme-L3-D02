@@ -148,4 +148,27 @@ Student Dashboards
 </panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>81</x>
+      <y>27</y>
+      <w>342</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Form&gt;&gt;
+Student
+--
++ totalNumberOfActivities: Double
++ averageAtivities: Double
++ deviationAtivities: Double
++ minimumAtivities: Double
++ maximumAtivities: Double
++ averageEnrolled: Double
++ deviationEnrolled: Double
++ minimumEnrolled: Double
++ maximumEnrolled: Double</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>

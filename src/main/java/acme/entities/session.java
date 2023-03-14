@@ -30,7 +30,7 @@ public class session extends AbstractEntity {
 	private String				abstractSession;
 
 	@NotNull
-	private boolean				indication;
+	private TypesSession		indication;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "The start date must not be null")

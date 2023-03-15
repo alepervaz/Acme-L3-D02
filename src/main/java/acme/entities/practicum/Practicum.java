@@ -30,25 +30,26 @@ public class Practicum extends AbstractEntity {
 	private static final long		serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-	@NotBlank(message = "Code must not be blank")
+	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$", message = "Code must be in the format 'AAA999'")
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
 	private String					code;
 
-	@NotBlank(message = "Title must not be blank")
-	@Length(max = 75, message = "Title must be shorter than 76 characters")
+	@NotBlank
+	@Length(max = 75)
 	private String					title;
 
-	@NotBlank(message = "Credit card number must not be blank")
-	@Length(max = 100, message = "Abstract must be shorter than 101 characters")
+	@NotBlank
+	@Length(max = 100)
 	private String					abstractPracticum;
 
-	@NotBlank(message = "Description must not be blank")
-	@Length(max = 100, message = "Description must be shorter than 101 characters")
+	@NotBlank
+	@Length
 	private String					goals;
 
-	@NotNull(message = "Estimated time in hours must not be blank")
-	@Positive(message = "Estimated time in hours must be positive")
+	// TODO: Create a custom validator to validate if the estimated time is between 90% and 110% of the total time.
+	@NotNull
+	@Positive
 	private Double					estimatedTimeInHours;
 
 	// Derived attributes -----------------------------------------------------
@@ -64,6 +65,6 @@ public class Practicum extends AbstractEntity {
 	private Course					course;
 
 	@Valid
-	@OneToMany(mappedBy = "practicum")
+	@OneToMany
 	private List<SessionPracticum>	sessions;
 }

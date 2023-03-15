@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>243</y>
+      <x>135</x>
+      <y>252</y>
       <w>333</w>
       <h>153</h>
     </coordinates>
@@ -25,8 +25,8 @@ Activites
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>486</x>
-      <y>243</y>
+      <x>621</x>
+      <y>252</y>
       <w>387</w>
       <h>153</h>
     </coordinates>
@@ -46,8 +46,8 @@ Enrolment
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>324</x>
-      <y>306</y>
+      <x>459</x>
+      <y>315</y>
       <w>180</w>
       <h>45</h>
     </coordinates>
@@ -60,8 +60,8 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>531</y>
+      <x>198</x>
+      <y>540</y>
       <w>216</w>
       <h>99</h>
     </coordinates>
@@ -76,8 +76,8 @@ Approach
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>612</x>
-      <y>81</y>
+      <x>747</x>
+      <y>90</y>
       <w>135</w>
       <h>45</h>
     </coordinates>
@@ -89,8 +89,8 @@ Courses</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>675</x>
-      <y>117</y>
+      <x>810</x>
+      <y>126</y>
       <w>45</w>
       <h>144</h>
     </coordinates>
@@ -103,8 +103,8 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>522</y>
+      <x>648</x>
+      <y>531</y>
       <w>333</w>
       <h>117</h>
     </coordinates>
@@ -122,8 +122,8 @@ Student
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>639</x>
-      <y>387</y>
+      <x>774</x>
+      <y>396</y>
       <w>45</w>
       <h>153</h>
     </coordinates>
@@ -136,29 +136,14 @@ m2=0..1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>306</x>
-      <y>693</y>
-      <w>297</w>
-      <h>153</h>
-    </coordinates>
-    <panel_attributes>bg=green
-&lt;&lt;Entity&gt;&gt;
-Student Dashboards
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>81</x>
+      <x>135</x>
       <y>27</y>
-      <w>342</w>
+      <w>333</w>
       <h>189</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Form&gt;&gt;
-Student
+Student Dashboards
 --
 + totalNumberOfActivities: Double
 + averageAtivities: Double

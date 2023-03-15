@@ -34,8 +34,10 @@ public class SessionValidator implements Validator {
 		final Date inAWeekFromStart = cal.getTime();
 
 		if (MomentHelper.isBefore(start, inAWeekFromNow))
+			// TODO: The error message must be obtain used the MessageHelper class.
 			errors.rejectValue("start", "start.beforeNow", "Start date must be after the current date");
 		else if (MomentHelper.isBefore(end, inAWeekFromStart))
+			// TODO: The error message must be obtain used the MessageHelper class.
 			errors.rejectValue("end", "end.beforeStart", "End date must be at least one week after the start date");
 	}
 }

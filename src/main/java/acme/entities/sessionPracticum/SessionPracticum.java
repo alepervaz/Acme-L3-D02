@@ -32,29 +32,29 @@ public class SessionPracticum extends AbstractEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	@NotBlank(message = "Code must not be blank")
+	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$", message = "Code must be in the format 'AAA999'")
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
 	private String				code;
 
-	@NotBlank(message = "Title must not be blank")
-	@Length(max = 75, message = "Title must be shorter than 76 characters")
+	@NotBlank
+	@Length(max = 75)
 	private String				title;
 
-	@NotBlank(message = "Abstract session must not be blank")
-	@Length(max = 100, message = "Abstract must be shorter than 101 characters")
+	@NotBlank
+	@Length(max = 100)
 	private String				abstractSession;
 
-	@NotBlank(message = "Description must not be blank")
-	@Length(max = 100, message = "Goals must be shorter than 101 characters")
+	@NotBlank
+	@Length(max = 100)
 	private String				description;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message = "The start date must not be null")
+	@NotNull
 	private Date				start;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message = "The end date must not be null")
+	@NotNull
 	private Date				end;
 
 	@URL
@@ -63,8 +63,4 @@ public class SessionPracticum extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
-	@Valid
-	@ManyToOne(optional = false)
-	private Practicum			practicum;
 }

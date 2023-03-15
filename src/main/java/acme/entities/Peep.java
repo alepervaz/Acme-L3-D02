@@ -34,7 +34,6 @@ public class Peep extends AbstractEntity {
 
 	@NotBlank
 	@Length(max = 75, message = "nick shorter than 76 characters")
-	@Length(max = 76)
 	protected String			nick;
 
 	@NotBlank

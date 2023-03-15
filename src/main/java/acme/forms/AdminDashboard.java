@@ -21,25 +21,25 @@ public class AdminDashboard extends AbstractForm {
 	// Attributes -------------------------------------------------------------
 
 	// Total number of principals with each role
-	@Positive(message = "Number of administrators must be positive")
+	@Positive
 	private Integer						numberOfAssistants;
-	@Positive(message = "Number of administrators must be positive")
+	@Positive
 	private Integer						numberOfAuditors;
-	@Positive(message = "Number of administrators must be positive")
+	@Positive
 	private Integer						numberOfCompanys;
-	@Positive(message = "Number of administrators must be positive")
+	@Positive
 	private Integer						numberOfConsumers;
-	@Positive(message = "Number of administrators must be positive")
+	@Positive
 	private Integer						numberOfProviders;
-	@Positive(message = "Number of administrators must be positive")
+	@Positive
 	private Integer						numberOfLecturers;
 
 	// Ratio of peeps with both an email address and a link
-	@Positive(message = "Ratio of peeps with both an email address and a link must be positive")
+	@Positive
 	private Double					linkAndEmailPeepsRatio;
 
 	// Ratios of critical and non-critical bulletins
-	@Positive(message = "Ratio of critical bulletins must be positive")
+	@Positive
 	private Double					criticalBulletinsRatio;
 
 	// Average, minimum, maximum, and standard deviation of the budget in the offers grouped by currency
@@ -49,13 +49,13 @@ public class AdminDashboard extends AbstractForm {
 	private Map<String, Double>		standardDeviationBudgetByCurrency;
 
 	// Average, minimum, maximum, and standard deviation of the number of notes posted over the last 10 weeks
-	@Positive(message = "Average number of notes posted over the last 10 weeks must be positive")
+	@Positive
 	private Double					averageNotesInLast10Weeks;
-	@Positive(message = "Minimum number of notes posted over the last 10 weeks must be positive")
+	@Positive
 	private Double					minimumNotesInLast10Weeks;
-	@Positive(message = "Maximum number of notes posted over the last 10 weeks must be positive")
+	@Positive
 	private Double					maximumNotesInLast10Weeks;
-	@Positive(message = "Standard deviation of the number of notes posted over the last 10 weeks must be positive")
+	@Positive
 	private Double					standardDeviationNotesInLast10Weeks;
 
 	// Derived attributes -----------------------------------------------------

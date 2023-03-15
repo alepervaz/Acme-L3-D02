@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.TypesSession;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +34,7 @@ public class Activites extends AbstractEntity {
 	protected String			summary;
 
 	@NotNull
-	protected TypesSession		type;
+	protected Approach			type;
 
 	//En el pasado o en el futuro
 	@NotNull

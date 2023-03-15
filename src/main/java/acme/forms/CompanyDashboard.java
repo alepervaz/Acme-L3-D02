@@ -22,24 +22,24 @@ public class CompanyDashboard extends AbstractForm {
 	private List<Integer>		totalNumberOfPracticaByMonth;
 
 	// Average, deviation, minimum, and maximum period length of the sessions in their practica.
-	@Positive(message = "The average session length must be positive")
+	@Positive
 	private Double				averageSessionLength;
-	@Positive(message = "The deviation session length must be positive")
+	@Positive
 	private Double				deviationSessionLength;
-	@Positive(message = "The minimum session length must be positive")
+	@Positive
 	private Double				minimumSessionLength;
-	@Positive(message = "The maximum session length must be positive")
+	@Positive
 	private Double				maximumSessionLength;
 
 
 	// Average, deviation, minimum, and maximum period length of their practica.
-	@Positive(message = "The average practica length must be positive")
+	@Positive
 	private Double				averagePracticaLength;
-	@Positive(message = "The deviation practica length must be positive")
+	@Positive
 	private Double				deviationPracticaLength;
-	@Positive(message = "The minimum practica length must be positive")
+	@Positive
 	private Double				minimumPracticaLength;
-	@Positive(message = "The maximum practica length must be positive")
+	@Positive
 	private Double				maximumPracticaLength;
 
 	// Derived attributes -----------------------------------------------------

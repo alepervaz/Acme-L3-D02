@@ -23,25 +23,25 @@ public class Offer extends AbstractEntity {
 	// Attributes
 	@NotNull
 	@Past
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				instantiation;
 
 	@NotBlank
-	@Length(max = 76)
+	@Length(max = 75)
 	protected String			heading;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100)
 	protected String			summary;
 
 	//Al menos un día después de la fecha instantation
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				startDate;
 
 	//Debe durar al menos una semana
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				endDate;
 
 	@NotNull

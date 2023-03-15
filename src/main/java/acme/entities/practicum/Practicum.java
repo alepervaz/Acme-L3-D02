@@ -56,14 +56,17 @@ public class Practicum extends AbstractEntity {
 
 	// Relationships ----------------------------------------------------------
 
+	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	private Company					company;
 
+	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	private Course					course;
 
+	@NotNull
 	@Valid
 	@OneToMany
 	private List<SessionPracticum>	sessions;

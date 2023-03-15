@@ -17,10 +17,12 @@ import acme.framework.data.AbstractEntity;
 
 public class Offer extends AbstractEntity {
 
-	// Serialisation identifier
+	// Serialisation identifier -----------------------------------------------
+	
 	protected static final long	serialVersionUID	= 1L;
 
-	// Attributes
+	// Attributes -------------------------------------------------------------
+	
 	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
@@ -50,5 +52,9 @@ public class Offer extends AbstractEntity {
 
 	@URL
 	protected String			link;
+	
+	// Derived attributes -----------------------------------------------------
+
+	// Relationships ----------------------------------------------------------
 
 }

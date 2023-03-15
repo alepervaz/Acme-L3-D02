@@ -23,15 +23,15 @@ public class Assistant extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Length(max = 76)
+	@Length(max = 75, message = "title shorter than 76 characters")
 	protected String			supervisor;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100, message = "expertiseFields shorter than 101 characters")
 	protected String			expertiseFields;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100, message = "resume shorter than 101 characters")
 	protected String			resume;
 
 	@URL

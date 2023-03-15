@@ -21,23 +21,23 @@ public class Lecture extends AbstractEntity {
 	private static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-	@NotBlank(message = "Title must not be blank")
-	@Length(max = 76, message = "Title must be shorter than 76 characters")
+	@NotBlank
+	@Length(max = 75)
 	private String				title;
 
-	@NotBlank(message = "Abstract must not be blank")
-	@Length(max = 101, message = "Abstract must be shorter than 101 characters")
+	@NotBlank
+	@Length(max = 100)
 	private String				lectureAbstract;
 
-	@NotNull()
+	@NotNull
 	@Min(0)
 	private Double				time;
 
-	@NotBlank(message = "Body must not be blank")
-	@Length(max = 101, message = "Body must be shorter than 101 characters")
+	@NotBlank
+	@Length(max = 100)
 	private String				body;
 
-	@NotNull()
+	@NotNull
 	private SessionType			sessionType;
 
 	@URL

@@ -1,0 +1,4 @@
+key,title,summary,type,startDate,endDate,link
+activity-01,"Inicialización de los datos","En esta actividad vamos a crear datos iniciales para todas las entidades creadas por el student 2 11",2025/06/25 13:00,2020/12/31 00:00
+activity-02,"Voy a probar que el titulo de la segunda actividad acepte 75 caracteres 000","resumen de la segunda actividad",2023/03/15 18:00, 2023/03/15 21:00, http://www.example.com
+activity-03,"Reto rakstzīmju testēšana","Summary with strange letters: Ã¡Ã©Ã­Ã³ÃºÃ¼Ã±",2021/01/01 00:00,2021/01/01 00:00,https://www.icsi.in/icsi-2019/programme/student-03

@@ -23,29 +23,29 @@ public class tutorial extends AbstractEntity {
 
 	@NotBlank
 	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}")
-	private String				code;
+	protected String			code;
 
 	@NotBlank
-	@Length(max = 76)
-	private String				title;
+	@Length(max = 75, message = "title shorter than 76 characters")
+	protected String			title;
 
 	@NotBlank
-	@Length(max = 101)
-	private String				summary;
+	@Length(max = 100, message = "summary shorter than 101 characters")
+	protected String			summary;
 
 	@NotBlank
-	@Length(max = 101)
-	private String				goals;
+	@Length(max = 100, message = "goals shorter than 101 characters")
+	protected String			goals;
 
 	@NotNull
 	@Positive
-	private Integer				estimatedTime;
+	protected Integer			estimatedTime;
 
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
 	@Valid
 	@OneToMany
-	private List<Object>		sessions;
+	protected List<Object>		sessions;
 
 }

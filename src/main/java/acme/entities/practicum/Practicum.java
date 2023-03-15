@@ -52,6 +52,9 @@ public class Practicum extends AbstractEntity {
 	@Positive
 	private Double					estimatedTimeInHours;
 
+	@NotNull
+	private Boolean 				draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------

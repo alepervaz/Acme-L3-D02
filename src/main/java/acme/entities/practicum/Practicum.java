@@ -66,8 +66,10 @@ public class Practicum extends AbstractEntity {
 	@ManyToOne(optional = false)
 	private Course					course;
 
-	@NotNull
-	@Valid
-	@OneToMany
-	private List<SessionPracticum>	sessions;
+
+	// TODO: To use the validator it is neccesary change the access.
+	// @NotNull
+	// @Valid
+	// @OneToMany(mapedBy="practicum")
+	// private List<SessionPracticum>	sessions;
 }

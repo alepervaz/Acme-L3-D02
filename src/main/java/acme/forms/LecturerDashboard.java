@@ -23,23 +23,23 @@ public class LecturerDashboard extends AbstractForm {
 	private List<Integer>		totalNumberOfLectures;
 
 	// Average, deviation, minimum, and maximum time length of lectures.
-	@Positive(message = "The average lecture length must be positive")
+	@Positive
 	private Double				averageLectureTime;
-	@Positive(message = "The deviation lecture length must be positive")
+	@Positive
 	private Double				deviationLectureTime;
-	@Positive(message = "The minimum lecture length must be positive")
+	@Positive
 	private Double				minimumLectureTime;
-	@Positive(message = "The maximum lecture length must be positive")
+	@Positive
 	private Double				maximumLectureTime;
 
 	// Average, deviation, minimum, and maximum time length of courses.
-	@Positive(message = "The average course length must be positive")
+	@Positive
 	private Double				averageCourseTime;
-	@Positive(message = "The deviation course length must be positive")
+	@Positive
 	private Double				deviationCourseTime;
-	@Positive(message = "The minimum course length must be positive")
+	@Positive
 	private Double				minimumCourseTime;
-	@Positive(message = "The maximum course length must be positive")
+	@Positive
 	private Double				maximumCourseTime;
 
 	// Derived attributes -----------------------------------------------------

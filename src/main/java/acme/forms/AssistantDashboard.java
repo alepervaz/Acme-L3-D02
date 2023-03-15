@@ -33,13 +33,13 @@ public class AssistantDashboard extends AbstractForm {
 	private Double				maximumSession;
 
 	// Average, deviation, minimum, and maximum time length of his or her tutorial.
-	@Positive(message = "The average practica length must be positive")
+	@Positive(message = "The average Tutorial length must be positive")
 	private Double				averageTutorial;
-	@Positive(message = "The deviation practica length must be positive")
+	@Positive(message = "The deviation Tutorial length must be positive")
 	private Double				deviationTutorial;
-	@Positive(message = "The minimum practica length must be positive")
+	@Positive(message = "The minimum Tutorial length must be positive")
 	private Double				minimumTutorial;
-	@Positive(message = "The maximum practica length must be positive")
+	@Positive(message = "The maximum Tutorial length must be positive")
 	private Double				maximumTutorial;
 
 	// Derived attributes -----------------------------------------------------

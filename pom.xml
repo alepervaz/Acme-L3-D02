@@ -250,13 +250,7 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.4</version>
 		</dependency>
-    <dependency>
-        <groupId>Acme</groupId>
-        <artifactId>Acme-Framework-23.1.0</artifactId>
-        <version>23.1.0</version>
-        <scope>compile</scope>
-    </dependency>
 
-</dependencies>
+	</dependencies>
 
 </project>

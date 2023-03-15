@@ -38,11 +38,11 @@ public class Activites extends AbstractEntity {
 
 	//En el pasado o en el futuro
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				startDate;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				endDate;
 
 	@URL

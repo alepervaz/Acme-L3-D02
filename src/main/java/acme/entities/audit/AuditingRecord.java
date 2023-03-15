@@ -61,7 +61,7 @@ public class AuditingRecord extends AbstractEntity {
 	}
 
 	@Transient
-	public Duration getPeriodRecord() {
+	public Duration getPeriod() {
 		return Duration.between(this.startAudit.toInstant(), this.endAudit.toInstant());
 	}
 

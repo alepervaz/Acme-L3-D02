@@ -63,4 +63,8 @@ public class SessionPracticum extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	private Practicum			practicum;
 }

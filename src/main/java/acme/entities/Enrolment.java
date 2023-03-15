@@ -46,11 +46,11 @@ public class Enrolment extends AbstractEntity {
 	// Relationships -------------------------------------------------------------
 	@Valid
 	@NotNull
-	@ManyToOne()
+	@ManyToOne(optional=false)
 	protected Student			student;
 
 	@Valid
 	@NotNull
-	@ManyToOne()
+	@ManyToOne(optional=false)
 	protected Activites			activites;
 }

@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class session extends AbstractEntity {
+public class Session extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
 
@@ -52,7 +52,8 @@ public class session extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
+	
 	@Valid
 	@ManyToOne
-	protected tutorial			tutorial;
+	protected Tutorial			tutorial;
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>497</x>
+      <y>266</y>
+      <w>280</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Session
+--
++ title: String{NotBlank,Length(0,75)}
++ summary: String{NotBlank,Length(0,100)}
++ type: TypesSession
++ start: Date {NotNull, TIMESTAMP}
++ end: Date {NotNull, TIMESTAMP}
++ link: String{URL}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>497</x>
+      <y>84</y>
+      <w>280</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Tutorial
+--
++ code: String{Pattern([A-Z]{1-3}[0-9]{3}),NotBlank,Unique}
++ title: String{NotBlank,Length(0,75)}
++ summary: String{NotBlank,Length(0,100)}
++ goals: String{NotBlank,Length(0,100)}
++ totalTime: Double{NotNull}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>623</x>
+      <y>175</y>
+      <w>35</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;&gt;&gt;&gt;&gt;
+m2=1
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>203</x>
+      <y>196</y>
+      <w>217</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Role&gt;&gt;
+Assistant
+--
++ supervisor: String{NotBlank,Length(0,75)}
++ expersiseField: String{NotBlank,Length(0,100)}
++ resume: String{NotBlank,Length(0,100)}
++ link: String{URL}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>497</x>
+      <y>455</y>
+      <w>280</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Course
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>623</x>
+      <y>371</y>
+      <w>35</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+m1=0..1
+m2=0..n
+</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>861</x>
+      <y>182</y>
+      <w>280</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Form&gt;&gt;
+TutorialDashboard
+--
++totalNumberOfTutorials: List&lt;Integer&gt;
++averageSession: Double
++deviationSession: Double
++minimumSession: Double
++maximunSession: Double
++averageTutorial: Double
++deviationTutorial: Double
++minimumTutorial: Double
++maximunTutorial: Double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>343</y>
+      <w>168</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Enum&gt;&gt;
+Approach
+--
++ THEORETICAL
++ HANDS_ON</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

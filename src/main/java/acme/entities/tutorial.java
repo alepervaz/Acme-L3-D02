@@ -24,15 +24,15 @@ public class tutorial extends AbstractEntity {
 	protected String			code;
 
 	@NotBlank
-	@Length(max = 75, message = "title shorter than 76 characters")
+	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
-	@Length(max = 100, message = "summary shorter than 101 characters")
+	@Length(max = 100)
 	protected String			summary;
 
 	@NotBlank
-	@Length(max = 100, message = "goals shorter than 101 characters")
+	@Length(max = 100)
 	protected String			goals;
 
 	@NotNull

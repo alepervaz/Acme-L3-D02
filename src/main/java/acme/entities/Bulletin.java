@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -15,42 +14,39 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode
-public class Peep extends AbstractEntity {
-
-	// Serialisation identifier
+public class Bulletin extends AbstractEntity {
+	// Serialisation identifier -----------------------------------------------
 
 	protected static final long	serialVersionUID	= 1L;
 
-	//Attributes
+	// Attributes -------------------------------------------------------------
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Past
 	@NotNull
-	private Date				moment;
+	@Past
+	@Temporal(TemporalType.DATE)
+	protected Date				moment;
 
 	@NotBlank
 	@Length(max = 75)
-	private String				title;
-
-	@NotBlank
-	@Length(max = 75)
-	private String				nick;
+	protected String			title;
 
 	@NotBlank
 	@Length(max = 100)
-	private String				message;
+	protected String			message;
 
-	@Email
-	private String				email;
+	@NotNull
+	protected boolean			flags;
 
 	@URL
-	private String				link;
+	protected String			link;
+
+	// Derived attributes -----------------------------------------------------
+
+	// Relationships ----------------------------------------------------------
 }

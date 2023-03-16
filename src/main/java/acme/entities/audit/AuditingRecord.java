@@ -16,6 +16,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
+import acme.framework.helpers.MomentHelper;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,11 +33,11 @@ public class AuditingRecord extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Length(max = 76)
+	@Length(max = 75)
 	protected String			subject;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100)
 	protected String			assessment;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,7 +63,7 @@ public class AuditingRecord extends AbstractEntity {
 
 	@Transient
 	public Duration getPeriod() {
-		return Duration.between(this.startAudit.toInstant(), this.endAudit.toInstant());
+		return MomentHelper.computeDuration(this.startAudit, this.endAudit);
 	}
 
 }

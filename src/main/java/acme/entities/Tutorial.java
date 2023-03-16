@@ -1,15 +1,15 @@
 
-package acme.entities.course;
-
-import java.util.Date;
+package acme.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Lecture extends AbstractEntity {
+public class Tutorial extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
 	protected static final long	serialVersionUID	= 1L;
@@ -26,25 +26,27 @@ public class Lecture extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Length(max = 76)
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
+	protected String			code;
+
+	@NotBlank
+	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
-	@Length(max = 101)
-	protected String			abstractDescription;
+	@Length(max = 100)
+	protected String			summary;
 
 	@NotBlank
-	@Length(max = 101)
-	protected String			body;
+	@Length(max = 100)
+	protected String			goals;
 
+	@NotNull
 	@Positive
-	@NotNull
-	protected Date				learningTime;
+	protected Integer			estimatedTime;
 
-	@NotNull
-	protected Boolean			handsOn;
+	// Derived attributes -----------------------------------------------------
 
-	@URL
-	protected String			link;
+	// Relationships ----------------------------------------------------------
 
 }

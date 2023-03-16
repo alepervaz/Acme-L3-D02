@@ -26,7 +26,7 @@ public class tutorial extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "[A-Z]{1,3}[0-9]{3}")
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
 	protected String			code;
 
 	@NotBlank

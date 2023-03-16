@@ -19,10 +19,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class note {
+public class Note {
 
 	// Serialisation identifier -----------------------------------------------
+	
 	protected static final long	serialVersionUID	= 1L;
+	
 	// Attributes -------------------------------------------------------------
 
 	@NotNull
@@ -46,6 +48,8 @@ public class note {
 
 	@URL
 	protected String			link;
+	
 	// Derived attributes -----------------------------------------------------
+	
 	// Relationships ----------------------------------------------------------
 }

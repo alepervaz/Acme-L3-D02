@@ -7,3 +7,5 @@ user-account-company-01,true,"UserIdentity{name: 'Company1', surname: 'Acme', em
 user-account-company-02,true,"UserIdentity{name: 'Company2', surname: 'Acme', email: 'company2@acme.com'}",company2,company2
 user-account-administrator-001,true,"UserIdentity{name: 'Administrator1', surname: 'Acme', email: 'administrator1@acme.com'}",administrator1,administrator1
 user-account-administrator-002,true,"UserIdentity{name: 'Administrator2', surname: 'Acme2', email: 'administrator2@acme.com'}",administrator2,administrator2
+user-account-student-01,true,"UserIdentity{name: 'Emma', surname: 'Watson', email: 'emma.watson@acme.com'}",student1,student1
+user-account-student-02,true,"UserIdentity{name: 'Theo', surname: 'James', email: 'theo.james@acme.com'}",student2,student2

@@ -1,17 +1,21 @@
 
-package acme.entities;
+package acme.entities.activities;
 
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import acme.entities.Approach;
+import acme.entities.enrolment.Enrolment;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,14 +23,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Activites extends AbstractEntity {
+public class Activity extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
-	
+
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-	
+
 	@NotBlank
 	@Length(max = 75)
 	protected String			title;
@@ -49,10 +53,13 @@ public class Activites extends AbstractEntity {
 
 	@URL
 	protected String			link;
-	
+
+	@Valid
+	@NotNull
+	@ManyToOne
+	protected Enrolment			enrolment;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
-
 }

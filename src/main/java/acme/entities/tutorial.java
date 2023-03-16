@@ -48,8 +48,6 @@ public class tutorial extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-	@Valid
-	@ManyToOne
-	protected session			sessions;
+	
 
 }

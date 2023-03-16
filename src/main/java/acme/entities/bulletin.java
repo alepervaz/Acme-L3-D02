@@ -23,14 +23,14 @@ public class bulletin extends AbstractEntity {
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
-	protected Date				moment;;
+	protected Date				moment;
 
 	@NotBlank
-	@Length(max = 75, message = "title shorter than 76 characters")
+	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
-	@Length(max = 100, message = "message shorter than 101 characters")
+	@Length(max = 100)
 	protected String			message;
 
 	@NotNull

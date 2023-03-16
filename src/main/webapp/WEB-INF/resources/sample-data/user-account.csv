@@ -1,0 +1,3 @@
+key,enabled,identity,password,username
+user-account-auditor-02,true,"UserIdentity{name: 'Auditor2', surname: 'Auditor2', email: 'auditor2@acme.com'}",auditor2,auditor2
+user-account-auditor-01,true,"UserIdentity{name: 'Auditor1', surname: 'Auditor1', email: 'auditor1@acme.com'}",auditor1,auditor1

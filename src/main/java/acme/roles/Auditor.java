@@ -1,17 +1,23 @@
 
 package acme.roles;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.framework.data.AbstractEntity;
+import acme.framework.data.AbstractRole;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @EqualsAndHashCode
-public class Auditor extends AbstractEntity {
+@Entity
+@Getter
+@Setter
+public class Auditor extends AbstractRole {
 
 	// Serialisation identifier
 

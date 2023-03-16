@@ -1,0 +1,11 @@
+key,code,title,abstractPracticum,goals,estimatedTimeInHours,key:company
+practicum-01,MMM234,Title 1,Abstract practicum 1,Goal 1,10,company-01
+practicum-02,ABC012,Title 2,Abstract practicum 2,Goal 2,20,company-02
+practicum-03,XDC987,Title 3,Abstract practicum 3,Goal 3,30,company-01
+practicum-04,BCA123,Title 4,Abstract practicum 4,Goal 4,40,company-02
+practicum-05,A123,Title with 75 characters 00000000000000000000000000000000000000000000000005,Abstract practicum with 100 characters 0000000000000000000000000000000000000000000000000000000000005,Goal with 100 characters 000000000000000000000000000000000000000000000000000000000000000000000000005,40,company-01
+practicum-06,BB456,Title with point.,Abstract practicum with point.,Goal with point.,50,company-02
+practicum-07,CC789,"Title with comma,","Abstract practicum with comma,","Goal with comma,",60,company-01
+practicum-08,DD012,Title with strange letters: áéíóúüñ,Abstract practicum with strange letters: áéíóúüñ,Goal with strange letters: áéíóúüñ,70,company-02
+practicum-09,EE345,Title with strange characters: !@#$%^&*(),Abstract practicum with strange characters: !@#$%^&*(),Goal with strange characters: !@#$%^&*(),80,company-01
+practicum-10,FF678,Title in other language: 日本語,Abstract practicum in other language: 日本語,Goal in other language: 日本語,90,company-02

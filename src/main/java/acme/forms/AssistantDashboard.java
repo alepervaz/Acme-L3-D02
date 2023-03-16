@@ -1,7 +1,7 @@
 
 package acme.forms;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.Positive;
 
@@ -15,32 +15,32 @@ public class AssistantDashboard extends AbstractForm {
 
 	// Serialisation identifier -----------------------------------------------
 
-	protected static final long	serialVersionUID	= 1L;
+	protected static final long		serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
 	// Total number of tutorial (the index in the list represent type of tutorial).
-	private List<Integer>		totalNumberOfTutorials;
+	private Map<Approach, Integer>	totalNumberOfTutorials;
 
 	// Average, deviation, minimum, and maximum time length of his or her sessions.
 	@Positive
-	private Double				averageSession;
+	private Double					averageSession;
 	@Positive
-	private Double				deviationSession;
+	private Double					deviationSession;
 	@Positive
-	private Double				minimumSession;
+	private Double					minimumSession;
 	@Positive
-	private Double				maximumSession;
+	private Double					maximumSession;
 
 	// Average, deviation, minimum, and maximum time length of his or her tutorial.
 	@Positive
-	private Double				averageTutorial;
+	private Double					averageTutorial;
 	@Positive
-	private Double				deviationTutorial;
+	private Double					deviationTutorial;
 	@Positive
-	private Double				minimumTutorial;
+	private Double					minimumTutorial;
 	@Positive
-	private Double				maximumTutorial;
+	private Double					maximumTutorial;
 
 	// Derived attributes -----------------------------------------------------
 

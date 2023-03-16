@@ -7,7 +7,7 @@
       <x>135</x>
       <y>252</y>
       <w>333</w>
-      <h>153</h>
+      <h>162</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Entity&gt;&gt;
@@ -19,7 +19,8 @@ Activites
 + type: TypeSession
 + startDate: Date {TIMESTAMP,NotNull}
 + endDate: Date {TIMESTAMP,NotNull}
-+ link: String {URL}</panel_attributes>
++ link: String {URL}
++ draftMode: Boolean </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -39,7 +40,7 @@ Enrolment
 + motivation: String {NotBlank, Length(0,75)}
 + goals: String {NotBlank, Length(0,100)}
 + / workTime: Double {Digits(3,2), Min(0.01)}
- 
+
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -51,9 +52,9 @@ Enrolment
       <w>180</w>
       <h>45</h>
     </coordinates>
-    <panel_attributes>lt=x-&gt;
+    <panel_attributes>lt=x-&gt;&gt;&gt;&gt;&gt;
 m1=0..*
-m2=1
+m2=
 </panel_attributes>
     <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
   </element>

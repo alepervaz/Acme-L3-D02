@@ -15,7 +15,7 @@ public class AuditDashboard extends AbstractForm {
 
 	private static final long	serialVersionUID	= 1L;
 
-	List<Audit>					totalNumberOfAudit;
+	private List<Audit>			totalNumberOfAudit;
 
 	private Integer				auditCount;
 	private Double				auditAverageNumberRecords;

@@ -52,4 +52,7 @@ public class session extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
+	@Valid
+	@ManyToOne
+	protected tutorial			tutorial;
 }

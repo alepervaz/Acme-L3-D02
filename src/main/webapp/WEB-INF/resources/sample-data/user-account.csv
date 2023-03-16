@@ -1,0 +1,3 @@
+key,enabled,identity,password,username
+user-account-student-01,true,"UserIdentity{name: 'Emma', surname: 'Watson', email: 'emma.watson@acme.com'}",student1,student1
+user-account-student-01,true,"UserIdentity{name: 'Theo', surname: 'James', email: 'theo.james@acme.com'}",student2,student2

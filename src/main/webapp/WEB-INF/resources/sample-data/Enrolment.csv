@@ -1,0 +1,4 @@
+key,code,motivation,goals,key:student,key:activities
+enrolment-01,DDD007,"Voy a probar que el motivation de la segunda actividad acepte 75 caracteres","Probando caracteres de otra lengua: 批准",student-01,Activities-01
+enrolment-02,ZZ999,"Prueba de caracteres: 离开塞维利亚大学","Voy a probar que el goals de la segunda inscripción acepte 100 caracteres para así comprobarlo 78785",student-02,Activities-02
+enrolment-03,ZZA999,"creo que ya esta todo probado","aprobar todas",student-01,Activities-03

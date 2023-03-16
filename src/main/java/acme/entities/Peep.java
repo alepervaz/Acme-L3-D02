@@ -29,15 +29,15 @@ public class Peep extends AbstractEntity {
 	protected Date				moment;
 
 	@NotBlank
-	@Length(max = 75, message = "title shorter than 76 characters")
+	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
-	@Length(max = 75, message = "nick shorter than 76 characters")
+	@Length(max = 75)
 	protected String			nick;
 
 	@NotBlank
-	@Length(max = 100, message = "message shorter than 101 characters")
+	@Length(max = 100)
 	protected String			message;
 
 	@Email

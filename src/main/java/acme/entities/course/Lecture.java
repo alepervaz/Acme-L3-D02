@@ -26,15 +26,15 @@ public class Lecture extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Length(max = 76)
+	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100)
 	protected String			abstractDescription;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100)
 	protected String			body;
 
 	@Positive

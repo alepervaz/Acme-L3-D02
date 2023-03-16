@@ -29,7 +29,7 @@ public class Banner extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@PastOrPresent(message = "Instant must be in the past")
+	@PastOrPresent
 	private Date				instant;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -41,8 +41,8 @@ public class Banner extends AbstractEntity {
 	@URL
 	private String				picture;
 
-	@NotBlank(message = "Slogan must not be blank")
-	@Length(max = 76, message = "Slogan must be shorter than 76 characters")
+	@NotBlank
+	@Length(max = 75)
 	private String				slogan;
 
 	@URL

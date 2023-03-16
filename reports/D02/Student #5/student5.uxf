@@ -1,1 +1,162 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><umlet_diagram></umlet_diagram>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>10</y>
+      <w>400</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Rol&gt;&gt;
+Auditor
+--
++ firm: String (Not blank,  Length(0,75))
++ professionalId: String (Not blank, Length(0,25))
++ certifications: String (Not blank,  Length(0,100))
++ link: String
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>40</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+Mark
+--
++ AP
++ A
++ B
++ C
++ F
++ FL
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>240</y>
+      <w>400</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+AuditingRecord
+--
++ subject: String (NotBlank,Length(0,75))
++ assessment: String (NotBlank,Length(0,75))
++ startAudit: Date (Past,TIMESTAMP)
++ endAudit: Date (Past,TIMESTAMP)
++ mark: Mark
++ link: String
++/ period (Duration)
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>540</y>
+      <w>400</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Course
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>240</y>
+      <w>470</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Audit
+--
++ code: String (Unique, NotBlank,Pattern("^[A-Z]{1,3}[0-9]{3}$"))
++ conclusion: String (NotBlank,Length(0,100))
++ strongPoints: String (NotBlank,Length(0,100))
++ weakPoints: String (NotBlank,Length(0,100))
++ draftMode: Boolean
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>810</x>
+      <y>370</y>
+      <w>50</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+m1=1
+m2=1..*</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>300</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1..*
+</panel_attributes>
+    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>820</x>
+      <y>120</y>
+      <w>50</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=1..*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>480</y>
+      <w>370</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+&lt;&lt;Form&gt;&gt;
+Audit Dashboards
+--
++ totalAuditCount: Integer				
++ auditAverageNumberRecords: Double				
++ auditDeviationNumberRecords: Double				
++ auditMinNumberRecords: Integer				
++ auditMaxNumberRecords: Integer				
++ recordAveragePeriod: Duration			
++ recordDeviationPeriod: Duration			
++ recordMinPeriod: Duration			
++ recordMmaxPeriod: Duration			
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

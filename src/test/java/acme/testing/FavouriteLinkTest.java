@@ -10,7 +10,7 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.testing;
+package java.acme.testing;
 
 import org.junit.jupiter.api.Test;
 

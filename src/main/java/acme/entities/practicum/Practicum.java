@@ -12,7 +12,7 @@ import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
-import acme.entities.Course;
+import acme.entities.courses.Course;
 import acme.framework.data.AbstractEntity;
 import acme.roles.Company;
 import lombok.Getter;

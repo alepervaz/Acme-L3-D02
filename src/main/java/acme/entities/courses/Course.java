@@ -1,8 +1,9 @@
 
-package acme.entities;
+package acme.entities.courses;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,7 +11,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import acme.entities.Approach;
 import acme.framework.data.AbstractEntity;
+import acme.roles.Lecturer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,12 +31,12 @@ public class Course extends AbstractEntity {
 	@Column(unique = true)
 	private String				code;
 
-	@NotBlank(message = "Title must not be blank")
-	@Length(max = 76, message = "Title must be shorter than 76 characters")
+	@NotBlank
+	@Length(max = 75)
 	private String				title;
 
 	@NotBlank
-	@Length(max = 101, message = "Abstract must be shorter than 101 characters")
+	@Length(max = 100)
 	private String				courseAbstract;
 
 	@Min(0)
@@ -42,17 +45,14 @@ public class Course extends AbstractEntity {
 	@URL
 	private String				furtherInformation;
 
-	@NotNull()
+	@NotNull
 	protected Approach			type;
 
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-	/*
-	 * @Valid
-	 * 
-	 * @OneToMany(mappedBy = "lecture")
-	 * private List<Le> lectures;
-	 */
+	@NotNull
+	@ManyToOne
+	protected Lecturer			lecturer;
 
 }

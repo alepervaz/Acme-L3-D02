@@ -19,14 +19,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Activites extends AbstractEntity {
+public class Activities extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
-	
+
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-	
+
 	@NotBlank
 	@Length(max = 75)
 	protected String			title;
@@ -49,10 +49,10 @@ public class Activites extends AbstractEntity {
 
 	@URL
 	protected String			link;
-	
+
+	protected Boolean			draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
-
 }

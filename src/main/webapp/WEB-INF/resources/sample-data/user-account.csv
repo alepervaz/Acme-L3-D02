@@ -1,6 +1,4 @@
 key,enabled,identity,password,username
-user-account-student-01,true,"UserIdentity{name: 'Emma', surname: 'Watson', email: 'emma.watson@acme.com'}",student1,student1
-user-account-student-01,true,"UserIdentity{name: 'Theo', surname: 'James', email: 'theo.james@acme.com'}",student2,student2
 user-account-auditor-02,true,"UserIdentity{name: 'Auditor2', surname: 'Auditor2', email: 'auditor2@acme.com'}",auditor2,auditor2
 user-account-auditor-01,true,"UserIdentity{name: 'Auditor1', surname: 'Auditor1', email: 'auditor1@acme.com'}",auditor1,auditor1
 user-account-assistant-01,true,"UserIdentity{name: 'Assistant1', surname: 'assistant', email: 'assistant1@acme.com'}",assistant1,assistant1

@@ -26,7 +26,7 @@ public class Bulletin extends AbstractEntity {
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-	
+
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)

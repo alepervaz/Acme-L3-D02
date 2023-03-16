@@ -13,13 +13,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Note {
+public class Note extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
 	

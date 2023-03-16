@@ -16,15 +16,15 @@ public class Student extends AbstractEntity {
 
 	//Attributes
 	@NotBlank
-	@Length(max = 76)
+	@Length(max = 75)
 	protected String			statements;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100)
 	protected String			strongFeatures;
 
 	@NotBlank
-	@Length(max = 101)
+	@Length(max = 100)
 	protected String			weakFeatures;
 
 	@URL

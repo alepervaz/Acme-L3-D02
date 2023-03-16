@@ -1,9 +1,7 @@
 
 package acme.entities;
 
-import java.util.List;
-
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -45,7 +43,7 @@ public class tutorial extends AbstractEntity {
 
 	// Relationships ----------------------------------------------------------
 	@Valid
-	@OneToMany
-	protected List<Object>		sessions;
+	@ManyToOne
+	protected session			sessions;
 
 }

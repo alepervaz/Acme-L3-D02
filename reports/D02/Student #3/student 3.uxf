@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.0.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>497</x>
-      <y>266</y>
-      <w>280</w>
-      <h>112</h>
+      <x>414</x>
+      <y>351</y>
+      <w>360</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Entity&gt;&gt;
@@ -24,10 +24,10 @@ Session
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>497</x>
-      <y>84</y>
-      <w>280</w>
-      <h>98</h>
+      <x>414</x>
+      <y>117</y>
+      <w>360</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Entity&gt;&gt;
@@ -43,23 +43,23 @@ Tutorial
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>623</x>
-      <y>175</y>
-      <w>35</w>
-      <h>105</h>
+      <x>576</x>
+      <y>234</y>
+      <w>45</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;&gt;&gt;&gt;&gt;
 m2=1
-m1=1..n</panel_attributes>
+m1=1..*</panel_attributes>
     <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>203</x>
-      <y>196</y>
-      <w>217</w>
-      <h>91</h>
+      <x>0</x>
+      <y>126</y>
+      <w>279</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Role&gt;&gt;
@@ -74,10 +74,10 @@ Assistant
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>497</x>
-      <y>455</y>
-      <w>280</w>
-      <h>28</h>
+      <x>414</x>
+      <y>594</y>
+      <w>360</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Entity&gt;&gt;
@@ -88,24 +88,24 @@ Course
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>623</x>
-      <y>371</y>
-      <w>35</w>
-      <h>98</h>
+      <x>576</x>
+      <y>486</y>
+      <w>45</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
-m1=0..1
-m2=0..n
+m1=1
+m2=1..*
 </panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>861</x>
-      <y>182</y>
-      <w>280</w>
-      <h>98</h>
+      <x>882</x>
+      <y>243</y>
+      <w>360</w>
+      <h>189</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Form&gt;&gt;
@@ -125,17 +125,30 @@ TutorialDashboard
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>224</x>
-      <y>343</y>
-      <w>168</w>
-      <h>77</h>
+      <x>63</x>
+      <y>450</y>
+      <w>216</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>bg=green
+    <panel_attributes>bg=orange
 &lt;&lt;Enum&gt;&gt;
 Approach
 --
 + THEORETICAL
 + HANDS_ON</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>270</x>
+      <y>180</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=0..*
+m2=1</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

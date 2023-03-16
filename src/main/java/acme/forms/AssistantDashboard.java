@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.validation.constraints.Positive;
 
+import acme.entities.Approach;
 import acme.framework.data.AbstractForm;
 import lombok.Getter;
 import lombok.Setter;

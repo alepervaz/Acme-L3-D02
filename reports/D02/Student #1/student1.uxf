@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>500</y>
+      <w>440</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Course
+--
++ code: String{NotBlank, Unique, Pattern(^[A-Z]{1,3}\\d{3}$)}
++ title: String{NotBlank, Length(0,75)}
++ summary: String{NotBlank, Length(0,100)}
++ /type: SessionType{Transient}
++ price: Double{NotNull, Min(0)}
++ link: String {URL}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>400</y>
+      <w>50</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=0..n
+m2=0..1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>240</y>
+      <w>340</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Lecture
+--
++ title: String{NotBlank, Length(0,75)}
++ summary: String{NotBlank, Length(0,100)}
++ time: Double{NotNull, Min(0.1)}
++ body: String{NotBlank, Length(0,100)}
++ type: SessionType
++ link: String {URL}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>50</x>
+      <y>0</y>
+      <w>340</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Role&gt;&gt;
+Lecturer
+--
++almaMater: String{NotBlank, Length(0,15)}
++resume: String{NotBlank, Length(0,100)}
++qualifications: String{NotBlank, Length(0,100)}
++additionalInfo: String{URL}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>120</y>
+      <w>50</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+m1=1
+m2=0..n
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>300</y>
+      <w>240</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Enum&gt;&gt;
+SessionType
+--
++ THEORETICAL
++ HANDS-ON
++ BALANCED</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>0</y>
+      <w>440</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Form&gt;&gt;
+LecturerDashboard
+--
++ / totalNumberOfLectures: List&lt;Integer&gt;{Positive}
++ / averageLectureLearningTime: Double{Positive}
++ / deviationLectureLearningTime: Double{Positive}
++ / minimumLectureLearningTime: Double{Positive}
++ / maximumLectureLearningTime: Double{Positive}
++ / averageCourseLearningTime: Double{Positive}
++ / deviationCourseLearningTime: Double{Positive}
++ / minimumCourseLearningTime: Double{Positive}
++ / maximumCourseLearningTime: Double{Positive}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

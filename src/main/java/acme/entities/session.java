@@ -21,23 +21,23 @@ public class session extends AbstractEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	@NotBlank(message = "Title must not be blank")
-	@Length(max = 75, message = "Title must be shorter than 76 characters")
+	@NotBlank
+	@Length(max = 75)
 	protected String			title;
 
-	@NotBlank(message = "Abstract must not be blank")
-	@Length(max = 100, message = "Abstract must be shorter than 101 characters")
+	@NotBlank
+	@Length(max = 100)
 	protected String			abstractSession;
 
 	@NotNull
 	protected Approach			indication;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message = "The start date must not be null")
+	@NotNull
 	protected Date				start;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message = "The end date must not be null")
+	@NotNull
 	protected Date				end;
 
 	@URL

@@ -12,7 +12,6 @@ import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
-import acme.entities.course.Course;
 import acme.framework.data.AbstractEntity;
 import acme.roles.Company;
 import lombok.Getter;
@@ -62,10 +61,14 @@ public class Practicum extends AbstractEntity {
 	@ManyToOne(optional = false)
 	private Company				company;
 
-	@NotNull
-	@Valid
-	@ManyToOne(optional = false)
-	private Course				course;
+	/*
+	 * @NotNull
+	 * 
+	 * @Valid
+	 * 
+	 * @ManyToOne(optional = false)
+	 * private Course course;
+	 */
 
 	// TODO: To use the validator it is neccesary change the access.
 	// @NotNull

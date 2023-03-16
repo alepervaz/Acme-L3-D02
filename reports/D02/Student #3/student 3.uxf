@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.0.0">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+// fontsize=14
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+</help_text>
   <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -27,31 +50,32 @@ Session
       <x>414</x>
       <y>117</y>
       <w>360</w>
-      <h>126</h>
+      <h>135</h>
     </coordinates>
     <panel_attributes>bg=green
 &lt;&lt;Entity&gt;&gt;
 Tutorial
 --
-+ code: String{Pattern([A-Z]{1-3}[0-9]{3}),NotBlank,Unique}
++ code: String{Pattern("^[A-Z]{1,3}[0-9]{3}$"),NotBlank,Unique}
 + title: String{NotBlank,Length(0,75)}
 + summary: String{NotBlank,Length(0,100)}
 + goals: String{NotBlank,Length(0,100)}
-+ totalTime: Double{NotNull}</panel_attributes>
++ totalTime: Double{NotNull}
++ draftMode: Boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>576</x>
-      <y>234</y>
+      <y>243</y>
       <w>45</w>
-      <h>135</h>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;&gt;&gt;&gt;&gt;
-m2=1
+m2=
 m1=1..*</panel_attributes>
-    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -107,7 +131,7 @@ m2=1..*
       <w>360</w>
       <h>189</h>
     </coordinates>
-    <panel_attributes>bg=green
+    <panel_attributes>bg=yellow
 &lt;&lt;Form&gt;&gt;
 TutorialDashboard
 --

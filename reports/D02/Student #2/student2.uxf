@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.0.0">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+// fontsize=14
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+</help_text>
   <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
@@ -35,7 +58,7 @@ Activites
 Enrolment
 
 --
-+ code: String {NotBlank, Unique, Pattern([A-Z{1,3}[0-9]{3}])}
++ code: String {NotBlank, Unique, Pattern("^[A-Z]{1,3}[0-9]{3}$")}
 + motivation: String {NotBlank, Length(0,75)}
 + goals: String {NotBlank, Length(0,100)}
 + draftMode: Boolean 
@@ -142,7 +165,7 @@ m2=1
       <w>333</w>
       <h>189</h>
     </coordinates>
-    <panel_attributes>bg=green
+    <panel_attributes>bg=yellow
 &lt;&lt;Form&gt;&gt;
 Student Dashboards
 --

@@ -20,12 +20,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class bulletin extends AbstractEntity {
+public class Bulletin extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
+	
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)

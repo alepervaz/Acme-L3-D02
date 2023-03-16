@@ -1,7 +1,3 @@
-﻿key,statement,strongFeatures,weakFeatures,link
-student-01,"My name is Gustavo and I am 22 years old","Organized Empathetic","Low patience",http://www.example.com
-student-02,"Името ми е Адолфо и съм на 20 години","Отговорност Уважение","Дезорганизиран",http://www.example.com
-student-03,"Insertando justo 75 caracteres para probar la restricción 10103562555555552","Insertando justo 10 caracteres para probar la restricción es organizado positivo con ganas 444444444","Low patience",https://www.icsi.in/icsi-2019/programme/student-03
-student-04,"!?¿*","Todo probado !$","Insertando justo 10 caracteres para probar la restricción es desorganizado negativo con ganas 444444"
-
-
+﻿key,statement,strongFeatures,weakFeatures,link,key:userAccount
+student-01,Името ми е Адолфо и съм на 20 години,Отговорност Уважение,Дезорганизиран,http://www.example.com,user-account-student-01,user-account-student-01
+student-02,Insertando justo 75 caracteres para probar la restricción 10103562555555552,Insertando justo 10 caracteres para probar la restricción es organizado positivo con ganas 444444444,Low patience,https://www.icsi.in/icsi-2019/programme/student-03,user-account-student-02,user-account-student-02

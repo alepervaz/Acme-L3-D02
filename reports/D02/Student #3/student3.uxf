@@ -27,7 +27,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>414</x>
+      <x>432</x>
       <y>360</y>
       <w>360</w>
       <h>144</h>
@@ -47,9 +47,9 @@ Session
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>414</x>
+      <x>432</x>
       <y>126</y>
-      <w>360</w>
+      <w>396</w>
       <h>135</h>
     </coordinates>
     <panel_attributes>bg=green
@@ -60,14 +60,14 @@ Tutorial
 + title: String{NotBlank,Length(0,75)}
 + summary: String{NotBlank,Length(0,100)}
 + goals: String{NotBlank,Length(0,100)}
-+ totalTime: Double{NotNull}
-+ draftMode: Boolean</panel_attributes>
++ totalTime: double
++ draftMode: boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
+      <x>594</x>
       <y>252</y>
       <w>45</w>
       <h>126</h>
@@ -80,7 +80,7 @@ m1=1..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
+      <x>27</x>
       <y>135</y>
       <w>279</w>
       <h>117</h>
@@ -98,7 +98,7 @@ Assistant
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>414</x>
+      <x>432</x>
       <y>603</y>
       <w>360</w>
       <h>36</h>
@@ -112,7 +112,7 @@ Course
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
+      <x>594</x>
       <y>495</y>
       <w>45</w>
       <h>126</h>
@@ -126,8 +126,8 @@ m2=1..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>882</x>
-      <y>252</y>
+      <x>873</x>
+      <y>81</y>
       <w>360</w>
       <h>189</h>
     </coordinates>
@@ -149,8 +149,8 @@ TutorialDashboard
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>459</y>
+      <x>117</x>
+      <y>369</y>
       <w>216</w>
       <h>99</h>
     </coordinates>
@@ -165,14 +165,39 @@ Approach
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>270</x>
+      <x>297</x>
       <y>189</y>
-      <w>162</w>
+      <w>153</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;
-m1=0..*
+m1=1..*
 m2=1</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>882</x>
+      <y>378</y>
+      <w>207</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>A time period (at least one day 
+ahead, from one up to five hour 
+long)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>783</x>
+      <y>405</y>
+      <w>117</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
   </element>
 </diagram>

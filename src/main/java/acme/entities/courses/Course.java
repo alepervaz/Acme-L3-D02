@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.entities.Approach;
+import acme.entities.enums.Approach;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;

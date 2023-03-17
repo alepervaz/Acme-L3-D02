@@ -1,17 +1,14 @@
 
-package acme.entities;
+package acme.entities.tutorial;
 
-import java.util.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
@@ -20,17 +17,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Bulletin extends AbstractEntity {
+public class Tutorial extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
-	@NotNull
-	@Past
-	@Temporal(TemporalType.DATE)
-	protected Date				moment;
+	@NotBlank
+	@Column(unique = true)
+	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
+	protected String			code;
 
 	@NotBlank
 	@Length(max = 75)
@@ -38,15 +35,21 @@ public class Bulletin extends AbstractEntity {
 
 	@NotBlank
 	@Length(max = 100)
-	protected String			message;
+	protected String			summary;
+
+	@NotBlank
+	@Length(max = 100)
+	protected String			goals;
 
 	@NotNull
-	protected boolean			flags;
+	@Positive
+	protected Double			estimatedTime;
 
-	@URL
-	protected String			link;
+	@NotNull
+	protected Boolean			draftMode;
 
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
+
 }

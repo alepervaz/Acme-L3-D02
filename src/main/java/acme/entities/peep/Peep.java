@@ -1,5 +1,5 @@
 
-package acme.entities;
+package acme.entities.peep;
 
 import java.util.Date;
 

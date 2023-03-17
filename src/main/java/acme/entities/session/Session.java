@@ -1,18 +1,21 @@
 
-package acme.entities;
+package acme.entities.session;
 
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import acme.entities.enums.Approach;
+import acme.entities.tutorial.Tutorial;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,37 +23,41 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Note extends AbstractEntity {
+public class Session extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
-	
-	protected static final long	serialVersionUID	= 1L;
-	
-	// Attributes -------------------------------------------------------------
 
-	@NotNull
-	@Temporal(TemporalType.DATE)
-	protected Date				moment;
+	private static final long	serialVersionUID	= 1L;
+
+	// Attributes -------------------------------------------------------------
 
 	@NotBlank
 	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
-	@Length(max = 75)
-	protected String			autor;
-
-	@NotBlank
 	@Length(max = 100)
-	protected String			message;
+	protected String			summary;
 
-	@Email
-	protected String			emailAddress;
+	@NotNull
+	protected Approach			type;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
+	protected Date				start;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
+	protected Date				end;
 
 	@URL
 	protected String			link;
-	
+
 	// Derived attributes -----------------------------------------------------
-	
+
 	// Relationships ----------------------------------------------------------
+	@NotNull
+	@Valid
+	@ManyToOne
+	protected Tutorial			tutorial;
 }

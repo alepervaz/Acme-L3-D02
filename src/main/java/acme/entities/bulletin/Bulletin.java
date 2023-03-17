@@ -1,15 +1,17 @@
 
-package acme.entities;
+package acme.entities.bulletin;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
@@ -18,16 +20,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Tutorial extends AbstractEntity {
+public class Bulletin extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
-	@NotBlank
-	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
-	protected String			code;
+	@NotNull
+	@Past
+	@Temporal(TemporalType.DATE)
+	protected Date				moment;
 
 	@NotBlank
 	@Length(max = 75)
@@ -35,18 +38,15 @@ public class Tutorial extends AbstractEntity {
 
 	@NotBlank
 	@Length(max = 100)
-	protected String			summary;
-
-	@NotBlank
-	@Length(max = 100)
-	protected String			goals;
+	protected String			message;
 
 	@NotNull
-	@Positive
-	protected Integer			estimatedTime;
+	protected boolean			flags;
+
+	@URL
+	protected String			link;
 
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
 }

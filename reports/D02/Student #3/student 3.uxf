@@ -28,7 +28,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>414</x>
-      <y>351</y>
+      <y>360</y>
       <w>360</w>
       <h>144</h>
     </coordinates>
@@ -38,7 +38,7 @@ Session
 --
 + title: String{NotBlank,Length(0,75)}
 + summary: String{NotBlank,Length(0,100)}
-+ type: TypesSession
++ type: Approach
 + start: Date {NotNull, TIMESTAMP}
 + end: Date {NotNull, TIMESTAMP}
 + link: String{URL}</panel_attributes>
@@ -48,7 +48,7 @@ Session
     <id>UMLClass</id>
     <coordinates>
       <x>414</x>
-      <y>117</y>
+      <y>126</y>
       <w>360</w>
       <h>135</h>
     </coordinates>
@@ -68,7 +68,7 @@ Tutorial
     <id>Relation</id>
     <coordinates>
       <x>576</x>
-      <y>243</y>
+      <y>252</y>
       <w>45</w>
       <h>126</h>
     </coordinates>
@@ -81,7 +81,7 @@ m1=1..*</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>126</y>
+      <y>135</y>
       <w>279</w>
       <h>117</h>
     </coordinates>
@@ -90,7 +90,7 @@ m1=1..*</panel_attributes>
 Assistant
 --
 + supervisor: String{NotBlank,Length(0,75)}
-+ expersiseField: String{NotBlank,Length(0,100)}
++ expertiseField: String{NotBlank,Length(0,100)}
 + resume: String{NotBlank,Length(0,100)}
 + link: String{URL}</panel_attributes>
     <additional_attributes/>
@@ -99,7 +99,7 @@ Assistant
     <id>UMLClass</id>
     <coordinates>
       <x>414</x>
-      <y>594</y>
+      <y>603</y>
       <w>360</w>
       <h>36</h>
     </coordinates>
@@ -113,7 +113,7 @@ Course
     <id>Relation</id>
     <coordinates>
       <x>576</x>
-      <y>486</y>
+      <y>495</y>
       <w>45</w>
       <h>126</h>
     </coordinates>
@@ -127,7 +127,7 @@ m2=1..*
     <id>UMLClass</id>
     <coordinates>
       <x>882</x>
-      <y>243</y>
+      <y>252</y>
       <w>360</w>
       <h>189</h>
     </coordinates>
@@ -135,7 +135,7 @@ m2=1..*
 &lt;&lt;Form&gt;&gt;
 TutorialDashboard
 --
-+totalNumberOfTutorials: List&lt;Integer&gt;
++totalNumberOfTutorials: Map&lt;Aproach,Integer&gt;
 +averageSession: Double
 +deviationSession: Double
 +minimumSession: Double
@@ -150,7 +150,7 @@ TutorialDashboard
     <id>UMLClass</id>
     <coordinates>
       <x>63</x>
-      <y>450</y>
+      <y>459</y>
       <w>216</w>
       <h>99</h>
     </coordinates>
@@ -158,15 +158,15 @@ TutorialDashboard
 &lt;&lt;Enum&gt;&gt;
 Approach
 --
-+ THEORETICAL
-+ HANDS_ON</panel_attributes>
++ THEORY_SESSION
++ HANDS_ON_SESSION</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>270</x>
-      <y>180</y>
+      <y>189</y>
       <w>162</w>
       <h>36</h>
     </coordinates>

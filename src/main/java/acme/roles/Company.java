@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.entities.practicum.Practicum;
 import acme.framework.data.AbstractRole;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,15 +1,8 @@
 
 package acme.entities.practicum;
 
-import java.time.Duration;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import acme.entities.sessionPracticum.SessionPracticum;
-import acme.framework.helpers.MomentHelper;
 
 public class PracticumValidator implements Validator {
 
@@ -22,19 +15,19 @@ public class PracticumValidator implements Validator {
 	public void validate(final Object target, final Errors errors) {
 		final Practicum practicum = (Practicum) target;
 		/*
-		final List<SessionPracticum> sessions = practicum.getSessions();
-		final Double estimatedTimeInHours = practicum.getEstimatedTimeInHours();
-		double totalHours = 0.0;
-
-		for (final SessionPracticum session : sessions) {
-
-			final Date start = session.getStart();
-			final Date end = session.getEnd();
-			final Duration duration = MomentHelper.computeDuration(start, end);
-			totalHours += duration.toHours();
-		}
-		if (totalHours < estimatedTimeInHours * 0.9 || totalHours > estimatedTimeInHours * 1.1)
-			errors.rejectValue("estimatedTimeInHours", "estimatedTimeInHours", "Estimated time must be between 90% and 110% of the total time");
-		*/
+		 * final List<SessionPracticum> sessions = practicum.getSessions();
+		 * final Double estimatedTimeInHours = practicum.getEstimatedTimeInHours();
+		 * double totalHours = 0.0;
+		 * 
+		 * for (final SessionPracticum session : sessions) {
+		 * 
+		 * final Date start = session.getStart();
+		 * final Date end = session.getEnd();
+		 * final Duration duration = MomentHelper.computeDuration(start, end);
+		 * totalHours += duration.toHours();
+		 * }
+		 * if (totalHours < estimatedTimeInHours * 0.9 || totalHours > estimatedTimeInHours * 1.1)
+		 * errors.rejectValue("estimatedTimeInHours", "estimatedTimeInHours", "Estimated time must be between 90% and 110% of the total time");
+		 */
 	}
 }

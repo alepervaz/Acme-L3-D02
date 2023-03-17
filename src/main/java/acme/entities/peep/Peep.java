@@ -15,14 +15,12 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode
 public class Peep extends AbstractEntity {
 
 	// Serialisation identifier

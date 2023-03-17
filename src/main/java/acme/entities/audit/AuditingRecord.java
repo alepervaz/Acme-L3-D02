@@ -17,14 +17,12 @@ import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
 import acme.framework.helpers.MomentHelper;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
 public class AuditingRecord extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 

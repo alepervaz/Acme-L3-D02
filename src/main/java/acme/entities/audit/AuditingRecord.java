@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -51,6 +52,9 @@ public class AuditingRecord extends AbstractEntity {
 
 	@URL
 	protected String			link;
+
+	@ManyToOne
+	protected AuditingRecord	audit;
 
 
 	@Override

@@ -43,7 +43,7 @@ public class Tutorial extends AbstractEntity {
 
 	@NotNull
 	@Positive
-	protected Double			estimatedTime;
+	protected double			estimatedTime;
 
 	@NotNull
 	protected Boolean			draftMode;

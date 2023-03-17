@@ -47,9 +47,6 @@ public class Audit extends AbstractEntity {
 	@Length(max = 100)
 	protected String			weakPoints;
 
-	@ManyToOne
-	protected Auditor			auditor;
-
 	// Derived attributes -----------------------------------------------------
 	/*
 	 * @Transient
@@ -59,4 +56,7 @@ public class Audit extends AbstractEntity {
 	 * }
 	 */
 
+	// Relationships ----------------------------------------------------------
+	@ManyToOne
+	protected Auditor			auditor;
 }

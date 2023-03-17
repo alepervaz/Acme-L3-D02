@@ -1,0 +1,9 @@
+key,moment,title,message,flags,link
+bulletin-01,2020/05/05 10:00,title1,message1,false,http://www.example
+bulletin-02,2020/05/06 10:00,title2,message2,true,http://www.example
+bulletin-03,2020/05/07 10:00,title3,message3,false,http://www.example
+bulletin-04,2020/05/08 10:00,title4,message4,true,http://www.example
+bulletin-05,2020/05/09 10:00,title5,message5,false,http://www.example
+bulletin-06,2020/05/10 10:00,title6,message6,true,http://www.example
+bulletin-07,2020/05/11 10:00,title7,message7,false,http://www.example
+bulletin-08,2020/05/12 10:00,title8,message8,true,http://www.example

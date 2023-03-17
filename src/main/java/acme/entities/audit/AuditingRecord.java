@@ -1,14 +1,13 @@
 
 package acme.entities.audit;
 
-import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -17,7 +16,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.framework.data.AbstractEntity;
-import acme.framework.helpers.MomentHelper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,9 +51,6 @@ public class AuditingRecord extends AbstractEntity {
 	@URL
 	protected String			link;
 
-	@ManyToOne
-	protected AuditingRecord	audit;
-
 
 	@Override
 	public String toString() {
@@ -63,9 +58,18 @@ public class AuditingRecord extends AbstractEntity {
 		return "AuditingRecord [subject=" + this.subject + ", assessment=" + this.assessment + ", startAudit=" + this.startAudit + ", endAudit=" + this.endAudit + ", mark=" + this.mark.getMark() + ", link=" + this.link + "]";
 	}
 
-	@Transient
-	public Duration getPeriod() {
-		return MomentHelper.computeDuration(this.startAudit, this.endAudit);
-	}
+	// Derived attributes -----------------------------------------------------
+	/*
+	 * @Transient
+	 * public Duration getPeriod() {
+	 * return MomentHelper.computeDuration(this.startAudit, this.endAudit);
+	 * }
+	 */
 
+
+	// Relationships ----------------------------------------------------------
+	@ManyToOne
+	@NotNull
+	@Valid
+	protected Audit audit;
 }

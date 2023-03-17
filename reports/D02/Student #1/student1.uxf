@@ -27,8 +27,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>639</y>
+      <x>414</x>
+      <y>504</y>
       <w>396</w>
       <h>144</h>
     </coordinates>
@@ -48,8 +48,8 @@ Course
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>360</x>
-      <y>252</y>
+      <x>459</x>
+      <y>117</y>
       <w>306</w>
       <h>153</h>
     </coordinates>
@@ -69,8 +69,8 @@ Lecture
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>360</x>
-      <y>36</y>
+      <x>954</x>
+      <y>513</y>
       <w>306</w>
       <h>117</h>
     </coordinates>
@@ -87,26 +87,26 @@ Lecturer
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>144</y>
-      <w>45</w>
-      <h>126</h>
+      <x>801</x>
+      <y>567</y>
+      <w>171</w>
+      <h>45</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-x
-m1=1
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-x
+m1=
 m2=1..*
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>306</y>
+      <x>99</x>
+      <y>333</y>
       <w>216</w>
       <h>99</h>
     </coordinates>
-    <panel_attributes>bg=green
+    <panel_attributes>bg=orange
 &lt;&lt;Enum&gt;&gt;
 SessionType
 --
@@ -118,32 +118,32 @@ SessionType
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>36</y>
+      <x>909</x>
+      <y>117</y>
       <w>396</w>
       <h>207</h>
     </coordinates>
-    <panel_attributes>bg=green
+    <panel_attributes>bg=yellow
 &lt;&lt;Form&gt;&gt;
 LecturerDashboard
 --
-+ / totalNumberOfLectures: List&lt;Integer&gt;{Positive}
-+ / averageLectureLearningTime: Double{Positive}
-+ / deviationLectureLearningTime: Double{Positive}
-+ / minimumLectureLearningTime: Double{Positive}
-+ / maximumLectureLearningTime: Double{Positive}
-+ / averageCourseLearningTime: Double{Positive}
-+ / deviationCourseLearningTime: Double{Positive}
-+ / minimumCourseLearningTime: Double{Positive}
-+ / maximumCourseLearningTime: Double{Positive}
++ totalNumberOfLectures: List&lt;Integer&gt;{Positive}
++ averageLectureLearningTime: Double{Positive}
++ deviationLectureLearningTime: Double{Positive}
++ minimumLectureLearningTime: Double{Positive}
++ maximumLectureLearningTime: Double{Positive}
++ averageCourseLearningTime: Double{Positive}
++ deviationCourseLearningTime: Double{Positive}
++ minimumCourseLearningTime: Double{Positive}
++ maximumCourseLearningTime: Double{Positive}
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>540</y>
+      <x>603</x>
+      <y>405</y>
       <w>45</w>
       <h>117</h>
     </coordinates>
@@ -155,8 +155,8 @@ m2=1..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>504</y>
+      <x>549</x>
+      <y>369</y>
       <w>126</w>
       <h>45</h>
     </coordinates>
@@ -168,8 +168,8 @@ bg=green</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>396</y>
+      <x>603</x>
+      <y>261</y>
       <w>45</w>
       <h>126</h>
     </coordinates>
@@ -177,5 +177,31 @@ bg=green</panel_attributes>
 m1=1
 m2=1..*</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>108</x>
+      <y>144</y>
+      <w>216</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>An indication on whether it can 
+be considered a theory course or 
+a hands-on course (depending on 
+the lectures that it aggregates)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>180</y>
+      <w>162</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
   </element>
 </diagram>

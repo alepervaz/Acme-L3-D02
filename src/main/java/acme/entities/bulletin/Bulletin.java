@@ -48,7 +48,5 @@ public class Bulletin extends AbstractEntity {
 
 	// Derived attributes -----------------------------------------------------
 
-	//The author must be computed as follows: “〈username〉 - 〈surname, name〉”
-
 	// Relationships ----------------------------------------------------------
 }

@@ -1,0 +1,25 @@
+# messages-es.i18n
+#
+# Copyright (C) 2012-2023 Rafael Corchuelo.
+#
+# In keeping with the traditional purpose of furthering education and research, it is
+# the policy of the copyright owner to permit non-commercial use and redistribution of
+# this software. It has been tested carefully, but it is not guaranteed for any particular
+# purposes.  The copyright owner does not offer any warranties or representations, nor do
+# they accept any liabilities with respect to them.
+
+company.dashboard.form.title.general-indicators = Indicadores generales
+
+company.dashboard.form.title.practica-lenght = Duración de las prácticas
+company.dashboard.form.label.practica-lenght.average = Media
+company.dashboard.form.label.practica-lenght.min = Mínima
+company.dashboard.form.label.practica-lenght.max = Máxima
+company.dashboard.form.label.practica-lenght.deviation = Desviación
+
+company.dashboard.form.title.session-length = Duración de las sesiones
+company.dashboard.form.label.session-length.average = Media
+company.dashboard.form.label.session-length.min = Mínima
+company.dashboard.form.label.session-length.max = Máxima
+company.dashboard.form.label.session-length.deviation = Desviación
+
+company.dashboard.form.title.total-number-practica-by-month = Número total de prácticas por mes

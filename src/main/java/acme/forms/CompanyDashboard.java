@@ -1,12 +1,12 @@
+
 package acme.forms;
 
-import java.util.List;
+import java.util.Map;
 
+import acme.datatypes.Statistic;
 import acme.framework.data.AbstractForm;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -19,28 +19,14 @@ public class CompanyDashboard extends AbstractForm {
 	// Attributes -------------------------------------------------------------
 
 	// Total number of practicas (the index in the list represent the months).
-	private List<Integer>		totalNumberOfPracticaByMonth;
+	private Map<String, Long>	totalNumberOfPracticaByMonth;
 
 	// Average, deviation, minimum, and maximum period length of the sessions in their practica.
-	@Positive
-	private Double				averageSessionLength;
-	@Positive
-	private Double				deviationSessionLength;
-	@Positive
-	private Double				minimumSessionLength;
-	@Positive
-	private Double				maximumSessionLength;
 
+	private Statistic			sessionLength;
 
 	// Average, deviation, minimum, and maximum period length of their practica.
-	@Positive
-	private Double				averagePracticaLength;
-	@Positive
-	private Double				deviationPracticaLength;
-	@Positive
-	private Double				minimumPracticaLength;
-	@Positive
-	private Double				maximumPracticaLength;
+	private Statistic			practicaLength;
 
 	// Derived attributes -----------------------------------------------------
 

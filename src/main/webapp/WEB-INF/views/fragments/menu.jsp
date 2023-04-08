@@ -25,6 +25,10 @@
 			<acme:menu-suboption code="master.menu.anonymous.favourite-link.alepervaz" action="https://open.spotify.com/?"/>
       		<acme:menu-suboption code="master.menu.anonymous.favorite-link.marvicmar" action="https://zacatrus.es/"/>
 		</acme:menu-option>
+		
+		<acme:menu-option code="master.menu.tutorials" access="isAuthenticated()">
+			<acme:menu-suboption code="master.menu.user-account.tutorials" action="/authenticated/tutorial/list"/>
+		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.administrator" access="hasRole('Administrator')">
 			<acme:menu-suboption code="master.menu.administrator.user-accounts" action="/administrator/user-account/list"/>

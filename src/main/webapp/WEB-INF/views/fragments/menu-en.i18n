@@ -48,6 +48,11 @@ master.menu.administrator.shut-down = Shut down
 master.menu.provider = Provider
 master.menu.provider.favourite-link = Favourite link
 
+# master.menu.assistant ##########################################################
+master.menu.assistant = Tutorials
+master.menu.assistant.list-all = Tutorials List
+master.menu.assistant.list-mine = My Tutorials
+
 # master.menu.consumer ##########################################################
 
 master.menu.consumer = Consumer

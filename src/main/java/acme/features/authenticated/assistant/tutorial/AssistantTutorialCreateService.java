@@ -21,7 +21,7 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
-		"code", "title", "summary", "goals", "estimatedTime"
+		"code", "title", "summary", "goals", "estimatedTime", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------

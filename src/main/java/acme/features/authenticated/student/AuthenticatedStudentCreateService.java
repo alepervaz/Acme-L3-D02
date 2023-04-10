@@ -57,12 +57,11 @@ public class AuthenticatedStudentCreateService extends AbstractService<Authentic
 		super.getBuffer().setData(object);
 	}
 
-	/* DIFERENTE */
 	@Override
 	public void bind(final Student object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedStudentCreateService.PROPERTIES);
+		super.bind(object, PROPERTIES);
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class AuthenticatedStudentCreateService extends AbstractService<Authentic
 	public void unbind(final Student object) {
 		Tuple tuple;
 
-		tuple = super.unbind(object, AuthenticatedStudentCreateService.PROPERTIES);
+		tuple = super.unbind(object, PROPERTIES);
 
 		super.getResponse().setData(tuple);
 	}

@@ -15,7 +15,6 @@ import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
-import acme.roles.Company;
 
 @Service
 public class AssistantTutorialCreateService extends AbstractService<Assistant, Tutorial> {
@@ -42,7 +41,7 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 		Principal principal;
 
 		principal = super.getRequest().getPrincipal();
-		status = principal.hasRole(Company.class);
+		status = principal.hasRole(Assistant.class);
 
 		super.getResponse().setAuthorised(status);
 	}

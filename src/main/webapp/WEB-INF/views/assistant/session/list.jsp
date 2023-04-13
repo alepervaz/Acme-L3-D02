@@ -17,6 +17,6 @@
 
 <acme:list>
   <acme:list-column code="assistant.session.list.label.title" path="title" width="20%"/>
-  <acme:list-column code="assistant.session.list.label.type" path="estimatedTime" width="20%"/>
+  <acme:list-column code="assistant.session.list.label.type" path="type" width="20%"/>
   <acme:list-column code="assistant.session.list.label.draftMode" path="draftMode" width="60%"/>
 </acme:list>

@@ -17,6 +17,9 @@
 
 <acme:form>
     <acme:input-textbox code="assistant.session.form.label.title" path="title"/>
-
-    
+    <acme:input-textbox code="assistant.session.form.label.summary" path="summary"/>
+    <acme:input-select code="assistant.session.form.label.type" path="type" choices="${type}"/>
+    <acme:input-moment code="assistant.session.form.label.start" path="start"/>
+    <acme:input-moment code="assistant.session.form.label.end" path="end"/>
+    <acme:input-url code="assistant.session.form.label.link" path="link"/>
 </acme:form>

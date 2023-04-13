@@ -16,9 +16,9 @@
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/"%>
 
 <acme:list>
-  <acme:list-column code="assistant.session.list.label.title" path="code" width="10%"/>
-  <acme:list-column code="assistant.session.list.label.summary" path="estimatedTime" width="10%"/>
-  <acme:list-column code="assistant.session.list.label.type" path="title" width="80%"/>
+  <acme:list-column code="assistant.session.list.label.title" path="title" width="10%"/>
+  <acme:list-column code="assistant.session.list.label.summary" path="summary" width="10%"/>
+  <acme:list-column code="assistant.session.list.label.type" path="type" width="80%"/>
 </acme:list>
 <jstl:if test="${_command == 'list-mine'}">
 	<acme:button code="assistant.tutorial.list.button.create" action="/assistant/session/create"/>

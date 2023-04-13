@@ -31,7 +31,7 @@ public class AssistantSessionListService extends AbstractService<Assistant, Sess
 	@Override
 	public void check() {
 		boolean status;
-		status = super.getRequest().hasData("masterId", int.class);
+		status = super.getRequest().hasData("id", int.class);
 		super.getResponse().setChecked(status);
 	}
 
@@ -42,7 +42,7 @@ public class AssistantSessionListService extends AbstractService<Assistant, Sess
 		Tutorial tutorial;
 		int tutorialId;
 
-		tutorialId = super.getRequest().getData("masterId", int.class);
+		tutorialId = super.getRequest().getData("id", int.class);
 		tutorial = this.repository.findOneTutorialById(tutorialId);
 		principal = super.getRequest().getPrincipal();
 		status = tutorial != null && principal.hasRole(Assistant.class);
@@ -55,7 +55,7 @@ public class AssistantSessionListService extends AbstractService<Assistant, Sess
 		Collection<Session> sessions;
 		int tutorialId;
 
-		tutorialId = super.getRequest().getData("masterId", int.class);
+		tutorialId = super.getRequest().getData("id", int.class);
 		sessions = this.repository.findManySessionByTutorialId(tutorialId);
 
 		super.getBuffer().setData(sessions);

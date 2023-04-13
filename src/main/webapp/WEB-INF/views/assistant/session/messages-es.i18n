@@ -1,18 +1,17 @@
 # list ###############################################################
-assistant.tutorial.list.label.code = Codigo
-assistant.tutorial.list.label.estimatedTime = Tiempo Estimado
-assistant.tutorial.list.label.title = Titulo
-assistant.tutorial.list.button.create = Crear Tutorial
+assistant.session.list.label.title = Titulo
+assistant.session.list.label.type = Tipo
+assistant.session.list.label.draftMode = Publicado
 
 # form ###############################################################
-assistant.tutorial.form.label.code = Codigo
-assistant.tutorial.form.label.course = Curso
-assistant.tutorial.form.label.title = Titulo
-assistant.tutorial.form.label.summary = Resumen
-assistant.tutorial.form.label.goals = Objetivos
-assistant.tutorial.form.label.estimatedTime = Tiempo estimado
-assistant.tutorial.form.button.create = Crear Tutorial
-assistant.tutorial.form.button.tutorial = Listado de tutoriales
-assistant.tutorial.form.button.update = Actualizar Tutorial
-assistant.tutorial.form.button.delete = Eliminar Tutorial
-assistant.tutorial.form.button.publish = Publicar Tutorial
+assistant.session.form.label.title = Titulo
+assistant.session.form.label.summary = Resumen
+assistant.session.form.label.type = Tipo
+assistant.session.form.label.start = Fecha de inicio
+assistant.session.form.label.end = Fecha de Fin
+assistant.session.form.label.link = link
+assistant.session.form.button.tutorial = Listado Tutoriales
+assistant.session.form.button.update = Actualizar Sesion
+assistant.session.form.button.delete = Eliminar Sesion
+assistant.session.form.button.publish = Publicar Sesion
+assistant.session.form.button.create = Crear Sesion

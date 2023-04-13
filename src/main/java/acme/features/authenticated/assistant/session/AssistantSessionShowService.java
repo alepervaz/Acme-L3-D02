@@ -18,7 +18,7 @@ public class AssistantSessionShowService extends AbstractService<Assistant, Sess
 
 	// Constants -------------------------------------------------------------
 	public static final String[]		PROPERTIES	= {
-		"title", "summary", "type", "start", "end", "link"
+		"title", "summary", "type", "start", "end", "link", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------

@@ -14,7 +14,7 @@ import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantSessionCreateService extends AbstractService<Assistant, Session> {
+public class AssistantSessionPublishService extends AbstractService<Assistant, Session> {
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
@@ -22,44 +22,46 @@ public class AssistantSessionCreateService extends AbstractService<Assistant, Se
 	};
 
 	// Internal state ---------------------------------------------------------
+
 	@Autowired
 	protected AssistantSessionRepository	repository;
 
-
 	// AbstractService interface ----------------------------------------------
+
+
 	@Override
 	public void check() {
 		boolean status;
+
 		status = super.getRequest().hasData("id", int.class);
+
 		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void authorise() {
 		boolean status;
+		int sessionId;
+		final Session session;
+		final Assistant assistant;
 		Principal principal;
-		Tutorial tutorial;
-		int tutorialid;
 
-		tutorialid = super.getRequest().getData("id", int.class);
-		tutorial = this.repository.findOneTutorialById(tutorialid);
 		principal = super.getRequest().getPrincipal();
-		status = principal.hasRole(Assistant.class);
+		sessionId = super.getRequest().getData("id", int.class);
+		session = this.repository.findOneSessionById(sessionId);
+		assistant = session == null ? null : session.getTutorial().getAssistant();
+		status = session != null && session.getDraftMode() && principal.hasRole(assistant);
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		final Session session;
-		Tutorial tutorial;
-		int tutorialid;
+		Session session;
+		int sessionId;
 
-		tutorialid = super.getRequest().getData("id", int.class);
-		tutorial = this.repository.findOneTutorialById(tutorialid);
-		session = new Session();
-		session.setDraftMode(true);
-		session.setTutorial(tutorial);
+		sessionId = super.getRequest().getData("id", int.class);
+		session = this.repository.findOneSessionById(sessionId);
 
 		super.getBuffer().setData(session);
 	}
@@ -67,7 +69,15 @@ public class AssistantSessionCreateService extends AbstractService<Assistant, Se
 	@Override
 	public void bind(final Session session) {
 		assert session != null;
-		super.bind(session, AssistantSessionCreateService.PROPERTIES);
+
+		int tutorialId;
+		Tutorial tutorial;
+
+		tutorialId = session.getTutorial().getId();
+		tutorial = this.repository.findOneTutorialById(tutorialId);
+
+		super.bind(session, AssistantSessionPublishService.PROPERTIES);
+		session.setTutorial(tutorial);
 	}
 
 	@Override
@@ -79,6 +89,8 @@ public class AssistantSessionCreateService extends AbstractService<Assistant, Se
 	@Override
 	public void perform(final Session session) {
 		assert session != null;
+
+		session.setDraftMode(false);
 
 		this.repository.save(session);
 	}
@@ -92,10 +104,9 @@ public class AssistantSessionCreateService extends AbstractService<Assistant, Se
 
 		choices = SelectChoices.from(Approach.class, session.getType());
 
-		tuple = super.unbind(session, AssistantSessionCreateService.PROPERTIES);
-		tuple.put("id", super.getRequest().getData("id", int.class));
+		tuple = super.unbind(session, AssistantSessionPublishService.PROPERTIES);
 		tuple.put("type", choices);
-		tuple.put("tutorialDraftMode", session.getTutorial().getDraftMode());
+
 		super.getResponse().setData(tuple);
 	}
 

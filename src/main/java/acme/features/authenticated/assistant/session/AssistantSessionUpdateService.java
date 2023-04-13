@@ -18,7 +18,7 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
-		"title", "summary", "type", "start", "end", "link"
+		"title", "summary", "type", "start", "end", "link", "draftMode"
 	};
 	// Internal state ---------------------------------------------------------
 
@@ -49,7 +49,7 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 		sessionId = super.getRequest().getData("id", int.class);
 		session = this.repository.findOneSessionById(sessionId);
 		assistant = session == null ? null : session.getTutorial().getAssistant();
-		status = session != null && principal.hasRole(assistant);
+		status = session != null && session.getDraftMode() && principal.hasRole(assistant);
 
 		super.getResponse().setAuthorised(status);
 	}

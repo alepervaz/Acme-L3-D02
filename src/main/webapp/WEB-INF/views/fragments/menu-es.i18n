@@ -42,6 +42,7 @@ master.menu.provider.favourite-link = Enlace favorito
 master.menu.assistant = Tutoriales
 master.menu.assistant.list-all = Listado de Tutoriales
 master.menu.assistant.list-mine = Mis tutoriales
+master.menu.assistant.session.list-all = Listado de Sesiones
 
 # master.menu.consumer ##########################################################
 

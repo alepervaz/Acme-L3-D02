@@ -26,6 +26,8 @@ public class AssistantSessionController extends AbstractController<Assistant, Se
 	private AssistantSessionListService		listService;
 	@Autowired
 	private AssistantSessionPublishService	publishService;
+	@Autowired
+	private AssistantSessionListAllService	listAllService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -38,6 +40,7 @@ public class AssistantSessionController extends AbstractController<Assistant, Se
 		super.addBasicCommand("list", this.listService);
 
 		super.addCustomCommand("publish", "update", this.publishService);
+		super.addCustomCommand("list-all", "list", this.listAllService);
 
 	}
 

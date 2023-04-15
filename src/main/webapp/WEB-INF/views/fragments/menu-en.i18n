@@ -42,6 +42,13 @@ master.menu.administrator.user-accounts = User accounts
 master.menu.administrator.populate-initial = Populate DB (initial)
 master.menu.administrator.populate-sample = Populate DB (samples)
 master.menu.administrator.shut-down = Shut down
+master.menu.administrator.configuration = Configuration
+
+# master.menu.authenticated ####################################################
+
+master.menu.authenticated = Authenticated
+master.menu.authenticated.favourite-link = Favourite link
+master.menu.authenticated.all-practicums = List all practicums
 
 # master.menu.provider ########################################################
 
@@ -53,6 +60,15 @@ master.menu.provider.favourite-link = Favourite link
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+# master.menu.company ##########################################################
+
+master.menu.company = Company
+master.menu.company.favourite-link = Favourite link
+master.menu.company.all-practicums = List all practicums
+master.menu.company.my-practicums = LIst my practicums
+master.menu.company.dashboard = Dashboard
+
+
 # master.menu.user-account ####################################################
 
 master.menu.user-account = Account
@@ -61,4 +77,6 @@ master.menu.user-account.provider = Provider data
 master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
+master.menu.user-account.company = Company data
+master.menu.user-account.become-company = Become a company
 

@@ -8,10 +8,12 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
+# Messages for label in form
 authenticated.company.form.label.name = Nombre
 authenticated.company.form.label.vatNumber = Número VAT
 authenticated.company.form.label.summary = Descripción
 authenticated.company.form.label.link = Enlace
 
+# Messages for label in list
 authenticated.company.form.button.create = Crear
 authenticated.company.form.button.update = Actualizar

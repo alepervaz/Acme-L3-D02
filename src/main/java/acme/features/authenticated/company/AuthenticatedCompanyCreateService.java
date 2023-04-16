@@ -1,3 +1,4 @@
+
 package acme.features.authenticated.company;
 
 import acme.framework.components.accounts.Authenticated;
@@ -14,77 +15,80 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticatedCompanyCreateService extends AbstractService<Authenticated, Company> {
 
-    // Constants -------------------------------------------------------------
-    public static final String[] PROPERTIES = {"name", "vatNumber", "summary", "link"};
+	// Constants -------------------------------------------------------------
+	protected static final String[] PROPERTIES = {
+			"name", "vatNumber", "summary", "link"
+	};
 
-    // Internal state ---------------------------------------------------------
-    @Autowired
-    protected AuthenticatedCompanyRepository repository;
+	// Internal state ---------------------------------------------------------
+	@Autowired
+	protected AuthenticatedCompanyRepository repository;
 
-    // AbstractService interface ----------------------------------------------
-    @Override
-    public void check() {
-        super.getResponse().setChecked(true);
-    }
 
-    @Override
-    public void authorise() {
-        boolean status;
+	// AbstractService interface ----------------------------------------------
+	@Override
+	public void check() {
+		super.getResponse().setChecked(true);
+	}
 
-        status = !super.getRequest().getPrincipal().hasRole(Company.class);
+	@Override
+	public void authorise() {
+		boolean status;
 
-        super.getResponse().setAuthorised(status);
-    }
+		status = !super.getRequest().getPrincipal().hasRole(Company.class);
 
-    @Override
-    public void load() {
-        Company object;
-        Principal principal;
-        int userAccountId;
-        UserAccount userAccount;
+		super.getResponse().setAuthorised(status);
+	}
 
-        principal = super.getRequest().getPrincipal();
-        userAccountId = principal.getAccountId();
-        userAccount = this.repository.findOneUserAccountById(userAccountId);
+	@Override
+	public void load() {
+		Company company;
+		Principal principal;
+		int userAccountId;
+		UserAccount userAccount;
 
-        object = new Company();
-        object.setUserAccount(userAccount);
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+		userAccount = this.repository.findOneUserAccountById(userAccountId);
 
-        super.getBuffer().setData(object);
-    }
+		company = new Company();
+		company.setUserAccount(userAccount);
 
-    @Override
-    public void bind(final Company company) {
-        assert company != null;
+		super.getBuffer().setData(company);
+	}
 
-        super.bind(company, PROPERTIES);
-    }
+	@Override
+	public void bind(final Company company) {
+		assert company != null;
 
-    @Override
-    public void validate(final Company company) {
-        assert company != null;
-    }
+		super.bind(company, AuthenticatedCompanyCreateService.PROPERTIES);
+	}
 
-    @Override
-    public void perform(final Company company) {
-        assert company != null;
+	@Override
+	public void validate(final Company company) {
+		assert company != null;
+	}
 
-        this.repository.save(company);
-    }
+	@Override
+	public void perform(final Company company) {
+		assert company != null;
 
-    @Override
-    public void unbind(final Company company) {
-        assert company != null;
+		this.repository.save(company);
+	}
 
-        Tuple tuple;
+	@Override
+	public void unbind(final Company company) {
+		assert company != null;
 
-        tuple = super.unbind(company, PROPERTIES);
-        super.getResponse().setData(tuple);
-    }
+		Tuple tuple;
 
-    @Override
-    public void onSuccess() {
-        if (super.getRequest().getMethod().equals(HttpMethod.POST))
-            PrincipalHelper.handleUpdate();
-    }
+		tuple = super.unbind(company, AuthenticatedCompanyCreateService.PROPERTIES);
+		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void onSuccess() {
+		if (super.getRequest().getMethod().equals(HttpMethod.POST))
+			PrincipalHelper.handleUpdate();
+	}
 }

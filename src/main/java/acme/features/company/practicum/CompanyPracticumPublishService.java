@@ -1,6 +1,7 @@
 
 package acme.features.company.practicum;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 
@@ -21,12 +22,11 @@ import acme.roles.Company;
 public class CompanyPracticumPublishService extends AbstractService<Company, Practicum> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
+	protected static final String[]			PROPERTIES	= {
 		"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours"
 	};
 
 	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	protected CompanyPracticumRepository	repository;
 
@@ -53,7 +53,7 @@ public class CompanyPracticumPublishService extends AbstractService<Company, Pra
 		practicumId = super.getRequest().getData("id", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
 		company = practicum == null ? null : practicum.getCompany();
-		status = practicum != null && practicum.getDraftMode() && principal.hasRole(company);
+		status = practicum != null && practicum.isDraftMode() && principal.hasRole(company);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -89,16 +89,26 @@ public class CompanyPracticumPublishService extends AbstractService<Company, Pra
 
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 			boolean isUnique;
+			boolean noChangeCode;
+			Practicum oldPracticum;
+			int practicumId;
 
+			practicumId = super.getRequest().getData("id", int.class);
+			oldPracticum = this.repository.findOnePracticumById(practicumId);
 			isUnique = this.repository.findManyPracticumByCode(practicum.getCode()).isEmpty();
-			super.state(!isUnique, "code", "company.practicum.form.error.not-unique-code");
+			noChangeCode = oldPracticum.getCode().equals(practicum.getCode()) && oldPracticum.getId() == practicum.getId();
+
+			super.state(isUnique || noChangeCode, "code", "company.practicum.form.error.not-unique-code");
 		}
 
 		// Únicamente se deberá de comprobar que el tiempo estimado es correcto cuando se va a publicar.
 		if (!super.getBuffer().getErrors().hasErrors("estimatedTimeInHours")) {
 			Collection<SessionPracticum> sessions;
-			Double estimatedTimeInHours;
+			double estimatedTimeInHours;
 			double totalHours;
+			// Menos de 10% de diferencia entre el tiempo estimado y el tiempo real.
+			boolean moreThan90Percent;
+			boolean lessThan110Percent;
 
 			estimatedTimeInHours = practicum.getEstimatedTimeInHours();
 			sessions = this.repository.findManySessionPracticesByPracticumId(practicum.getId());
@@ -106,14 +116,19 @@ public class CompanyPracticumPublishService extends AbstractService<Company, Pra
 			totalHours = sessions.stream().mapToDouble(session -> {
 				Date start;
 				Date end;
+				Duration duration;
 
 				start = session.getStart();
 				end = session.getEnd();
+				duration = MomentHelper.computeDuration(start, end);
 
-				return MomentHelper.computeDuration(start, end).toHours();
+				return duration.toHours();
 			}).sum();
 
-			super.state(totalHours >= estimatedTimeInHours * 0.9 && totalHours <= estimatedTimeInHours * 1.1, "estimatedTimeInHours", "company.practicum.form.error.not-in-range");
+			moreThan90Percent = totalHours >= estimatedTimeInHours * 0.9;
+			lessThan110Percent = totalHours <= estimatedTimeInHours * 1.1;
+
+			super.state(moreThan90Percent && lessThan110Percent, "estimatedTimeInHours", "company.practicum.form.error.not-in-range");
 		}
 	}
 

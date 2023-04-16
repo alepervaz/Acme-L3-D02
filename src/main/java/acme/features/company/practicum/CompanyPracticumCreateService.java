@@ -20,7 +20,7 @@ import acme.roles.Company;
 public class CompanyPracticumCreateService extends AbstractService<Company, Practicum> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
+	protected static final String[]			PROPERTIES	= {
 		"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours"
 	};
 
@@ -83,6 +83,7 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 			boolean isUnique;
 
 			isUnique = this.repository.findManyPracticumByCode(practicum.getCode()).isEmpty();
+
 			super.state(isUnique, "code", "company.practicum.form.error.not-unique-code");
 		}
 	}
@@ -108,6 +109,7 @@ public class CompanyPracticumCreateService extends AbstractService<Company, Prac
 		tuple = super.unbind(practicum, CompanyPracticumCreateService.PROPERTIES);
 		tuple.put("course", choices);
 		tuple.put("courses", courses);
+
 		super.getResponse().setData(tuple);
 	}
 

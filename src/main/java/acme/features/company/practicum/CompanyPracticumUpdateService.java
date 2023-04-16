@@ -18,12 +18,11 @@ import acme.roles.Company;
 public class CompanyPracticumUpdateService extends AbstractService<Company, Practicum> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
+	protected static final String[]			PROPERTIES	= {
 		"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours"
 	};
 
 	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	protected CompanyPracticumRepository	repository;
 
@@ -51,7 +50,7 @@ public class CompanyPracticumUpdateService extends AbstractService<Company, Prac
 		practicumId = super.getRequest().getData("id", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
 		company = practicum == null ? null : practicum.getCompany();
-		status = practicum != null && practicum.getDraftMode() && principal.hasRole(company);
+		status = practicum != null && practicum.isDraftMode() && principal.hasRole(company);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -87,9 +86,16 @@ public class CompanyPracticumUpdateService extends AbstractService<Company, Prac
 
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 			boolean isUnique;
+			boolean noChangeCode;
+			Practicum oldPracticum;
+			int practicumId;
 
+			practicumId = super.getRequest().getData("id", int.class);
+			oldPracticum = this.repository.findOnePracticumById(practicumId);
 			isUnique = this.repository.findManyPracticumByCode(practicum.getCode()).isEmpty();
-			super.state(!isUnique, "code", "company.practicum.form.error.not-unique-code");
+			noChangeCode = oldPracticum.getCode().equals(practicum.getCode()) && oldPracticum.getId() == practicum.getId();
+
+			super.state(isUnique || noChangeCode, "code", "company.practicum.form.error.not-unique-code");
 		}
 	}
 
@@ -108,7 +114,7 @@ public class CompanyPracticumUpdateService extends AbstractService<Company, Prac
 		SelectChoices choices;
 		Tuple tuple;
 
-		courses = this.repository.findAllCourses(); // TODO: filter by company
+		courses = this.repository.findAllCourses();
 		choices = SelectChoices.from(courses, "title", practicum.getCourse());
 
 		tuple = super.unbind(practicum, CompanyPracticumUpdateService.PROPERTIES);

@@ -18,7 +18,7 @@ import acme.roles.Company;
 public class CompanyPracticumShowService extends AbstractService<Company, Practicum> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]		PROPERTIES	= {
+	protected static final String[]		PROPERTIES	= {
 		"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours", "draftMode"
 	};
 
@@ -49,7 +49,7 @@ public class CompanyPracticumShowService extends AbstractService<Company, Practi
 		practicumId = super.getRequest().getData("id", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
 		company = practicum == null ? null : practicum.getCompany();
-		status = practicum != null && !practicum.getDraftMode() || principal.hasRole(company);
+		status = practicum != null && (!practicum.isDraftMode() || principal.hasRole(company));
 
 		super.getResponse().setAuthorised(status);
 	}

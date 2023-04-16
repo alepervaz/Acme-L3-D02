@@ -17,9 +17,13 @@
 
 <acme:form>
 	<acme:input-textbox code="student.course.form.label.code" path="code"/>
-	<acme:input-moment code="student.course.form.label.title" path="title"/>
+	<acme:input-textbox code="student.course.form.label.title" path="title"/>
 	<acme:input-textarea code="student.course.form.label.courseAbstract" path="courseAbstract"/>
-	<acme:input-moment code="student.course.form.label.retailPrice" path="retailPrice"/>
-	<acme:input-money code="student.course.form.label.furtherInformation" path="furtherInformation"/>
-	<acme:input-money code="student.course.form.label.type" path="type"/>
+	<acme:input-money code="student.course.form.label.retailPrice" path="retailPrice"/>
+	<acme:input-textbox code="student.course.form.label.furtherInformation" path="furtherInformation"/>
+	<acme:input-textbox code="student.course.form.label.type" path="type"/>
+	<acme:input-textbox code="student.course.form.label.draftMode" path="draftMode"/>
+	<acme:input-textbox code="student.course.form.label.lecturer" path="lecturer"/>
+	
+	
 </acme:form>

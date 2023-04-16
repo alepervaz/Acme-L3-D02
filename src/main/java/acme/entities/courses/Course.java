@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.entities.enums.Approach;
+import acme.framework.components.datatypes.Money;
 import acme.framework.data.AbstractEntity;
 import acme.roles.Lecturer;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class Course extends AbstractEntity {
 	private String				courseAbstract;
 
 	@Min(0)
-	private Double				retailPrice;
+	private Money				retailPrice;
 
 	@URL
 	private String				furtherInformation;

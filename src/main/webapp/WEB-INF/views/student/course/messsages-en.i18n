@@ -14,3 +14,7 @@ student.course.form.label.courseAbstract = Abstract
 student.course.form.label.retailPrice = Retail Price
 student.course.form.label.furtherInformation = Further Information
 student.course.form.label.type = Type
+student.course.form.label.draftMode = Draft Mode
+
+student.course.list.label.code = Code
+student.course.list.label.title = Title

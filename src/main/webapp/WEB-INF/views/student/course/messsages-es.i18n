@@ -14,3 +14,7 @@ student.course.form.label.courseAbstract = Resumen
 student.course.form.label.retailPrice = Precio
 student.course.form.label.furtherInformation = Más información
 student.course.form.label.type = Tipo
+student.course.form.label.draftMode = Modo de edición
+
+student.course.list.label.code = Código
+student.course.list.label.title = Título

@@ -15,7 +15,7 @@ import acme.roles.Company;
 public class CompanySessionPracticumShowService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
-	public static final String[]				PROPERTIES	= {
+	protected static final String[]				PROPERTIES	= {
 		"code", "title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
 
@@ -46,7 +46,8 @@ public class CompanySessionPracticumShowService extends AbstractService<Company,
 		sessionPracticumId = super.getRequest().getData("id", int.class);
 		sessionPracticum = this.repository.findOneSessionPracticumById(sessionPracticumId);
 		practicum = this.repository.findOnePracticumBySessionPracticumId(sessionPracticumId);
-		status = practicum != null && (!practicum.getDraftMode() && sessionPracticum.getConfirmed() || principal.hasRole(practicum.getCompany()));
+
+		status = practicum != null && (!practicum.isDraftMode() && sessionPracticum.isConfirmed() || principal.hasRole(practicum.getCompany()));
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -66,12 +67,13 @@ public class CompanySessionPracticumShowService extends AbstractService<Company,
 	public void unbind(final SessionPracticum sessionPracticum) {
 		assert sessionPracticum != null;
 
+		Practicum practicum;
 		Tuple tuple;
 
-		tuple = super.unbind(sessionPracticum, CompanySessionPracticumShowService.PROPERTIES);
-		tuple.put("masterId", sessionPracticum.getPracticum().getId());
-		tuple.put("draftMode", sessionPracticum.getPracticum().getDraftMode());
-		System.out.println(tuple);
+		practicum = sessionPracticum.getPracticum();
+		tuple = super.unbind(sessionPracticum, CompanySessionPracticumUpdateService.PROPERTIES_UNBIND);
+		tuple.put("masterId", practicum.getId());
+		tuple.put("draftMode", practicum.isDraftMode());
 
 		super.getResponse().setData(tuple);
 	}

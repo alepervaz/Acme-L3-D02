@@ -17,7 +17,7 @@ import acme.roles.Company;
 public class CompanySessionPracticumListService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
-	public static final String[]				PROPERTIES	= {
+	protected static final String[]				PROPERTIES	= {
 		"code", "title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
 
@@ -46,7 +46,7 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 		principal = super.getRequest().getPrincipal();
 		practicumId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
-		status = practicum != null && (!practicum.getDraftMode() || principal.hasRole(practicum.getCompany()));
+		status = practicum != null && (!practicum.isDraftMode() || principal.hasRole(practicum.getCompany()));
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -70,7 +70,6 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 
 		tuple = super.unbind(sessionPracticum, CompanySessionPracticumListService.PROPERTIES);
 
-		System.out.println(tuple);
 		super.getResponse().setData(tuple);
 	}
 
@@ -80,15 +79,15 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 
 		int practicumId;
 		Practicum practicum;
-		final boolean showCreate;
+		boolean showCreate;
 		Principal principal;
 		boolean extraAvailable;
 
 		principal = super.getRequest().getPrincipal();
 		practicumId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
-		showCreate = practicum.getDraftMode() && principal.hasRole(practicum.getCompany());
-		extraAvailable = sessionPracticums.stream().noneMatch(SessionPracticum::getAdditional);
+		showCreate = practicum.isDraftMode() && principal.hasRole(practicum.getCompany());
+		extraAvailable = sessionPracticums.stream().noneMatch(SessionPracticum::isAdditional);
 
 		super.getResponse().setGlobal("masterId", practicumId);
 		super.getResponse().setGlobal("showCreate", showCreate);

@@ -30,7 +30,7 @@ public class SessionPracticum extends AbstractEntity {
 
 	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
+	@Pattern(regexp = "^[A-Z]{1,3}\\d{3}$")
 	private String				code;
 
 	@NotBlank
@@ -56,9 +56,9 @@ public class SessionPracticum extends AbstractEntity {
 	@URL
 	private String				link;
 
-	private Boolean				additional;
+	private boolean				additional;
 
-	private Boolean 			confirmed;
+	private boolean 			confirmed;
 
 	// Derived attributes -----------------------------------------------------
 

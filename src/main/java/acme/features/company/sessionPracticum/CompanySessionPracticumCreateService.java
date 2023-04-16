@@ -1,7 +1,7 @@
 
 package acme.features.company.sessionPracticum;
 
-import java.util.Calendar;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import acme.roles.Company;
 public class CompanySessionPracticumCreateService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]				PROPERTIES_BIND		= {
+	protected static final String[]				PROPERTIES_BIND		= {
 		"code", "title", "abstractSession", "description", "start", "end", "link"
 	};
 
-	public static final String[]				PROPERTIES_UNBIND	= {
+	protected static final String[]				PROPERTIES_UNBIND	= {
 		"code", "title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
 	public static final int						ONE_WEEK			= 1;
@@ -55,11 +55,12 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 		principal = super.getRequest().getPrincipal();
 		practicumId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
-		if (practicum == null)
-			status = false;
-		else {
+		status = false;
+
+		if (practicum != null) {
 			hasExtraAvailable = this.repository.findManySessionPracticumsByExtraAvailableAndPracticumId(practicum.getId()).isEmpty();
-			status = (practicum.getDraftMode() || hasExtraAvailable) && principal.hasRole(practicum.getCompany());
+
+			status = (practicum.isDraftMode() || hasExtraAvailable) && principal.hasRole(practicum.getCompany());
 		}
 
 		super.getResponse().setAuthorised(status);
@@ -70,14 +71,16 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 		SessionPracticum sessionPracticum;
 		int practicumId;
 		Practicum practicum;
+		boolean draftMode;
 
 		practicumId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
+		draftMode = practicum.isDraftMode();
 
 		sessionPracticum = new SessionPracticum();
 		sessionPracticum.setPracticum(practicum);
-		sessionPracticum.setAdditional(!practicum.getDraftMode());
-		sessionPracticum.setConfirmed(practicum.getDraftMode());
+		sessionPracticum.setAdditional(!draftMode);
+		sessionPracticum.setConfirmed(draftMode);
 
 		super.getBuffer().setData(sessionPracticum);
 	}
@@ -86,7 +89,6 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 	public void bind(final SessionPracticum sessionPracticum) {
 		assert sessionPracticum != null;
 
-		System.out.println(sessionPracticum.getAdditional());
 		super.bind(sessionPracticum, CompanySessionPracticumCreateService.PROPERTIES_BIND);
 	}
 
@@ -98,26 +100,20 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 			boolean isUnique;
 
 			isUnique = this.repository.findManySessionPracticumsByCode(sessionPracticum.getCode()).isEmpty();
+
 			super.state(isUnique, "code", "company.practicum.form.error.not-unique-code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("start") || !super.getBuffer().getErrors().hasErrors("end")) {
-			final Date start;
-			final Date end;
-			final Date now;
+			Date start;
+			Date end;
+			Date inAWeekFromNow;
+			Date inAWeekFromStart;
 
 			start = sessionPracticum.getStart();
 			end = sessionPracticum.getEnd();
-			now = MomentHelper.getCurrentMoment();
-
-			final Calendar calendar = Calendar.getInstance();
-			calendar.setTime(now);
-			calendar.add(Calendar.WEEK_OF_YEAR, CompanySessionPracticumCreateService.ONE_WEEK);
-			final Date inAWeekFromNow = calendar.getTime();
-
-			calendar.setTime(start);
-			calendar.add(Calendar.WEEK_OF_YEAR, CompanySessionPracticumCreateService.ONE_WEEK);
-			final Date inAWeekFromStart = calendar.getTime();
+			inAWeekFromNow = MomentHelper.deltaFromCurrentMoment(CompanySessionPracticumCreateService.ONE_WEEK, ChronoUnit.WEEKS);
+			inAWeekFromStart = MomentHelper.deltaFromMoment(start, CompanySessionPracticumCreateService.ONE_WEEK, ChronoUnit.WEEKS);
 
 			if (!super.getBuffer().getErrors().hasErrors("start"))
 				super.state(MomentHelper.isAfter(start, inAWeekFromNow), "start", "company.session-practicum.error.start-after-now");
@@ -137,15 +133,13 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 	public void unbind(final SessionPracticum sessionPracticum) {
 		assert sessionPracticum != null;
 
-		Tuple tuple;
-		int practicumId;
 		Practicum practicum;
+		Tuple tuple;
 
-		practicumId = super.getRequest().getData("masterId", int.class);
-		practicum = this.repository.findOnePracticumById(practicumId);
+		practicum = sessionPracticum.getPracticum();
 		tuple = super.unbind(sessionPracticum, CompanySessionPracticumCreateService.PROPERTIES_UNBIND);
-		tuple.put("masterId", super.getRequest().getData("masterId", int.class));
-		tuple.put("draftMode", sessionPracticum.getPracticum().getDraftMode());
+		tuple.put("masterId", practicum.getId());
+		tuple.put("draftMode", practicum.isDraftMode());
 
 		super.getResponse().setData(tuple);
 	}

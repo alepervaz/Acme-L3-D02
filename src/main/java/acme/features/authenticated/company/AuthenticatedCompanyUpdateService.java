@@ -16,7 +16,7 @@ import acme.roles.Company;
 public class AuthenticatedCompanyUpdateService extends AbstractService<Authenticated, Company> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]				PROPERTIES	= {
+	protected static final String[]				PROPERTIES	= {
 		"name", "vatNumber", "summary", "link"
 	};
 
@@ -33,7 +33,13 @@ public class AuthenticatedCompanyUpdateService extends AbstractService<Authentic
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		Principal principal;
+
+		principal = super.getRequest().getPrincipal();
+		status = principal.hasRole(Authenticated.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override

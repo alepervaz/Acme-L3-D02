@@ -19,7 +19,7 @@ import acme.roles.Company;
 public class CompanyDashboardShowService extends AbstractService<Company, CompanyDashboard> {
 
 	// Constants --------------------------------------------------------------
-	public static final String[]		PROPERTIES	= {
+	protected static final String[]		PROPERTIES	= {
 		"totalNumberOfPracticaByMonth", "sessionLength", "practicaLength"
 	};
 
@@ -44,7 +44,7 @@ public class CompanyDashboardShowService extends AbstractService<Company, Compan
 		principal = super.getRequest().getPrincipal();
 		userAccountId = principal.getAccountId();
 		company = this.repository.findOneCompanyByUserAccountId(userAccountId);
-		System.out.println(company);
+
 		status = company != null && principal.hasRole(Company.class);
 
 		super.getResponse().setAuthorised(status);
@@ -94,8 +94,6 @@ public class CompanyDashboardShowService extends AbstractService<Company, Compan
 		practicaLength = new Statistic(countPractica, averagePracticaLength, deviationPracticaLength, minimumPracticaLength, maximumPracticaLength);
 
 		totalNumberOfPracticaByMonth = this.repository.findTotalNumberOfPracticaByMonth(companyId).stream().collect(Collectors.toMap(key -> Month.of((int) key[0]).toString(), value -> (long) value[1]));
-
-		System.out.println(totalNumberOfPracticaByMonth);
 
 		companyDashboard = new CompanyDashboard();
 

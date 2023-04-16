@@ -1,57 +1,68 @@
+
 package acme.features.authenticated.practicum;
+
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import acme.entities.practicum.Practicum;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class AuthenticatedPracticumListService extends AbstractService<Authenticated, Practicum> {
 
-    // Constants --------------------------------------------------------------
-    public static final String[] PROPERTIES = {"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours"};
+	// Constants --------------------------------------------------------------
+	protected static final String[]				PROPERTIES	= {
+		"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours"
+	};
 
-    // Internal state ---------------------------------------------------------
-    @Autowired
-    protected AuthenticatedPracticumRepository repository;
+	// Internal state ---------------------------------------------------------
+	@Autowired
+	protected AuthenticatedPracticumRepository	repository;
 
-    // AbstractService interface ----------------------------------------------
-    @Override
-    public void check() {
-        super.getResponse().setChecked(true);
-    }
 
-    @Override
-    public void authorise() {
-        super.getResponse().setAuthorised(true);
-    }
+	// AbstractService interface ----------------------------------------------
+	@Override
+	public void check() {
+		super.getResponse().setChecked(true);
+	}
 
-    @Override
-    public void load() {
-        Collection<Practicum> practicums;
-        Principal principal;
-        int userAccountId;
+	@Override
+	public void authorise() {
+		boolean status;
+		Principal principal;
 
-        principal = super.getRequest().getPrincipal();
-        userAccountId = principal.getAccountId();
-        practicums = this.repository.findManyByUserAccountId(userAccountId);
+		principal = super.getRequest().getPrincipal();
+		status = principal.isAuthenticated();
 
-        super.getBuffer().setData(practicums);
-    }
+		super.getResponse().setAuthorised(status);
+	}
 
-    @Override
-    public void unbind(final Practicum practicum) {
-        assert practicum != null;
+	@Override
+	public void load() {
+		Collection<Practicum> practicums;
+		Principal principal;
+		int userAccountId;
 
-        Tuple tuple;
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+		practicums = this.repository.findManyByUserAccountId(userAccountId);
 
-        tuple = super.unbind(practicum, PROPERTIES);
+		super.getBuffer().setData(practicums);
+	}
 
-        super.getResponse().setData(tuple);
-    }
+	@Override
+	public void unbind(final Practicum practicum) {
+		assert practicum != null;
+
+		Tuple tuple;
+
+		tuple = super.unbind(practicum, AuthenticatedPracticumListService.PROPERTIES);
+
+		super.getResponse().setData(tuple);
+	}
 }

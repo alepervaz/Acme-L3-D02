@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.courses.Course;
 import acme.entities.practicum.Practicum;
-import acme.features.company.practicum.CompanyPracticumShowService;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
-import acme.framework.components.accounts.UserAccount;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -20,7 +18,7 @@ import acme.framework.services.AbstractService;
 public class AuthenticatedPracticumShowService extends AbstractService<Authenticated, Practicum> {
 
 	// Constants --------------------------------------------------------------
-	public static final String[]				PROPERTIES	= {
+	protected static final String[]				PROPERTIES	= {
 		"code", "title", "abstractPracticum", "goals", "estimatedTimeInHours", "draftMode"
 	};
 
@@ -45,15 +43,11 @@ public class AuthenticatedPracticumShowService extends AbstractService<Authentic
 		int practicumId;
 		Practicum practicum;
 		Principal principal;
-		int userAccountId;
-		UserAccount userAccount;
 
 		practicumId = super.getRequest().getData("id", int.class);
 		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-		userAccount = this.repository.findOneUserAccountById(userAccountId);
 		practicum = this.repository.findOnePracticumById(practicumId);
-		status = !practicum.getDraftMode();
+		status = !practicum.getDraftMode() && principal.isAuthenticated();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -79,7 +73,7 @@ public class AuthenticatedPracticumShowService extends AbstractService<Authentic
 
 		courses = this.repository.findAllCourses();
 		choices = SelectChoices.from(courses, "title", practicum.getCourse());
-		tuple = super.unbind(practicum, CompanyPracticumShowService.PROPERTIES);
+		tuple = super.unbind(practicum, AuthenticatedPracticumShowService.PROPERTIES);
 		tuple.put("course", choices);
 		tuple.put("courses", courses);
 		tuple.put("nameCompany", practicum.getCompany().getName());

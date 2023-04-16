@@ -11,17 +11,18 @@ import javax.annotation.PostConstruct;
 @Controller
 public class AuthenticatedPracticumController extends AbstractController<Authenticated, Practicum> {
 
-    // Internal state ---------------------------------------------------------
-    @Autowired
-    protected AuthenticatedPracticumListService listService;
+	// Internal state ---------------------------------------------------------
+	@Autowired
+	protected AuthenticatedPracticumListService listService;
 
-    @Autowired
-    protected AuthenticatedPracticumShowService showService;
+	@Autowired
+	protected AuthenticatedPracticumShowService showService;
 
-    // Constructors -----------------------------------------------------------
-    @PostConstruct
-    protected void initialise() {
-        super.addBasicCommand("list", this.listService);
-        super.addBasicCommand("show", this.showService);
-    }
+
+	// Constructors -----------------------------------------------------------
+	@PostConstruct
+	protected void initialise() {
+		super.addBasicCommand("list", this.listService);
+		super.addBasicCommand("show", this.showService);
+	}
 }

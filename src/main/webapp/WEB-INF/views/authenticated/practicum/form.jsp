@@ -20,7 +20,6 @@
   <acme:input-textbox code="authenticated.practicum.form.label.title" path="title"/>
   <acme:input-textarea code="authenticated.practicum.form.label.abstractPracticum" path="abstractPracticum"/>
   <acme:input-double code="authenticated.practicum.form.label.estimatedTimeInHours" path="estimatedTimeInHours"/>
-    <acme:input-textbox code="authenticated.practicum.form.label.nameCompany" path="nameCompany"/>
-
+  <acme:input-textbox code="authenticated.practicum.form.label.nameCompany" path="nameCompany"/>
 </acme:form>
 

@@ -8,9 +8,11 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
+# Messages for label in form
 administrator.configuration.form.label.default-currency = Divisa por defecto
 administrator.configuration.form.label.accepted-currencies = Divisas aceptadas
 administrator.configuration.form.label.spam-words = Palabras spam
 administrator.configuration.form.label.spam-threshold = Umbral spam
 
-administrator.configuration.form.button.update = ACtualiza
+# Messages for button in form
+administrator.configuration.form.button.update = Actualizar

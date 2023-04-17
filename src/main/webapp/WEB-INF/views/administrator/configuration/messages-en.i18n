@@ -8,9 +8,11 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
+# Messages for label in form
 administrator.configuration.form.label.default-currency = Default currency
 administrator.configuration.form.label.accepted-currencies = Accepted currencies
 administrator.configuration.form.label.spam-words = Spam words
 administrator.configuration.form.label.spam-threshold = Spam threshold
 
+# Messages for button in form
 administrator.configuration.form.button.update = Update

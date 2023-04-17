@@ -14,7 +14,7 @@ import acme.framework.services.AbstractService;
 public class AdministratorConfigurationShowService extends AbstractService<Administrator, Configuration> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]					PROPERTIES	= {
+	protected static final String[]					PROPERTIES	= {
 		"defaultCurrency", "acceptedCurrencies", "spamWords", "spamThreshold"
 	};
 
@@ -59,5 +59,4 @@ public class AdministratorConfigurationShowService extends AbstractService<Admin
 
 		super.getResponse().setData(tuple);
 	}
-
 }

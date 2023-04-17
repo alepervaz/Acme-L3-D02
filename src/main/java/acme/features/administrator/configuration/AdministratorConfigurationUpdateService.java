@@ -16,7 +16,7 @@ import acme.framework.services.AbstractService;
 public class AdministratorConfigurationUpdateService extends AbstractService<Administrator, Configuration> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]					PROPERTIES	= {
+	protected static final String[]					PROPERTIES	= {
 		"defaultCurrency", "acceptedCurrencies", "spamWords", "spamThreshold"
 	};
 
@@ -47,7 +47,7 @@ public class AdministratorConfigurationUpdateService extends AbstractService<Adm
 		Configuration configuration;
 
 		configuration = this.repository.findConfiguration();
-		System.out.println("hola " + configuration);
+
 		super.getBuffer().setData(configuration);
 	}
 

@@ -26,7 +26,8 @@ public class BannerService {
         defaultBanner = new Banner();
         defaultSlogan = MessageHelper.getMessage("master.banner.alt");
         defaultBanner.setSlogan(defaultSlogan);
-        defaultBanner.setLink("images/banner.png");
+        defaultBanner.setPicture("images/banner.png");
+        defaultBanner.setLink("https://www.us.es/");
 
         bannerCount = repository.countBanners();
         if (bannerCount == 0)

@@ -1,10 +1,3 @@
 key,title,summary,type,start,end,link,key:tutorial
 session-01,title1,abstract1,THEORY_SESSION,2025/09/06 10:00,2025/10/06 12:00,http://www.example.com,tutorial-01
 session-02,title2,abstract2,HANDS_ON_SESSION,2025/09/07 10:00,2025/10/07 10:00,http://www.example.com,tutorial-02
-session-03,title3,abstract3,THEORY_SESSION,2025/09/08 10:00,2025/08/10 10:00,http://www.example.com,tutorial-03
-session-04,title4,abstract4,HANDS_ON_SESSION,2025/09/09 10:00,2025/09/10 10:00,http://www.example.com,tutorial-04
-session-05,title5,abstract5,THEORY_SESSION,2025/09/10 10:00,2025/10/10 10:00,http://www.example.com,tutorial-05
-session-06,title6,abstract6,HANDS_ON_SESSION,2025/09/11 10:00,2025/10/11 10:00,http://www.example.com,tutorial-06
-session-07,title7,abstract7,THEORY_SESSION,2025/09/12 10:00,2025/10/12 10:00,http://www.example.com,tutorial-07
-session-08,title8,abstract8,HANDS_ON_SESSION,2025/09/13 10:00,2025/10/13 10:00,http://www.example.com,tutorial-08
-session-09,title9,abstract9,THEORY_SESSION,2025/09/14 10:00,2025/10/14 10:00,http://www.example.com,tutorial-09

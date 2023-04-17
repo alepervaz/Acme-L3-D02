@@ -13,5 +13,8 @@ authenticated.auditor.form.label.proffesionalId = Identificador profesional
 authenticated.auditor.form.label.certifications = Certificaciones
 authenticated.auditor.form.label.link = Enlace a página
 
+authenticated.auditor.course.id = Id
+authenticated.auditor.course.title = Título
+
 authenticated.auditor.form.button.create = Registrar
 authenticated.auditor.form.button.update = Actualizar

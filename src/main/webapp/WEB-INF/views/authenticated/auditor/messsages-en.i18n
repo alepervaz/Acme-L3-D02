@@ -14,5 +14,8 @@ authenticated.auditor.form.label.proffesionalId = Proffesional id
 authenticated.auditor.form.label.certifications = Certifications
 authenticated.auditor.form.label.link = Link
 
+authenticated.auditor.course.id = Id
+authenticated.auditor.course.title = Title
+
 authenticated.auditor.form.button.create = Register
 authenticated.auditor.form.button.update = Update

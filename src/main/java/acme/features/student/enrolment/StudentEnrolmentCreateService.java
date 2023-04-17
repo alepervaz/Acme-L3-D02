@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.student.enrolment;
+package acme.features.student.enrolment;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
-		"code", "motivation", "goals", "draftMode"
+		"code", "motivation", "goals"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -30,39 +30,34 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 	// AbstractService <Student,Enrolment> ----------------------------------------------
 	@Override
 	public void check() {
-		boolean status;
-
-		status = super.getRequest().hasData("id", int.class);
-
-		super.getResponse().setChecked(status);
+		super.getResponse().setChecked(true);
 	}
 
 	@Override
 	public void authorise() {
 		boolean status;
-		int enrolmentId;
-		final Enrolment enrolment;
-		final Student student;
 		Principal principal;
 
 		principal = super.getRequest().getPrincipal();
-		enrolmentId = super.getRequest().getData("id", int.class);
-		enrolment = this.repository.findEnrolmentById(enrolmentId);
-		student = enrolment == null ? null : enrolment.getStudent();
-		status = enrolment != null && enrolment.getDraftMode() && principal.hasRole(student);
+		status = principal.hasRole(Student.class);
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		Enrolment enrolment;
-		int enrolmentId;
+		Enrolment object;
+		Principal principal;
 
-		enrolmentId = super.getRequest().getData("id", int.class);
-		enrolment = this.repository.findEnrolmentById(enrolmentId);
+		object = new Enrolment();
 
-		super.getBuffer().setData(enrolment);
+		principal = super.getRequest().getPrincipal();
+		final int principalId = principal.getActiveRoleId();
+
+		object.setStudent(this.repository.findStudentByPrincipalId(principalId));
+		object.setDraftMode(true);
+
+		super.getBuffer().setData(object);
 	}
 
 	@Override
@@ -96,7 +91,7 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 	public void perform(final Enrolment enrolment) {
 		assert enrolment != null;
 
-		enrolment.setDraftMode(false);
+		//enrolment.setDraftMode(false);
 
 		this.repository.save(enrolment);
 	}
@@ -113,9 +108,9 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 		choices = SelectChoices.from(courses, "title", enrolment.getCourse());
 
 		tuple = super.unbind(enrolment, StudentEnrolmentCreateService.PROPERTIES);
-		tuple.put("course", choices);
-		tuple.put("courses", courses);
-		tuple.put("draftMode", enrolment.getDraftMode());
+		tuple.put("course", choices.getSelected().getKey());
+		tuple.put("courses", choices);
+		tuple.put("draftMode", enrolment.isDraftMode());
 
 		super.getResponse().setData(tuple);
 	}

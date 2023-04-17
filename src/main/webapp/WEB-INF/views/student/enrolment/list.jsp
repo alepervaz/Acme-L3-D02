@@ -16,9 +16,9 @@
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/"%>
 
 <acme:list>
-	<acme:list-column code="student.enrolment.code" path="enrolment.code" width="20%"/>
-	<acme:list-column code="student.enrolment.motivation" path="motivation" width="20%"/>
-	<acme:list-column code="student.enrolment.goals" path="goals" width="20%"/>
-	<acme:list-column code="student.course.code" path="course.title" width="20%"/>
-	<acme:list-column code="student.course.title" path="title" width="20%"/>
+    <acme:list-column code="student.enrolment.list.label.code" path="code" width="40%" />
+    <acme:list-column code="student.enrolment.list.label.courseTitle" path="courseTitle" width="60%" />
 </acme:list>
+
+<acme:button code="student.enrolment.list.button.register" action="/student/enrolment/create"/>
+

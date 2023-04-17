@@ -1,7 +1,7 @@
 key,code,title,course-abstract,course-type,retail-price,link,draft-mode,key:lecturer
-course-01,A001,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
-course-02,A002,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
-course-03,BB111,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
+course-01,A001,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,false,lecturer-01
+course-02,A002,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,false,lecturer-01
+course-03,BB111,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,false,lecturer-01
 course-04,CCC111,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
 course-05,D999,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
 course-06,E000,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01

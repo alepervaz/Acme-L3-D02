@@ -1,11 +1,12 @@
 
-package acme.features.authenticated.student.enrolment;
+package acme.features.student.enrolment;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import acme.entities.activities.Activity;
 import acme.entities.courses.Course;
 import acme.entities.enrolment.Enrolment;
 import acme.framework.repositories.AbstractRepository;
@@ -29,10 +30,10 @@ public interface StudentEnrolmentRepository extends AbstractRepository {
 	@Query("select s from Student s where s.id=:principalId")
 	Student findStudentByPrincipalId(int principalId);
 
-	@Query("select count(a) from Activity a where a.enrolment.id=:id")
-	Integer findNumberOfAcitivitiesByEnrolmentId(int id);
+	@Query("select a from Activity a where a.enrolment.id=:id")
+	List<Activity> findManyAcitivitiesByEnrolmentId(int id);
 
-	@Query("select c from Course c where c.draftMode=false")
+	@Query("select c from Course c")
 	List<Course> findManyCourses();
 
 	@Query("select c from Course c where c.id=:courseId")

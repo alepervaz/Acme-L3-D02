@@ -53,6 +53,11 @@ master.menu.provider.favourite-link = Favourite link
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+# master.menu.consumer ##########################################################
+
+master.menu.student = Student
+master.menu.student.enrolment.list = My enrolments
+
 # master.menu.user-account ####################################################
 
 master.menu.user-account = Account
@@ -61,4 +66,5 @@ master.menu.user-account.provider = Provider data
 master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
-
+master.menu.user-account.become-student = Become a student
+master.menu.user-account.student = Student data

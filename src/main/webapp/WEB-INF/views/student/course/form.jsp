@@ -20,10 +20,9 @@
 	<acme:input-textbox code="student.course.form.label.title" path="title"/>
 	<acme:input-textarea code="student.course.form.label.courseAbstract" path="courseAbstract"/>
 	<acme:input-money code="student.course.form.label.retailPrice" path="retailPrice"/>
-	<acme:input-textbox code="student.course.form.label.furtherInformation" path="furtherInformation"/>
-	<acme:input-textbox code="student.course.form.label.type" path="type"/>
-	<acme:input-textbox code="student.course.form.label.draftMode" path="draftMode"/>
+	<acme:input-url code="student.course.form.label.link" path="link"/>
+	<acme:input-select code="student.course.form.label.type" path="type" choices="${types}"/>
 	<acme:input-textbox code="student.course.form.label.lecturer" path="lecturer"/>
 	
-	
+<acme:button code="student.course.form.button.lectures" action="/student/lecture/list?courseId=${id}"/>	
 </acme:form>

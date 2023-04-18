@@ -8,13 +8,9 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
-student.course.form.label.code = Code
-student.course.form.label.title = Title
-student.course.form.label.courseAbstract = Abstract
-student.course.form.label.retailPrice = Retail Price
-student.course.form.label.furtherInformation = Further Information
-student.course.form.label.type = Type
-student.course.form.label.draftMode = Draft Mode
-
-student.course.list.label.code = Code
-student.course.list.label.title = Title
+student.lecture.list.label.title = Title
+student.lecture.list.label.abstraction = Abstract
+student.lecture.list.label.learningTime = Learning Time 
+student.lecture.list.label.type = Type
+student.lecture.list.label.body = Body
+student.lecture.list.label.link = Link

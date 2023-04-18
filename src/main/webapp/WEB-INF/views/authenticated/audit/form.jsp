@@ -31,7 +31,6 @@
 			<acme:submit method="get" code="authenticated.audit.form.button.records" action="/authenticated/auditing-record/list?auditId=${id}"/>
 			
 			<acme:submit test="${myAudit && draftMode}" code="authenticated.audit.form.button.publish" action="/authenticated/audit/publish"/>
-			<acme:submit test="${myAudit && !draftMode}" code="authenticated.audit.form.button.unpublish" action="/authenticated/audit/publish"/>
 		
 			<acme:submit test="${myAudit && draftMode}" code="authenticated.audit.form.button.update" action="/authenticated/audit/update"/>
 			<acme:submit test="${myAudit && draftMode}" code="authenticated.audit.form.button.delete" action="/authenticated/audit/delete"/>

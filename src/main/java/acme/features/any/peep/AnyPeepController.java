@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import acme.entities.peep.Peep;
-import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Any;
 import acme.framework.controllers.AbstractController;
 
 @Controller
-public class AnyPeepController extends AbstractController<Authenticated, Peep> {
+public class AnyPeepController extends AbstractController<Any, Peep> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -31,7 +31,7 @@ public class AnyPeepController extends AbstractController<Authenticated, Peep> {
 	@Autowired
 	protected AnyPeepListService	peepListService;
 	@Autowired
-	protected AnyPeepListService	peepShowService;
+	protected AnyPeepShowService	peepShowService;
 
 	// Constructors -----------------------------------------------------------
 

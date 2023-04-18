@@ -12,24 +12,19 @@
 
 package acme.features.any.peep;
 
-import java.time.Instant;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.peep.Peep;
-import acme.framework.components.accounts.Anonymous;
+import acme.framework.components.accounts.Any;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.accounts.UserAccount;
 import acme.framework.components.models.Tuple;
-import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 
 @Service
-public class AnyPeepCreateService extends AbstractService<Authenticated, Peep> {
+public class AnyPeepCreateService extends AbstractService<Any, Peep> {
 
 	//Constants
 
@@ -57,18 +52,17 @@ public class AnyPeepCreateService extends AbstractService<Authenticated, Peep> {
 
 	@Override
 	public void load() {
-		Peep object;
+		final Peep object;
 		Principal principal;
 		int userAccountId;
-		UserAccount userAccount;
+		final UserAccount userAccount;
 		String fullName = "";
 		String email = "";
 
 		principal = super.getRequest().getPrincipal();
 		object = new Peep();
-		if (principal.hasRole(Anonymous.class)) {
-
-		} else {
+		object.setDraftMode(false);
+		if (principal.hasRole(Authenticated.class)) {
 			userAccountId = principal.getAccountId();
 			userAccount = this.repository.findOneUserAccountById(userAccountId);
 			fullName = userAccount.getIdentity().getFullName();
@@ -83,16 +77,13 @@ public class AnyPeepCreateService extends AbstractService<Authenticated, Peep> {
 	@Override
 	public void bind(final Peep object) {
 		assert object != null;
-
 		super.bind(object, AnyPeepCreateService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Peep object) {
 		assert object != null;
-		object.setDraftMode(false);
-		final Instant now = Instant.ofEpochMilli(System.currentTimeMillis());
-		object.setMoment(Date.from(now));
+
 	}
 
 	@Override
@@ -100,21 +91,16 @@ public class AnyPeepCreateService extends AbstractService<Authenticated, Peep> {
 		assert object != null;
 
 		this.repository.save(object);
+
 	}
 
 	@Override
 	public void unbind(final Peep object) {
 		Tuple tuple;
-
 		tuple = super.unbind(object, AnyPeepCreateService.PROPERTIES);
 
 		super.getResponse().setData(tuple);
-	}
 
-	@Override
-	public void onSuccess() {
-		if (super.getRequest().getMethod().equals(HttpMethod.POST))
-			PrincipalHelper.handleUpdate();
 	}
 
 }

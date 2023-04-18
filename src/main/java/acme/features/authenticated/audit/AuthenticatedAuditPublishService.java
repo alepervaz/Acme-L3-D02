@@ -90,7 +90,7 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 	@Override
 	public void perform(final Audit object) {
 		assert object != null;
-		object.setDraftMode(!object.getDraftMode());
+		object.setDraftMode(false);
 
 		this.repository.save(object);
 	}

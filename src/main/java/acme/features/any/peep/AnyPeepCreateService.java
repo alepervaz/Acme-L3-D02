@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerUpdateService.java
+ * AuthenticatedConsumerCreateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,23 +10,26 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.peep;
+package acme.features.any.peep;
 
-import java.util.Collection;
+import java.time.Instant;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.peep.Peep;
+import acme.framework.components.accounts.Anonymous;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
+import acme.framework.components.accounts.UserAccount;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 
 @Service
-public class PeepListService extends AbstractService<Authenticated, Peep> {
+public class AnyPeepCreateService extends AbstractService<Authenticated, Peep> {
 
 	//Constants
 
@@ -37,9 +40,9 @@ public class PeepListService extends AbstractService<Authenticated, Peep> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected PeepRepository		repository;
+	protected AnyPeepRepository		repository;
 
-	// AbstractService interface ----------------------------------------------ç
+	// AbstractService<Authenticated, Consumer> ---------------------------
 
 
 	@Override
@@ -54,9 +57,25 @@ public class PeepListService extends AbstractService<Authenticated, Peep> {
 
 	@Override
 	public void load() {
-		Collection<Peep> object;
+		Peep object;
+		Principal principal;
+		int userAccountId;
+		UserAccount userAccount;
+		String fullName = "";
+		String email = "";
 
-		object = this.repository.findPeeps();
+		principal = super.getRequest().getPrincipal();
+		object = new Peep();
+		if (principal.hasRole(Anonymous.class)) {
+
+		} else {
+			userAccountId = principal.getAccountId();
+			userAccount = this.repository.findOneUserAccountById(userAccountId);
+			fullName = userAccount.getIdentity().getFullName();
+			email = userAccount.getIdentity().getEmail();
+		}
+		object.setNick(fullName);
+		object.setEmail(email);
 
 		super.getBuffer().setData(object);
 	}
@@ -65,12 +84,15 @@ public class PeepListService extends AbstractService<Authenticated, Peep> {
 	public void bind(final Peep object) {
 		assert object != null;
 
-		super.bind(object, PeepListService.PROPERTIES);
+		super.bind(object, AnyPeepCreateService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Peep object) {
 		assert object != null;
+		object.setDraftMode(false);
+		final Instant now = Instant.ofEpochMilli(System.currentTimeMillis());
+		object.setMoment(Date.from(now));
 	}
 
 	@Override
@@ -82,11 +104,10 @@ public class PeepListService extends AbstractService<Authenticated, Peep> {
 
 	@Override
 	public void unbind(final Peep object) {
-		assert object != null;
-
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, PeepListService.PROPERTIES);
+		tuple = super.unbind(object, AnyPeepCreateService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
 	}
 

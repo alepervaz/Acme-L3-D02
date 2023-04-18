@@ -10,7 +10,7 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.peep;
+package acme.features.any.peep;
 
 import javax.annotation.PostConstruct;
 
@@ -22,16 +22,16 @@ import acme.framework.components.accounts.Authenticated;
 import acme.framework.controllers.AbstractController;
 
 @Controller
-public class PeepController extends AbstractController<Authenticated, Peep> {
+public class AnyPeepController extends AbstractController<Authenticated, Peep> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected PeepCreateService	peepCreateService;
+	protected AnyPeepCreateService	peepCreateService;
 	@Autowired
-	protected PeepListService	peepListService;
+	protected AnyPeepListService	peepListService;
 	@Autowired
-	protected PeepListService	peepShowService;
+	protected AnyPeepListService	peepShowService;
 
 	// Constructors -----------------------------------------------------------
 

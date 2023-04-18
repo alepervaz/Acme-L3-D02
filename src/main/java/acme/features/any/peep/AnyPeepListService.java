@@ -10,7 +10,9 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.peep;
+package acme.features.any.peep;
+
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 
 @Service
-public class PeepShowService extends AbstractService<Authenticated, Peep> {
+public class AnyPeepListService extends AbstractService<Authenticated, Peep> {
 
 	//Constants
 
@@ -35,7 +37,7 @@ public class PeepShowService extends AbstractService<Authenticated, Peep> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected PeepRepository		repository;
+	protected AnyPeepRepository		repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -47,18 +49,14 @@ public class PeepShowService extends AbstractService<Authenticated, Peep> {
 
 	@Override
 	public void check() {
-		Boolean status;
-		status = super.getRequest().hasData("id", int.class);
-		super.getResponse().setChecked(status);
+		super.getResponse().setChecked(true);
 	}
 
 	@Override
 	public void load() {
-		int peepId;
-		Peep object;
+		Collection<Peep> object;
 
-		peepId = super.getRequest().getData("id", int.class);
-		object = this.repository.findOnePeepById(peepId);
+		object = this.repository.findPeeps();
 
 		super.getBuffer().setData(object);
 	}
@@ -67,7 +65,7 @@ public class PeepShowService extends AbstractService<Authenticated, Peep> {
 	public void bind(final Peep object) {
 		assert object != null;
 
-		super.bind(object, PeepShowService.PROPERTIES);
+		super.bind(object, AnyPeepListService.PROPERTIES);
 	}
 
 	@Override
@@ -88,7 +86,7 @@ public class PeepShowService extends AbstractService<Authenticated, Peep> {
 
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, PeepShowService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AnyPeepListService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

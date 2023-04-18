@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerCreateService.java
+ * AuthenticatedConsumerUpdateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,26 +10,21 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.peep;
-
-import java.time.Instant;
-import java.util.Date;
+package acme.features.any.peep;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.peep.Peep;
-import acme.framework.components.accounts.Anonymous;
 import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.accounts.Principal;
-import acme.framework.components.accounts.UserAccount;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
+import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 
 @Service
-public class PeepCreateService extends AbstractService<Authenticated, Peep> {
+public class AnyPeepShowService extends AbstractService<Authenticated, Peep> {
 
 	//Constants
 
@@ -40,9 +35,9 @@ public class PeepCreateService extends AbstractService<Authenticated, Peep> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected PeepRepository		repository;
+	protected AnyPeepRepository		repository;
 
-	// AbstractService<Authenticated, Consumer> ---------------------------
+	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
@@ -52,30 +47,18 @@ public class PeepCreateService extends AbstractService<Authenticated, Peep> {
 
 	@Override
 	public void check() {
-		super.getResponse().setChecked(true);
+		Boolean status;
+		status = super.getRequest().hasData("id", int.class);
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void load() {
+		int peepId;
 		Peep object;
-		Principal principal;
-		int userAccountId;
-		UserAccount userAccount;
-		String fullName = "";
-		String email = "";
 
-		principal = super.getRequest().getPrincipal();
-		object = new Peep();
-		if (principal.hasRole(Anonymous.class)) {
-
-		} else {
-			userAccountId = principal.getAccountId();
-			userAccount = this.repository.findOneUserAccountById(userAccountId);
-			fullName = userAccount.getIdentity().getFullName();
-			email = userAccount.getIdentity().getEmail();
-		}
-		object.setNick(fullName);
-		object.setEmail(email);
+		peepId = super.getRequest().getData("id", int.class);
+		object = this.repository.findOnePeepById(peepId);
 
 		super.getBuffer().setData(object);
 	}
@@ -84,15 +67,12 @@ public class PeepCreateService extends AbstractService<Authenticated, Peep> {
 	public void bind(final Peep object) {
 		assert object != null;
 
-		super.bind(object, PeepCreateService.PROPERTIES);
+		super.bind(object, AnyPeepShowService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Peep object) {
 		assert object != null;
-		object.setDraftMode(false);
-		final Instant now = Instant.ofEpochMilli(System.currentTimeMillis());
-		object.setMoment(Date.from(now));
 	}
 
 	@Override
@@ -104,10 +84,11 @@ public class PeepCreateService extends AbstractService<Authenticated, Peep> {
 
 	@Override
 	public void unbind(final Peep object) {
+		assert object != null;
+
 		Tuple tuple;
 
-		tuple = super.unbind(object, PeepCreateService.PROPERTIES);
-
+		tuple = BinderHelper.unbind(object, AnyPeepShowService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

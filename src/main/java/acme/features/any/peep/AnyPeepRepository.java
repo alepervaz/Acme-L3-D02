@@ -1,5 +1,5 @@
 
-package acme.features.peep;
+package acme.features.any.peep;
 
 import java.util.Collection;
 
@@ -11,7 +11,7 @@ import acme.framework.components.accounts.UserAccount;
 import acme.framework.repositories.AbstractRepository;
 
 @Repository
-public interface PeepRepository extends AbstractRepository {
+public interface AnyPeepRepository extends AbstractRepository {
 
 	@Query("select p from Peep p where p.id = :id")
 	Peep findOnePeepById(int id);

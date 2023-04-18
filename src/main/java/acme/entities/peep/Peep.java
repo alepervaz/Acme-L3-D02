@@ -51,4 +51,7 @@ public class Peep extends AbstractEntity {
 
 	@URL
 	private String				link;
+
+	@NotNull
+	private boolean				draftMode			= true;
 }

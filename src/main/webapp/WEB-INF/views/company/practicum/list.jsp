@@ -19,8 +19,8 @@
   <acme:list-column code="company.practicum.list.label.code" path="code" width="10%"/>
   <acme:list-column code="company.practicum.list.label.estimatedTimeInHours" path="estimatedTimeInHours" width="10%"/>
   <acme:list-column code="company.practicum.list.label.title" path="title" width="80%"/>
-</acme:list>
+  <acme:list-payload path="payload"/>
+</acme:list>	
 <jstl:if test="${_command == 'list-mine'}">
 	<acme:button code="company.practicum.list.button.create" action="/company/practicum/create"/>
-</jstl:if>		
-
+</jstl:if>	

@@ -1,17 +1,15 @@
 
 package acme.features.company.practicum;
 
-import java.util.Collection;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
 import acme.entities.courses.Course;
 import acme.entities.practicum.Practicum;
 import acme.entities.sessionPracticum.SessionPracticum;
-import acme.framework.components.accounts.UserAccount;
 import acme.framework.repositories.AbstractRepository;
 import acme.roles.Company;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
 
 @Repository
 public interface CompanyPracticumRepository extends AbstractRepository {
@@ -39,7 +37,4 @@ public interface CompanyPracticumRepository extends AbstractRepository {
 
 	@Query("select p from Practicum p where p.code = ?1")
 	Collection<Practicum> findManyPracticumByCode(String code);
-
-	@Query("select a from UserAccount a where a.id = ?1")
-	UserAccount findOneUserAccountById(int accountId);
 }

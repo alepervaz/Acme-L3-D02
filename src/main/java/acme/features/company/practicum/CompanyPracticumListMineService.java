@@ -1,16 +1,15 @@
 
 package acme.features.company.practicum;
 
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import acme.entities.practicum.Practicum;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class CompanyPracticumListMineService extends AbstractService<Company, Practicum> {
@@ -52,8 +51,11 @@ public class CompanyPracticumListMineService extends AbstractService<Company, Pr
 		assert practicum != null;
 
 		Tuple tuple;
+		String payload;
 
 		tuple = super.unbind(practicum, CompanyPracticumListMineService.PROPERTIES);
+		payload = String.format("%s; %s; %s; %s", practicum.getCourse().getTitle(), practicum.getCourse().getCode(), practicum.getAbstractPracticum(), practicum.getGoals());
+		tuple.put("payload", payload);
 
 		super.getResponse().setData(tuple);
 	}

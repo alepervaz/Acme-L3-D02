@@ -15,31 +15,31 @@ public interface AssistantDashboardRepository extends AbstractRepository {
 	@Query("select a from Assistant a where a.userAccount.id = ?1")
 	Assistant findOneAssistantByUserAccountId(int userAccountId);
 
-	@Query("select avg(timediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1")
+	@Query("select avg(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1")
 	double findAverageSessionLength(int assistantId);
 
-	@Query("select stddev(timediff(s.end,s.start)) from Session  s where s.tutorial.assistant.id = ?1")
+	@Query("select stddev(datediff(s.end,s.start)) from Session  s where s.tutorial.assistant.id = ?1")
 	double findDeviationSessionLength(int assistantId);
 
-	@Query("select min(timediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1")
+	@Query("select min(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1")
 	double findMinimumSessionLength(int assistantId);
 
-	@Query("select max(timediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1")
+	@Query("select max(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1")
 	double findMaximumSessionLength(int assistantId);
 
 	@Query("select count(s) from Session s where s.tutorial.assistant.id = ?1")
 	int findCountSession(int assistantId);
 
-	@Query("select avg(sum(timediff(s.end,s.start))) from Session s where s.tutorial.assistant.id = ?1 group by s.tutorial.id")
+	@Query("select avg((select sum(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1 and s.tutorial.id = t.id)) from Tutorial t where t.assistant.id =?1")
 	double findAverageTutorialLength(int assistantId);
 
-	@Query("select stddev(sum(timediff(s.end,s.start))) from Session s where s.tutorial.assistant.id = ?1 group by s.tutorial.id")
+	@Query("select stddev((select sum(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1 and s.tutorial.id = t.id)) from Tutorial t where t.assistant.id =?1")
 	double findDeviationTutorialLength(int assistantId);
 
-	@Query("select max(sum(timediff(s.end,s.start))) from Session s where s.tutorial.assistant.id = ?1 group by s.tutorial.id")
+	@Query("select min((select sum(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1 and s.tutorial.id = t.id)) from Tutorial t where t.assistant.id =?1")
 	double findMinimumTutorialLength(int assistantId);
 
-	@Query("select min(sum(timediff(s.end,s.start))) from Session s where s.tutorial.assistant.id = ?1 group by s.tutorial.id")
+	@Query("select max((select sum(datediff(s.end,s.start)) from Session s where s.tutorial.assistant.id = ?1 and s.tutorial.id = t.id)) from Tutorial t where t.assistant.id =?1")
 	double findMaximumTutorialLength(int assistantId);
 
 	@Query("select count(t) from Tutorial t where t.assistant.id = ?1")

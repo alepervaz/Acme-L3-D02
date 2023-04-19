@@ -20,7 +20,7 @@ public class AssistantDashboardShowService extends AbstractService<Assistant, As
 
 	// Constants --------------------------------------------------------------
 	protected static final String[]			PROPERTIES	= {
-		"totalNumberOfTutorialByMonth", "sessionLength", "TutorialLength"
+		"totalNumberOfTutorialByMonth", "sessionLength", "tutorialLength"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -80,28 +80,18 @@ public class AssistantDashboardShowService extends AbstractService<Assistant, As
 		assistantId = assistant.getId();
 
 		averageSessionLength = this.repository.findAverageSessionLength(assistantId);
-		System.out.println("1");
 		deviationSessionLength = this.repository.findDeviationSessionLength(assistantId);
-		System.out.println("2");
-		//minimumSessionLength = this.repository.findMinimumSessionLength(assistantId);
-		System.out.println("3");
-		//maximumSessionLength = this.repository.findMaximumSessionLength(assistantId);
-		System.out.println("4");
+		minimumSessionLength = this.repository.findMinimumSessionLength(assistantId);
+		maximumSessionLength = this.repository.findMaximumSessionLength(assistantId);
 		countSession = this.repository.findCountSession(assistantId);
-		System.out.println("5");
-		sessionLength = new Statistic(countSession, averageSessionLength, deviationSessionLength, /* , minimumSessionLength */0.0, /* maximumSessionLength */0.0);
+		sessionLength = new Statistic(countSession, averageSessionLength, maximumSessionLength, minimumSessionLength, deviationSessionLength);
 
-		//averageTutorialLength = this.repository.findAverageTutorialLength(assistantId);
-		System.out.println("6");
-		//deviationTutorialLength = this.repository.findDeviationTutorialLength(assistantId);
-		System.out.println("7");
-		//minimumTutorialLength = this.repository.findMinimumTutorialLength(assistantId);
-		System.out.println("8");
-		//maximumTutorialLength = this.repository.findMaximumTutorialLength(assistantId);
-		System.out.println("9");
+		averageTutorialLength = this.repository.findAverageTutorialLength(assistantId);
+		deviationTutorialLength = this.repository.findDeviationTutorialLength(assistantId);
+		minimumTutorialLength = this.repository.findMinimumTutorialLength(assistantId);
+		maximumTutorialLength = this.repository.findMaximumTutorialLength(assistantId);
 		countTutorial = this.repository.findCountTutorial(assistantId);
-		System.out.println("10");
-		tutorialLength = new Statistic(countTutorial, /* averageTutorialLength */0.0, 0.0 /* deviationTutorialLength */, /* minimumTutorialLength */0.0, 0.0/* maximumTutorialLength */);
+		tutorialLength = new Statistic(countTutorial, averageTutorialLength, maximumTutorialLength, minimumTutorialLength, deviationTutorialLength);
 
 		totalNumberOfTutorialByMonth = this.repository.findTotalNumberOfTutorialByMonth(assistantId).stream().collect(Collectors.toMap(key -> Month.of((int) key[0]).toString(), value -> (long) value[1]));
 

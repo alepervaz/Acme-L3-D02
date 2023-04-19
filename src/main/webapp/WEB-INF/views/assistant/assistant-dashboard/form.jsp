@@ -24,6 +24,12 @@
 </h3>
 <table class="table table-sm">
 	<tr>
+	<th scope="row">
+			<acme:message code="assistant.dashboard.form.label.tutorial-length.average"/>
+		</th>
+		<td>
+			<acme:print value="${tutorialLength.count}"/>
+		</td>
 		<th scope="row">
 			<acme:message code="assistant.dashboard.form.label.tutorial-length.average"/>
 		</th>
@@ -60,25 +66,31 @@
 			<acme:message code="assistant.dashboard.form.label.session-length.average"/>
 		</th>
 		<td>
-			<acme:print value="${tutorialLength.average}"/>
+			<acme:print value="${sessionLength.count}"/>
+		</td>
+		<th scope="row">
+			<acme:message code="assistant.dashboard.form.label.session-length.average"/>
+		</th>
+		<td>
+			<acme:print value="${sessionLength.average}"/>
 		</td>
 		<th scope="row">
 			<acme:message code="assistant.dashboard.form.label.session-length.min"/>
 		</th>
 		<td>
-			<acme:print value="${tutorialLength.min}"/>
+			<acme:print value="${sessionLength.min}"/>
 		</td>
 		<th scope="row">
 			<acme:message code="assistant.dashboard.form.label.session-length.max"/>
 		</th>
 		<td>
-			<acme:print value="${tutorialLength.max}"/>
+			<acme:print value="${sessionLength.max}"/>
 		</td>
 		<th scope="row">
 			<acme:message code="assistant.dashboard.form.label.session-length.deviation"/>
 		</th>
 		<td>
-			<acme:print value="${tutorialLength.deviation}"/>
+			<acme:print value="${sessionLength.deviation}"/>
 		</td>
 	</tr>
 </table>

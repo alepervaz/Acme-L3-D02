@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.courses.Course;
+import acme.entities.enums.Type;
+import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Student;
@@ -48,12 +50,16 @@ public class StudentCourseShowService extends AbstractService<Student, Course> {
 	public void unbind(final Course object) {
 		assert object != null;
 
+		SelectChoices typesChoices;
 		Tuple tuple;
 
-		tuple = super.unbind(object, "code", "title", "courseAbstract", "retailPrice", "furtherInformation", "type", "draftMode");
+		typesChoices = SelectChoices.from(Type.class, object.getCourseType());
 
-		final String lecturer = object.getLecturer().getUserAccount().getUsername();
-		tuple.put("lecturer", lecturer);
+		tuple = super.unbind(object, "code", "title", "courseAbstract", "courseType", "retailPrice", "link");
+		tuple.put("confirmation", false);
+		tuple.put("readonly", true);
+		tuple.put("lecturer", object.getLecturer().getIdentity().getFullName());
+		tuple.put("types", typesChoices);
 
 		super.getResponse().setData(tuple);
 	}

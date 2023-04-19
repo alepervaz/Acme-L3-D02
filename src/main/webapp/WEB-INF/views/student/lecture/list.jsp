@@ -17,5 +17,5 @@
 
 <acme:list navigable="false">
     <acme:list-column code="student.lecture.list.label.title" path="title" width="70%" />
-    <acme:list-column code="student.lecture.list.label.type" path="type" width="30%"/>
+    <acme:list-column code="student.lecture.list.label.lectureType" path="lectureType" width="30%"/>
 </acme:list>

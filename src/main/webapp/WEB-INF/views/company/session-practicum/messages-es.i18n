@@ -9,7 +9,6 @@
 # they accept any liabilities with respect to them.
 
 # Messages for label in form
-company.session-practicum.form.label.code = Código
 company.session-practicum.form.label.title = Título
 company.session-practicum.form.label.abstractSession = Resumen
 company.session-practicum.form.label.description = Descripción
@@ -24,7 +23,6 @@ company.session-practicum.form.button.delete = Eliminar
 company.session-practicum.form.button.confirm = Confirmar
 
 # Messages for label in list
-company.session-practicum.list.label.code = Código
 company.session-practicum.list.label.title = Título
 company.session-practicum.list.label.abstractSession = Resumen
 company.session-practicum.list.label.description = Descripción
@@ -32,6 +30,9 @@ company.session-practicum.list.label.end = Fecha de fin
 company.session-practicum.list.label.start = Fecha de inicio
 company.session-practicum.list.label.additional = Adicional
 company.session-practicum.list.label.confirmed = Confirmado
+company.session-practicum.list.label.yes = Si
+company.session-practicum.list.label.no = No
+company.session-practicum.list.label.exact-duration = Duración exacta
 
 # Messages for button in list
 company.session-practicum.list.button.create = Crear

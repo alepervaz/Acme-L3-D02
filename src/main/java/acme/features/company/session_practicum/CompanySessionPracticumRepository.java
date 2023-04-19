@@ -1,14 +1,13 @@
 
-package acme.features.company.sessionPracticum;
+package acme.features.company.session_practicum;
 
-import java.util.Collection;
-
+import acme.entities.practicum.Practicum;
+import acme.entities.session_practicum.SessionPracticum;
+import acme.framework.repositories.AbstractRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import acme.entities.practicum.Practicum;
-import acme.entities.sessionPracticum.SessionPracticum;
-import acme.framework.repositories.AbstractRepository;
+import java.util.Collection;
 
 @Repository
 public interface CompanySessionPracticumRepository extends AbstractRepository {
@@ -27,7 +26,4 @@ public interface CompanySessionPracticumRepository extends AbstractRepository {
 
 	@Query("select sp from SessionPracticum sp where sp.practicum.id != ?1 and sp.confirmed = false")
 	Collection<SessionPracticum> findManySessionPracticumsByExtraAvailableAndPracticumId(int id);
-
-	@Query("select sp from SessionPracticum sp where sp.code = ?1")
-	Collection<SessionPracticum> findManySessionPracticumsByCode(String code);
 }

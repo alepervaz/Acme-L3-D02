@@ -1,14 +1,13 @@
 
-package acme.features.company.sessionPracticum;
+package acme.features.company.session_practicum;
 
-import javax.annotation.PostConstruct;
-
+import acme.entities.session_practicum.SessionPracticum;
+import acme.framework.controllers.AbstractController;
+import acme.roles.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import acme.entities.sessionPracticum.SessionPracticum;
-import acme.framework.controllers.AbstractController;
-import acme.roles.Company;
+import javax.annotation.PostConstruct;
 
 @Controller
 public class CompanySessionPracticumController extends AbstractController<Company, SessionPracticum> {

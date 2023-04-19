@@ -1,24 +1,26 @@
 
-package acme.features.company.sessionPracticum;
+package acme.features.company.session_practicum;
 
-import java.util.Collection;
-
+import acme.entities.practicum.Practicum;
+import acme.entities.session_practicum.SessionPracticum;
+import acme.framework.components.accounts.Principal;
+import acme.framework.components.models.Tuple;
+import acme.framework.helpers.MessageHelper;
+import acme.framework.helpers.MomentHelper;
+import acme.framework.services.AbstractService;
+import acme.roles.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import acme.entities.practicum.Practicum;
-import acme.entities.sessionPracticum.SessionPracticum;
-import acme.framework.components.accounts.Principal;
-import acme.framework.components.models.Tuple;
-import acme.framework.services.AbstractService;
-import acme.roles.Company;
+import java.util.Collection;
+import java.util.Date;
 
 @Controller
 public class CompanySessionPracticumListService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
 	protected static final String[]				PROPERTIES	= {
-		"code", "title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+		"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -67,8 +69,22 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 		assert sessionPracticum != null;
 
 		Tuple tuple;
+		final String confirmed;
+		final String additional;
+		String payload;
+		Date start;
+		Date end;
 
+		start = sessionPracticum.getStart();
+		end = sessionPracticum.getEnd();
 		tuple = super.unbind(sessionPracticum, CompanySessionPracticumListService.PROPERTIES);
+		confirmed = MessageHelper.getMessage(sessionPracticum.isConfirmed() ? "company.session-practicum.list.label.yes" : "company.session-practicum.list.label.no");
+		additional = MessageHelper.getMessage(sessionPracticum.isAdditional() ? "company.session-practicum.list.label.yes" : "company.session-practicum.list.label.no");
+		payload = String.format("%s; %s", sessionPracticum.getAbstractSession(), sessionPracticum.getDescription());
+		tuple.put("payload", payload);
+		tuple.put("confirmed", confirmed);
+		tuple.put("additional", additional);
+		tuple.put("exactDuration", MomentHelper.computeDuration(start, end).toHours());
 
 		super.getResponse().setData(tuple);
 	}

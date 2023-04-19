@@ -1,21 +1,21 @@
 
-package acme.entities.sessionPracticum;
-
-import java.util.Date;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.URL;
+package acme.entities.session_practicum;
 
 import acme.entities.practicum.Practicum;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,11 +27,6 @@ public class SessionPracticum extends AbstractEntity {
 	private static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-
-	@NotBlank
-	@Column(unique = true)
-	@Pattern(regexp = "^[A-Z]{1,3}\\d{3}$")
-	private String				code;
 
 	@NotBlank
 	@Length(max = 75)
@@ -58,7 +53,7 @@ public class SessionPracticum extends AbstractEntity {
 
 	private boolean				additional;
 
-	private boolean 			confirmed;
+	private boolean				confirmed;
 
 	// Derived attributes -----------------------------------------------------
 

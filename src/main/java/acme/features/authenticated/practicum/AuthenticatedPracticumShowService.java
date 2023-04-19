@@ -1,11 +1,6 @@
 
 package acme.features.authenticated.practicum;
 
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import acme.entities.courses.Course;
 import acme.entities.practicum.Practicum;
 import acme.framework.components.accounts.Authenticated;
@@ -13,6 +8,10 @@ import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class AuthenticatedPracticumShowService extends AbstractService<Authenticated, Practicum> {
@@ -47,7 +46,7 @@ public class AuthenticatedPracticumShowService extends AbstractService<Authentic
 		practicumId = super.getRequest().getData("id", int.class);
 		principal = super.getRequest().getPrincipal();
 		practicum = this.repository.findOnePracticumById(practicumId);
-		status = !practicum.getDraftMode() && principal.isAuthenticated();
+		status = !practicum.isDraftMode() && principal.isAuthenticated();
 
 		super.getResponse().setAuthorised(status);
 	}

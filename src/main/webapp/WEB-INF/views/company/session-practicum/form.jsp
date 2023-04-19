@@ -16,7 +16,6 @@
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/" %>
 
 <acme:form>
-    <acme:input-textbox code="company.session-practicum.form.label.code" path="code"/> <!-- Colocar un placeHolder -->
     <acme:input-textbox code="company.session-practicum.form.label.title" path="title"/>
     <acme:input-textarea code="company.session-practicum.form.label.abstractSession" path="abstractSession"/>
     <acme:input-textarea code="company.session-practicum.form.label.description" path="description"/>

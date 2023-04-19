@@ -25,6 +25,12 @@
 <table class="table table-sm">
 	<tr>
 		<th scope="row">
+			<acme:message code="company.dashboard.form.label.practica-length.count"/>
+		</th>
+		<td>
+			<acme:print value="${practicaLength.count}"/>
+		</td>
+		<th scope="row">
 			<acme:message code="company.dashboard.form.label.practica-length.average"/>
 		</th>
 		<td>
@@ -57,28 +63,34 @@
 <table class="table table-sm">
 	<tr>
 		<th scope="row">
+			<acme:message code="company.dashboard.form.label.session-length.count"/>
+		</th>
+		<td>
+			<acme:print value="${sessionLength.count}"/>
+		</td>
+		<th scope="row">
 			<acme:message code="company.dashboard.form.label.session-length.average"/>
 		</th>
 		<td>
-			<acme:print value="${practicaLength.average}"/>
+			<acme:print value="${sessionLength.average}"/>
 		</td>
 		<th scope="row">
 			<acme:message code="company.dashboard.form.label.session-length.min"/>
 		</th>
 		<td>
-			<acme:print value="${practicaLength.min}"/>
+			<acme:print value="${sessionLength.min}"/>
 		</td>
 		<th scope="row">
 			<acme:message code="company.dashboard.form.label.session-length.max"/>
 		</th>
 		<td>
-			<acme:print value="${practicaLength.max}"/>
+			<acme:print value="${sessionLength.max}"/>
 		</td>
 		<th scope="row">
 			<acme:message code="company.dashboard.form.label.session-length.deviation"/>
 		</th>
 		<td>
-			<acme:print value="${practicaLength.deviation}"/>
+			<acme:print value="${sessionLength.deviation}"/>
 		</td>
 	</tr>
 </table>

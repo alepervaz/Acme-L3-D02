@@ -1,12 +1,5 @@
 
-package acme.features.company.companyDashboard;
-
-import java.time.Month;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package acme.features.company.company_dashboard;
 
 import acme.datatypes.Statistic;
 import acme.forms.CompanyDashboard;
@@ -14,6 +7,12 @@ import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.Month;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyDashboardShowService extends AbstractService<Company, CompanyDashboard> {
@@ -84,14 +83,14 @@ public class CompanyDashboardShowService extends AbstractService<Company, Compan
 		minimumSessionLength = this.repository.findMinimumSessionLength(companyId);
 		maximumSessionLength = this.repository.findMaximumSessionLength(companyId);
 		countSession = this.repository.findCountSession(companyId);
-		sessionLength = new Statistic(countSession, averageSessionLength, deviationSessionLength, minimumSessionLength, maximumSessionLength);
+		sessionLength = new Statistic(countSession, averageSessionLength, maximumSessionLength, minimumSessionLength, deviationSessionLength);
 
 		averagePracticaLength = this.repository.findAveragePracticaLength(companyId);
 		deviationPracticaLength = this.repository.findDeviationPracticaLength(companyId);
 		minimumPracticaLength = this.repository.findMinimumPracticaLength(companyId);
 		maximumPracticaLength = this.repository.findMaximumPracticaLength(companyId);
 		countPractica = this.repository.findCountPractica(companyId);
-		practicaLength = new Statistic(countPractica, averagePracticaLength, deviationPracticaLength, minimumPracticaLength, maximumPracticaLength);
+		practicaLength = new Statistic(countPractica, averagePracticaLength, maximumPracticaLength, minimumPracticaLength, deviationPracticaLength);
 
 		totalNumberOfPracticaByMonth = this.repository.findTotalNumberOfPracticaByMonth(companyId).stream().collect(Collectors.toMap(key -> Month.of((int) key[0]).toString(), value -> (long) value[1]));
 

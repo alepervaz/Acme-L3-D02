@@ -10,17 +10,22 @@
 
 company.dashboard.form.title.general-indicators = General indicators
 
+# Messages for the dashboard form about the practica
 company.dashboard.form.title.practica-length = Practica length
+company.dashboard.form.label.practica-length.count = Total number of practica
 company.dashboard.form.label.practica-length.average = Average
 company.dashboard.form.label.practica-length.min = Min
 company.dashboard.form.label.practica-length.max = Max
 company.dashboard.form.label.practica-length.deviation = Deviation
 
+# Messages for the dashboard form about the sessions
 company.dashboard.form.title.session-length = Session length
+company.dashboard.form.label.session-length.count = Total number of sessions
 company.dashboard.form.label.session-length.average = Average
 company.dashboard.form.label.session-length.min = Min
 company.dashboard.form.label.session-length.max = Max
 company.dashboard.form.label.session-length.deviation = Deviation
 
+# Messages for the dashboard form about the practica by month
 company.dashboard.form.title.total-number-practica-by-month = Total number of practica by month
 

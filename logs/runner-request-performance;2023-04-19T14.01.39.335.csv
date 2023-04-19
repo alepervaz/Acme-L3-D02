@@ -1,0 +1,2 @@
+timestamp,method,feature,time,status
+"2023-04-19 14:00:36.519","GET","/authenticated/banner/list","51","200 OK"

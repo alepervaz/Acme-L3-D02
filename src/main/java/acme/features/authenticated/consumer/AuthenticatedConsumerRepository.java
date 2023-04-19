@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerRepository.java
+ * AuthenticatedAdministratorRepository.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *

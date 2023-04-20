@@ -19,7 +19,7 @@ public class AssistantTutorialPublishService extends AbstractService<Assistant, 
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
-		"code", "title", "summary", "goals", "estimatedTime"
+		"code", "title", "summary", "goals", "estimatedTime", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -81,14 +81,14 @@ public class AssistantTutorialPublishService extends AbstractService<Assistant, 
 	}
 
 	@Override
-	public void validate(final Tutorial tutorial) {
-		assert tutorial != null;
+	public void validate(final Tutorial object) {
+		assert object != null;
 
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
-			boolean isUnique;
+			Tutorial tutorial;
 
-			isUnique = this.repository.findManyTutorialByCode(tutorial.getCode()).isEmpty();
-			super.state(!isUnique, "code", "asistant.tutorial.form.error.not-unique-code");
+			tutorial = this.repository.findOneTutorialByCode(object.getCode());
+			super.state(tutorial == null || tutorial.getId() == object.getId(), "code", "assistant.tutorial.form.error.not-unique-code");
 		}
 
 	}

@@ -35,7 +35,13 @@ public class AssistantTutorialListMineService extends AbstractService<Assistant,
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		Principal principal;
+
+		principal = super.getRequest().getPrincipal();
+		status = principal.hasRole(Assistant.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override

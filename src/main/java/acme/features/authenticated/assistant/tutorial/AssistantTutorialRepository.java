@@ -37,6 +37,6 @@ public interface AssistantTutorialRepository extends AbstractRepository {
 	Collection<Session> findManySessionsByTutorialId(int id);
 
 	@Query("select t from Tutorial t where t.code = ?1")
-	Collection<Tutorial> findManyTutorialByCode(String code);
+	Tutorial findOneTutorialByCode(String code);
 
 }

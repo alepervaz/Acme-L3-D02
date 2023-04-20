@@ -40,6 +40,10 @@ master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
 
+# master.menu.tutorials ##########################################################
+master.menu.tutorials = Tutoriales
+master.menu.user-account.tutorials = Lista tutoriales
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
@@ -85,4 +89,5 @@ master.menu.user-account.company = Datos de compañía
 master.menu.user-account.become-company = Hazte compañía
 master.menu.user-account.assistant = Datos de asistente
 master.menu.user-account.become-assistant = Hazte asistente
+
 

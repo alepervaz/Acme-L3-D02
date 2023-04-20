@@ -59,6 +59,9 @@ master.menu.provider.favourite-link = Favourite link
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+# master.menu.tutorials ##########################################################
+master.menu.tutorials = Tutorials
+master.menu.user-account.tutorials =  tutorials list
 
 # master.menu.user-account.bulletin ####################################################
 master.menu.user-account.bulletin = Bulletins
@@ -96,4 +99,5 @@ master.menu.user-account.company = Company data
 master.menu.user-account.become-company = Become a company
 master.menu.user-account.assistant = Assistant data
 master.menu.user-account.become-assistant = Become a assistant
+
 

@@ -24,6 +24,13 @@ master.menu.anonymous.favourite-link.alepervaz = 49190242G: Perez Vazquez ,Aleja
 master.menu.anonymous.favourite-link.sersansan2 = 75918873J: Santiago Sánchez, Sergio
 master.menu.anonymous.favorite-link.marvicmar = 48190702K:Vico Martín, María
 
+# master.menu.authenticated ####################################################
+
+master.menu.authenticated = Autenticado
+master.menu.authenticated.favourite-link = Enlace favorito
+master.menu.authenticated.all-practicums = Ver todas las prácticas
+master.menu.company.dashboard = Panel de indicadores
+
 # master.menu.administrator ###################################################
 
 master.menu.administrator = Administrador
@@ -43,6 +50,13 @@ master.menu.provider.favourite-link = Enlace favorito
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
 
+# master.menu.company ##########################################################
+
+master.menu.company = Compañía
+master.menu.company.favourite-link = Enlace favorito
+master.menu.company.all-practicums = Ver todas las prácticas
+master.menu.company.my-practicums = Ver mis prácticas
+
 # master.menu.assistant ##########################################################
 
 master.menu.assistant = Asistente
@@ -56,6 +70,8 @@ master.menu.user-account.provider = Datos de proveedor
 master.menu.user-account.become-provider = Hazte proveedor
 master.menu.user-account.consumer = Datos de consumidor
 master.menu.user-account.become-consumer = Hazte consumidor
+master.menu.user-account.company = Datos de compañía
+master.menu.user-account.become-company = Hazte compañía
 master.menu.user-account.assistant = Datos de asistente
 master.menu.user-account.become-assistant = Hazte asistente
 

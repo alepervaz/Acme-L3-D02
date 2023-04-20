@@ -19,7 +19,6 @@
         <td>
             <acme:print value="${principalsByRole['Lecturer']}"/>
         </td>
-        // Para Assistant, Provider, Company, Consumer, Student, Administrator, Auditor
         <th scope="row">
             <acme:message code="administrator.dashboard.form.label.assistant"/>
         </th>
@@ -68,7 +67,7 @@
 <h3>
     <acme:message code="administrator.dashboard.form.title.bulletins-by-critically"/>
 </h3>
-<table>
+<table class="table table-sm">
     <tr>
         <th scope="row">
             <acme:message code="administrator.dashboard.form.label.critical"/>
@@ -87,17 +86,20 @@
 
 <c:forEach items="${currentsOffersStats.keySet()}" var="currency">
     <c:set var="currencyData" value="${currentsOffersStats[currency]}"/>
-    <h3><acme:print value="${currency}"/></h3>
-    <table class="table table-sm">
-    <tr>
-        <th scope="row">
-            <acme:message code="administrator.dashboard.form.label.offer.count"/>
-        </th>
-        <td>
-            <acme:print value="${currencyData.count}"/>
-        </td>
-        <th scope="row">
-            <acme:message code="administrator.dashboard.form.label.offer.average"/>
+    <div>
+        <h3>
+            <acme:print value="${currency}"/>
+        </h3>
+        <table class="table table-sm">
+            <tr>
+                <th scope="row">
+                    <acme:message code="administrator.dashboard.form.label.offer.count"/>
+                </th>
+                <td>
+                    <acme:print value="${currencyData.count}"/>
+                </td>
+                <th scope="row">
+                    <acme:message code="administrator.dashboard.form.label.offer.average"/>
         </th>
         <td>
             <acme:print value="${currencyData.average}"/>
@@ -120,7 +122,9 @@
         <td>
             <acme:print value="${currencyData.deviation}"/>
         </td>
-    </tr>
+            </tr>
+        </table>
+    </div>
 </c:forEach>
 
 <h3>
@@ -128,8 +132,8 @@
 </h3>
 <table class="table table-sm">
     <tr>
-        <c:forEach items="${notesInLastTenWeeks}" var="week">
-            <c:set var="amount" value="${week}"/>
+        <c:forEach items="${notesInLast10WeeksStats.keySet()}" var="week">
+            <c:set var="amount" value="${notesInLast10WeeksStats[week]}"/>
         <th scope="row">
             <acme:print value="${week}"/>
         </th>

@@ -2,6 +2,7 @@ administrator.dashboard.form.title.general-indicators = Indicadores generales
 
 administrator.dashboard.form.title.num-principals = Número de usuarios
 administrator.dashboard.form.label.lecturer = Profesor
+administrator.dashboard.form.label.assistant = Asistente
 administrator.dashboard.form.label.provider = Proveedor
 administrator.dashboard.form.label.company = Empresa
 administrator.dashboard.form.label.consumer = Consumidor

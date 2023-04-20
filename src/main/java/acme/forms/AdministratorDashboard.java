@@ -32,7 +32,7 @@ public class AdministratorDashboard extends AbstractForm {
 	private Map<String, Statistic>		currentsOffersStats;
 
 	// Average, minimum, maximum, and standard deviation of the number of notes posted over the last 10 weeks
-	private Map<Integer, Double>		notesInLast10WeeksStats;
+	private Map<Integer, Integer>		notesInLast10WeeksStats;
 
 
 	// Derived attributes -----------------------------------------------------

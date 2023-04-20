@@ -1,4 +1,4 @@
-package acme.features.administrator.administrattor_dashboard;
+package acme.features.administrator.administrator_dashboard;
 
 import acme.forms.AdministratorDashboard;
 import acme.framework.components.accounts.Administrator;

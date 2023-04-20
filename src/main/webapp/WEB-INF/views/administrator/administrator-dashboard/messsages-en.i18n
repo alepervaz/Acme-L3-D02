@@ -3,6 +3,7 @@ administrator.dashboard.form.title.general-indicators = General indicators
 
 administrator.dashboard.form.title.num-principals = Number of principals
 administrator.dashboard.form.label.lecturer = Lecturer
+administrator.dashboard.form.label.assistant = Assistant
 administrator.dashboard.form.label.provider = Provider
 administrator.dashboard.form.label.company = Company
 administrator.dashboard.form.label.consumer = Consumer
@@ -20,5 +21,5 @@ administrator.dashboard.form.label.offer.min = Minimum
 administrator.dashboard.form.label.offer.max = Maximum
 administrator.dashboard.form.label.offer.deviation = Deviation
 
-administrator.dashboard.form.title.notes-in-last-ten-weeks =
+administrator.dashboard.form.title.notes-in-last-ten-weeks = Notes in last ten weeks
 

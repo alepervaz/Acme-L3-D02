@@ -40,9 +40,17 @@ master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
 
+
+# master.menu.authenticated.notes ########################################################
+
+master.menu.authenticated.notes = Notas
+master.menu.authenticated.note.list = Listado de notas
+
 # master.menu.tutorials ##########################################################
+
 master.menu.tutorials = Tutoriales
 master.menu.user-account.tutorials = Lista tutoriales
+
 
 # master.menu.provider ########################################################
 

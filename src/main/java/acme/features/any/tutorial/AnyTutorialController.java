@@ -21,7 +21,7 @@ public class AnyTutorialController extends AbstractController<Authenticated, Tut
 	protected AnyTutorialShowService	showService;
 
 
-	//COnstrutors --------------------------------
+	//Construtors --------------------------------
 	@PostConstruct
 	protected void initialise() {
 		super.addBasicCommand("list", this.listService);

@@ -30,7 +30,7 @@ public class Practicum extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "^[A-Z]{1,3}[0-9]{3}$")
+	@Pattern(regexp = "^[A-Z]{1,3}\\d{3}$")
 	private String				code;
 
 	@NotBlank
@@ -45,18 +45,14 @@ public class Practicum extends AbstractEntity {
 	@Length
 	private String				goals;
 
-	// TODO: Create a custom validator to validate if the estimated time is between 90% and 110% of the total time.
-	@NotNull
 	@Positive
-	private Double				estimatedTimeInHours;
+	private double				estimatedTimeInHours;
 
-	@NotNull
-	private Boolean				draftMode;
+	private boolean				draftMode;
 
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
@@ -66,10 +62,4 @@ public class Practicum extends AbstractEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	private Course				course;
-
-	// TODO: To use the validator it is neccesary change the access.
-	// @NotNull
-	// @Valid
-	// @OneToMany(mapedBy="practicum")
-	// private List<SessionPracticum>	sessions;
 }

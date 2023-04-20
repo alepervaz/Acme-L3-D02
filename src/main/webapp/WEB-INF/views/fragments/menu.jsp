@@ -42,6 +42,10 @@
 		<acme:menu-option code="master.menu.consumer" access="hasRole('Consumer')">
 			<acme:menu-suboption code="master.menu.consumer.favourite-link" action="http://www.example.com/"/>
 		</acme:menu-option>
+
+		<acme:menu-option code="master.menu.user-account.bulletin" access="isAuthenticated()">
+			<acme:menu-suboption code="master.menu.user-account.bulletin" action="/authenticated/bulletin/list"/>
+    </acme:menu-option>
 		
 		<acme:menu-option code="master.menu.auditor" access="hasRole('Auditor')">
 			<acme:menu-suboption code="master.menu.auditor.list-mine" action="/authenticated/audit/list-mine"/>
@@ -60,7 +64,7 @@
 		
 		<acme:menu-option code="master.menu.assistant" access="hasRole('Assistant')">
 			<acme:menu-suboption code="master.menu.assistant.favourite-link" action="http://www.example.com/"/>
-		</acme:menu-option>
+	</acme:menu-option>
 	</acme:menu-left>
 
 	<acme:menu-right>
@@ -80,7 +84,6 @@
 			<acme:menu-suboption code="master.menu.user-account.become-assistant" action="/authenticated/assistant/create" access="!hasRole('Assistant')"/>
 			<acme:menu-suboption code="master.menu.user-account.assistant" action="/authenticated/assistant/update" access="hasRole('Assistant')"/>
 		</acme:menu-option>
- 
 		<acme:menu-option code="master.menu.sign-out" action="/master/sign-out" access="isAuthenticated()"/>
 	</acme:menu-right>
 </acme:menu-bar>

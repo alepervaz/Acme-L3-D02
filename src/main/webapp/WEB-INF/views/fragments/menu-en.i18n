@@ -59,6 +59,10 @@ master.menu.provider.favourite-link = Favourite link
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+
+# master.menu.user-account.bulletin ####################################################
+master.menu.user-account.bulletin = Bulletins
+
 # master.menu.auditor ##########################################################
 
 master.menu.auditor = Auditor
@@ -73,7 +77,6 @@ master.menu.company.favourite-link = Favourite link
 master.menu.company.all-practicums = List all practicums
 master.menu.company.my-practicums = LIst my practicums
 master.menu.company.dashboard = Dashboard
-
 
 # master.menu.assistant ##########################################################
 master.menu.assistant = Assistant

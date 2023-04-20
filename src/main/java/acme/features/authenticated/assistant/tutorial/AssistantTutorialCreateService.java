@@ -76,14 +76,14 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 	}
 
 	@Override
-	public void validate(final Tutorial tutorial) {
-		assert tutorial != null;
+	public void validate(final Tutorial object) {
+		assert object != null;
 
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
-			boolean isUnique;
+			Tutorial tutorial;
 
-			isUnique = this.repository.findManyTutorialByCode(tutorial.getCode()).isEmpty();
-			super.state(isUnique, "code", "assistant.tutorial.form.error.not-unique-code");
+			tutorial = this.repository.findOneTutorialByCode(object.getCode());
+			super.state(tutorial == null || tutorial.getId() == object.getId(), "code", "assistant.tutorial.form.error.not-unique-code");
 		}
 	}
 

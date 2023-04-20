@@ -18,9 +18,9 @@ public class PracticumValidator implements Validator {
 		 * final List<SessionPracticum> sessions = practicum.getSessions();
 		 * final Double estimatedTimeInHours = practicum.getEstimatedTimeInHours();
 		 * double totalHours = 0.0;
-		 * 
+		 *
 		 * for (final SessionPracticum session : sessions) {
-		 * 
+		 *
 		 * final Date start = session.getStart();
 		 * final Date end = session.getEnd();
 		 * final Duration duration = MomentHelper.computeDuration(start, end);

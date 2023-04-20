@@ -22,7 +22,6 @@ public class CompanyDashboard extends AbstractForm {
 	private Map<String, Long>	totalNumberOfPracticaByMonth;
 
 	// Average, deviation, minimum, and maximum period length of the sessions in their practica.
-
 	private Statistic			sessionLength;
 
 	// Average, deviation, minimum, and maximum period length of their practica.

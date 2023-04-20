@@ -4,13 +4,15 @@ package acme.entities.sessionPracticum;
 import java.util.Calendar;
 import java.util.Date;
 
-import acme.framework.helpers.MomentHelper;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import acme.framework.helpers.MomentHelper;
 
 public class SessionValidator implements Validator {
 
 	public static final int ONE_WEEK = 1;
+
 
 	@Override
 	public boolean supports(final Class<?> clazz) {
@@ -26,11 +28,11 @@ public class SessionValidator implements Validator {
 
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(now);
-		cal.add(Calendar.WEEK_OF_YEAR, ONE_WEEK);
+		cal.add(Calendar.WEEK_OF_YEAR, SessionValidator.ONE_WEEK);
 		final Date inAWeekFromNow = cal.getTime();
 
 		cal.setTime(start);
-		cal.add(Calendar.WEEK_OF_YEAR, ONE_WEEK);
+		cal.add(Calendar.WEEK_OF_YEAR, SessionValidator.ONE_WEEK);
 		final Date inAWeekFromStart = cal.getTime();
 
 		if (MomentHelper.isBefore(start, inAWeekFromNow))

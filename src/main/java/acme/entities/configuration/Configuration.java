@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Getter
@@ -27,6 +28,15 @@ public class Configuration extends AbstractEntity {
 	@NotBlank
 	@Pattern(regexp = "^([A-Z]{3})(-\\s*[A-Z]{3})*")
 	private String				acceptedCurrencies;
+
+
+	 @NotBlank
+	 @Pattern(regexp = "^(\\p{Lu}+(\\s*-\\s*\\p{Lu}+)+)$")
+	 protected String spamWords;
+
+	 @Range(min = 0, max = 1)
+	 protected double spamThreshold;
+
 
 	// Derived attributes -----------------------------------------------------
 

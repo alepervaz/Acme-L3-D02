@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import acme.entities.enums.Approach;
 import acme.entities.enums.Type;
 import acme.framework.components.datatypes.Money;
 import acme.framework.data.AbstractEntity;
@@ -57,9 +58,11 @@ public class Course extends AbstractEntity {
 	//	estimatedTotalTime;
 
 	//	Relationships -----------------------------------------
-	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
-	protected Lecturer			lecturer;
 
+	@NotNull
+	protected Approach			type;
+
+	// Derived attributes -----------------------------------------------------
+
+	// Relationships ----------------------------------------------------------
 }

@@ -1,0 +1,9 @@
+bulletin.list.label.title = Titulo
+bulletin.list.label.flags = Flags
+bulletin.list.label.moment = Created at
+
+bulletin.form.label.moment = Created at
+bulletin.form.label.title = Titulo
+bulletin.form.label.message = Mensaje
+bulletin.form.label.flags = Flags
+bulletin.form.label.link = Aditional information

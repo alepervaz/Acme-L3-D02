@@ -34,7 +34,7 @@
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.shut-down" action="/administrator/shut-down"/>
 		</acme:menu-option>
- 		<acme:menu-option code="master.menu.authenticated" access="isAuthenticated()">
+ 		<acme:menu-option code="master.menu.authenticated.notes" access="isAuthenticated()">
 			<acme:menu-suboption code="master.menu.authenticated.note.list" action="/authenticated/note/list"/>
 		</acme:menu-option>
 		<acme:menu-option code="master.menu.provider" access="hasRole('Provider')">

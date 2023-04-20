@@ -43,8 +43,8 @@ master.menu.administrator.populate-initial = Populate DB (initial)
 master.menu.administrator.populate-sample = Populate DB (samples)
 master.menu.administrator.shut-down = Shut down
 
-# master.menu.authenticated ########################################################
-master.menu.authenticated = Notes
+# master.menu.authenticated.notes ########################################################
+master.menu.authenticated.notes = Notes
 master.menu.authenticated.note.list = Notes List
 
 # master.menu.provider ########################################################

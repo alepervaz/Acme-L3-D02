@@ -49,6 +49,11 @@ master.menu.user-account.tutorials = Lista tutoriales
 master.menu.provider = Proveedor
 master.menu.provider.favourite-link = Enlace favorito
 
+# master.menu.assistant ##########################################################
+master.menu.assistant = Tutoriales
+master.menu.assistant.list-all = Listado de Tutoriales
+master.menu.assistant.list-mine = Mis tutoriales
+
 # master.menu.consumer ##########################################################
 
 master.menu.consumer = Consumidor

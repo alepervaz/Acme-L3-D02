@@ -41,6 +41,11 @@ master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
 
 
+# master.menu.assistant ########################################################
+master.menu.assistant = Asistentes
+master.menu.assistant.dashboard =DashBoard
+
+
 # master.menu.authenticated.notes ########################################################
 
 master.menu.authenticated.notes = Notas

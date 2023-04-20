@@ -49,6 +49,8 @@
 			<acme:menu-suboption code="master.menu.assistant.list-all" action="/assistant/tutorial/list-all"/>
 			<acme:menu-suboption code="master.menu.assistant.list-mine" action="/assistant/tutorial/list-mine"/>
 			<acme:menu-suboption code="master.menu.assistant.session.list-all" action="/assistant/session/list-all"/>
+      <acme:menu-separator/>
+      <acme:menu-suboption code="master.menu.assistant.dashboard" action="/assistant/assistant-dashboard/show"/>
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.consumer" access="hasRole('Consumer')">

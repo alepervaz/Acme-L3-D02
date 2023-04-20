@@ -19,7 +19,7 @@
   <acme:input-textbox code="authenticated.tutorial.form.label.title" path="title"/>
   <acme:input-textbox code="authenticated.tutorial.form.label.summary" path="summary"/>
   <acme:input-textarea code="authenticated.tutorial.form.label.goals" path="goals"/>
-  <acme:input-double code="authenticated.tutorial.form.label.estimatedTimeInHours" path="estimatedTimeInHours"/>
+  <acme:input-double code="authenticated.tutorial.form.label.estimatedTime" path="estimatedTime"/>
     <acme:input-textbox code="authenticated.tutorial.form.label.nameAssistant" path="nameAssistant"/>
 
 </acme:form>

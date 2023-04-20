@@ -17,6 +17,6 @@
 
 <acme:list>
     <acme:list-column code="authenticated.tutorial.list.label.code" path="code" width="10%"/>
-    <acme:list-column code="authenticated.tutorial.list.label.estimatedTimeInHours" path="estimatedTimeInHours" width="10%"/>
+    <acme:list-column code="authenticated.tutorial.list.label.estimatedTime" path="estimatedTime" width="10%"/>
     <acme:list-column code="authenticated.tutorial.list.label.title" path="title" width="80%"/>
 </acme:list>

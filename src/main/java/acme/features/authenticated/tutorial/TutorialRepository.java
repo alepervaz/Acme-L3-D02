@@ -1,5 +1,5 @@
 
-package acme.features.any.tutorial;
+package acme.features.authenticated.tutorial;
 
 import java.util.Collection;
 
@@ -12,7 +12,7 @@ import acme.framework.components.accounts.UserAccount;
 import acme.framework.repositories.AbstractRepository;
 
 @Repository
-public interface AnyTutorialRepository extends AbstractRepository {
+public interface TutorialRepository extends AbstractRepository {
 
 	@Query("select t from Tutorial t where t.id= ?1")
 	Tutorial findOneTutorialById(int id);

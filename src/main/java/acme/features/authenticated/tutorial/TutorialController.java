@@ -1,5 +1,5 @@
 
-package acme.features.any.tutorial;
+package acme.features.authenticated.tutorial;
 
 import javax.annotation.PostConstruct;
 
@@ -11,14 +11,14 @@ import acme.framework.components.accounts.Authenticated;
 import acme.framework.controllers.AbstractController;
 
 @Controller
-public class AnyTutorialController extends AbstractController<Authenticated, Tutorial> {
+public class TutorialController extends AbstractController<Authenticated, Tutorial> {
 
 	//Internal State ----------------------------------------------------
 	@Autowired
-	protected AnyTutorialListService	listService;
+	protected TutorialListService	listService;
 
 	@Autowired
-	protected AnyTutorialShowService	showService;
+	protected TutorialShowService	showService;
 
 
 	//Construtors --------------------------------

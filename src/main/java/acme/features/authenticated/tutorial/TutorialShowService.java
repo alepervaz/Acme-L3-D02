@@ -1,5 +1,5 @@
 
-package acme.features.any.tutorial;
+package acme.features.authenticated.tutorial;
 
 import java.util.Collection;
 
@@ -16,11 +16,11 @@ import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 
 @Service
-public class AnyTutorialShowService extends AbstractService<Authenticated, Tutorial> {
+public class TutorialShowService extends AbstractService<Authenticated, Tutorial> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AnyTutorialRepository repository;
+	protected TutorialRepository repository;
 
 
 	// AbstractService interface ----------------------------------------------
@@ -47,7 +47,7 @@ public class AnyTutorialShowService extends AbstractService<Authenticated, Tutor
 		userAccountId = principal.getAccountId();
 		userAccount = this.repository.findOneUserAccountById(userAccountId);
 		tutorial = this.repository.findOneTutorialById(tutorialId);
-		status = !tutorial.getDraftMode();
+		status = !tutorial.getDraftMode() && principal.isAuthenticated();
 
 		super.getResponse().setAuthorised(status);
 	}

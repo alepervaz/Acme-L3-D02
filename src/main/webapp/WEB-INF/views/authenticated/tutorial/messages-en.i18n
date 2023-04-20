@@ -12,11 +12,11 @@
 authenticated.tutorial.form.label.title = Title
 authenticated.tutorial.form.label.summary = Summary
 authenticated.tutorial.form.label.goals = goals
-authenticated.tutorial.form.label.estimatedTimeInHours = Estimated time in hours
+authenticated.tutorial.form.label.estimatedTime = Estimated time in hours
 authenticated.tutorial.form.label.nameAssistant = Name assistant
 
 # Messages for label in list
 authenticated.tutorial.list.label.code = Code
 authenticated.tutorial.list.label.title = Title
 authenticated.tutorial.form.label.goals = goals
-authenticated.tutorial.list.label.estimatedTimeInHours = Estimated time in hours
+authenticated.tutorial.list.label.estimatedTime = Estimated time in hours

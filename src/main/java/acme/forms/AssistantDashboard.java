@@ -1,8 +1,6 @@
 
 package acme.forms;
 
-import java.util.Map;
-
 import acme.datatypes.Statistic;
 import acme.framework.data.AbstractForm;
 import lombok.Getter;
@@ -19,7 +17,7 @@ public class AssistantDashboard extends AbstractForm {
 	// Attributes -------------------------------------------------------------
 
 	// Total number of tutorial (the index in the list represent type of tutorial).
-	private Map<String, Long>	totalNumberOfTutorialByMonth;
+	private int					totalNumberOfTutorial;
 
 	// Average, deviation, minimum, and maximum time length of his or her sessions.
 	private Statistic			sessionLength;

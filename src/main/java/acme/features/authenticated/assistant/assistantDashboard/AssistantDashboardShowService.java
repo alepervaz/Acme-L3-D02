@@ -1,10 +1,6 @@
 
 package acme.features.authenticated.assistant.assistantDashboard;
 
-import java.time.Month;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +16,7 @@ public class AssistantDashboardShowService extends AbstractService<Assistant, As
 
 	// Constants --------------------------------------------------------------
 	protected static final String[]			PROPERTIES	= {
-		"totalNumberOfTutorialByMonth", "sessionLength", "tutorialLength"
+		"totalNumberOfTutorial", "sessionLength", "tutorialLength"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -58,9 +54,9 @@ public class AssistantDashboardShowService extends AbstractService<Assistant, As
 		int userAccountId;
 		final Assistant assistant;
 
-		Statistic sessionLength;
-		double averageSessionLength;
-		double deviationSessionLength;
+		final Statistic sessionLength;
+		final double averageSessionLength;
+		final double deviationSessionLength;
 		final double minimumSessionLength;
 		final double maximumSessionLength;
 		int countSession;
@@ -72,7 +68,7 @@ public class AssistantDashboardShowService extends AbstractService<Assistant, As
 		final double maximumTutorialLength;
 		final int countTutorial;
 
-		final Map<String, Long> totalNumberOfTutorialByMonth;
+		final int totalNumberOfTutorial;
 
 		principal = super.getRequest().getPrincipal();
 		userAccountId = principal.getAccountId();
@@ -93,11 +89,11 @@ public class AssistantDashboardShowService extends AbstractService<Assistant, As
 		countTutorial = this.repository.findCountTutorial(assistantId);
 		tutorialLength = new Statistic(countTutorial, averageTutorialLength, maximumTutorialLength, minimumTutorialLength, deviationTutorialLength);
 
-		totalNumberOfTutorialByMonth = this.repository.findTotalNumberOfTutorialByMonth(assistantId).stream().collect(Collectors.toMap(key -> Month.of((int) key[0]).toString(), value -> (long) value[1]));
+		totalNumberOfTutorial = this.repository.findTotalNumberOfTutorial(assistantId).intValue();
 
 		assistantDashboard = new AssistantDashboard();
 
-		assistantDashboard.setTotalNumberOfTutorialByMonth(totalNumberOfTutorialByMonth);
+		assistantDashboard.setTotalNumberOfTutorial(totalNumberOfTutorial);
 		assistantDashboard.setSessionLength(sessionLength);
 		assistantDashboard.setTutorialLength(tutorialLength);
 

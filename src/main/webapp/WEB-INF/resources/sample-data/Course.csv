@@ -1,11 +1,11 @@
 key,code,title,courseAbstract,retailPrice,furtherInformation,type
-course-01,AAA9999,title-01,courseAbstract01,20.2,http://www.example.com,THEORY_SESSION
+course-01,AAA9999,title-01,Course Abtract 100 knjksfnsjkfnkdjscvkdjsncjkasdnvjksdnñvkjnsdkvnsdkjvnjkasdnvksdnvnksdjvnjksdfvnajk,20.2,http://www.example.com,THEORY_SESSION
 course-02,AAA1000,title-02,courseAbstract02,20.2,http://www.example.com,HANDS_ON_SESSION
 course-03,AAA1001,title-03,courseAbstract03,20.2,http://www.example.com,THEORY_SESSION
-course-04,AAA1002,title-04,courseAbstract04,20.2,http://www.example.com,HANDS_ON_SESSION
+course-04,AAA1002,title-04,Abstract Course in other language: ä¼�ä¸š,20.2,http://www.example.com,HANDS_ON_SESSION
 course-05,AAA1003,title-05,courseAbstract05,20.2,http://www.example.com,THEORY_SESSION
 course-06,AAA1004,title-06,courseAbstract06,20.2,http://www.example.com,HANDS_ON_SESSION
-course-07,AAA1005,title-07,courseAbstract07,20.2,http://www.example.com,THEORY_SESSION
+course-07,AAA1005,title-07,Abstract course with strange characters: !@#$%^&*(),20.2,http://www.example.com,THEORY_SESSION
 course-08,AAA1006,title-08,courseAbstract08,20.2,http://www.example.com,HANDS_ON_SESSION
-course-09,AAA1007,title-09,courseAbstract09,20.2,http://www.example.com,THEORY_SESSION
-course-10,AAA1008,title-10,courseAbstract10,20.2,http://www.example.com,HANDS_ON_SESSION
+course-09,AAA1007,title-09,<h1>The abstract course in HTML</h1>,20.2,http://www.example.com,THEORY_SESSION
+course-10,AAA1008,DELETE FROM sessionPracticum;,courseAbstract10,20.2,http://www.example.com,HANDS_ON_SESSION

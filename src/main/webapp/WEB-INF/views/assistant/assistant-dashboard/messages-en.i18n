@@ -22,4 +22,4 @@ assistant.dashboard.form.label.session-length.min = Min
 assistant.dashboard.form.label.session-length.max = Max
 assistant.dashboard.form.label.session-length.deviation = Deviation
 
-assistant.dashboard.form.title.total-number-tutorial-by-month = Total number of tutorial by month
+assistant.dashboard.form.label.Tutorial-length = Total number of tutorial ->

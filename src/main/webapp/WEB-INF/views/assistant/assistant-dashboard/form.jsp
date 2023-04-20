@@ -94,68 +94,11 @@
 		</td>
 	</tr>
 </table>
-
-
-<h2>
-	<acme:message code="assistant.dashboard.form.title.total-number-tutorial-by-month"/>
-</h2>
-
-<div>
-	<canvas id="canvas"></canvas>
-	Total ${totalNumberOfTutorialByMonth.get('FEBRUARY')}
-</div>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		var data = {
-			labels : [
-					"JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"
-			],
-			datasets : [
-				{
-					data : [
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('JANUARY')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('FEBRUARY')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('MARCH')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('APRIL')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('MAY')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('JUNE')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('JULY')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('AUGUST')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('SEPTEMBER')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('OCTOBER')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('NOVEMBER')}"/>,
-						<jstl:out value="${totalNumberOfTutorialByMonth.get('DECEMBER')}"/>
-					]
-				}
-			]
-		};
-		var options = {
-			scales : {
-				yAxes : [
-					{
-						ticks : {
-							suggestedMin : 0.0,
-							suggestedMax : 1.0
-						}
-					}
-				]
-			},
-			legend : {
-				display : false
-			}
-		};
-	
-		var canvas, context;
-	
-		canvas = document.getElementById("canvas");
-		context = canvas.getContext("2d");
-		new Chart(context, {
-			type : "bar",
-			data : data,
-			options : options
-		});
-	});
-</script>
+		
+		
+		<h2>
+			<acme:message code="assistant.dashboard.form.label.Tutorial-length"/>
+			<acme:print value="${totalNumberOfTutorial}"/>
+		</h2>
 
 <acme:return/>

@@ -20,9 +20,7 @@ public class AuthenticatedAssistantCreateService extends AbstractService<Authent
 	@Autowired
 	protected AuthenticatedAssistantRepository repository;
 
-	// AbstractService<Authenticated, Assistant> ---------------------------
-
-
+	// AbstractService interface ----------------------------------------------
 	@Override
 	public void authorise() {
 		boolean status;

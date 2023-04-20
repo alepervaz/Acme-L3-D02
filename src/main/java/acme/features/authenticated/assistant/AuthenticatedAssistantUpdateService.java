@@ -20,7 +20,7 @@ public class AuthenticatedAssistantUpdateService extends AbstractService<Authent
 	@Autowired
 	protected AuthenticatedAssistantRepository repository;
 
-	// AbstractService interface ----------------------------------------------ç
+	// AbstractService interface ----------------------------------------------
 
 
 	@Override

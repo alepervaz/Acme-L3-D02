@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import acme.entities.bulletin.Bulletin;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 
@@ -39,10 +40,12 @@ public class AuthenticatedBulletinShowService extends AbstractService<Authentica
 		boolean status;
 		int id;
 		Bulletin bulletin;
+		Principal principal;
 
+		principal = super.getRequest().getPrincipal();
 		id = super.getRequest().getData("id", int.class);
 		bulletin = this.repository.findOneBulletinById(id);
-		status = bulletin != null;
+		status = bulletin != null && principal.hasRole(Authenticated.class);
 
 		super.getResponse().setAuthorised(status);
 	}

@@ -1,3 +1,4 @@
 key,title,summary,type,start,end,link,key:tutorial
 session-01,title1,abstract1,THEORY_SESSION,2025/09/06 10:00,2025/10/06 12:00,http://www.example.com,tutorial-01
 session-02,title2,abstract2,HANDS_ON_SESSION,2025/09/07 10:00,2025/10/07 10:00,http://www.example.com,tutorial-02
+

@@ -79,7 +79,7 @@ Assistant
 + supervisor: String{NotBlank,Length(0,75)}
 + expertiseField: String{NotBlank,Length(0,100)}
 + resume: String{NotBlank,Length(0,100)}
-+ link: String{URL}</panel_attributes>
++ furtherInfo: String{URL}</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

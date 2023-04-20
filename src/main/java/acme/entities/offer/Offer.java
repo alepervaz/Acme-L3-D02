@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import acme.framework.components.datatypes.Money;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
@@ -54,7 +55,7 @@ public class Offer extends AbstractEntity {
 
 	@NotNull
 	@Min(0)
-	protected Double			price;
+	protected Money 			price;
 
 	@URL
 	protected String			link;

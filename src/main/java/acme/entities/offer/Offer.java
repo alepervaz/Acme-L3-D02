@@ -24,11 +24,11 @@ import lombok.Setter;
 public class Offer extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
-	
+
 	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
-	
+
 	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
@@ -58,7 +58,10 @@ public class Offer extends AbstractEntity {
 
 	@URL
 	protected String			link;
-	
+
+	@NotNull
+	protected boolean			draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------

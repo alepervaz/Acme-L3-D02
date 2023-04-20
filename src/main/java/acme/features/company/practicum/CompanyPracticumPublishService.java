@@ -1,21 +1,22 @@
 
 package acme.features.company.practicum;
 
+import java.time.Duration;
+import java.util.Collection;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.entities.courses.Course;
 import acme.entities.practicum.Practicum;
-import acme.entities.sessionPracticum.SessionPracticum;
+import acme.entities.session_practicum.SessionPracticum;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.Duration;
-import java.util.Collection;
-import java.util.Date;
 
 @Service
 public class CompanyPracticumPublishService extends AbstractService<Company, Practicum> {

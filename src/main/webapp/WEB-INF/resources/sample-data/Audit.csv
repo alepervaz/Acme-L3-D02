@@ -1,3 +1,4 @@
-key,code,conclusion,strongPoints,weakPoints,key:auditor
-audit-01,PP989,conclusion1,strongPoints1,weakpoints1,auditor-01
-audit-02,PP990,conclusion2,strongPoints2,weakpoints2,auditor-02
+key,code,conclusion,strongPoints,weakPoints,key:auditor,key:course,draftMode
+audit-01,PP989,conclusion1,strongPoints1,weakpoints1,auditor-01,course-01,0
+audit-02,PP990,conclusion2,strongPoints2,weakpoints2,auditor-02,course-01,1
+audit-03,PP991,conclusion3,strongPoints3,weakpoints3,auditor-02,course-02,0

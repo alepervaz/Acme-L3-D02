@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.activities.Activity;
-import acme.entities.enrolment.Enrolment;
 import acme.entities.enums.Approach;
-import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
@@ -42,16 +40,12 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 	@Override
 	public void authorise() {
 		boolean status;
-		int id;
-		Enrolment enrolment;
-		Principal principal;
-		Student student;
+		int activityId;
+		Activity activity;
 
-		id = super.getRequest().getData("id", int.class);
-		enrolment = this.repository.findEnrolmentById(id);
-		principal = super.getRequest().getPrincipal();
-		student = this.repository.findStudentByPrincipalId(principal.getActiveRoleId());
-		status = student != null && enrolment.getStudent().equals(student) && !enrolment.isDraftMode();
+		activityId = super.getRequest().getData("id", int.class);
+		activity = this.repository.findActivityById(activityId);
+		status = activity != null && !activity.getEnrolment().isDraftMode() && super.getRequest().getPrincipal().getAccountId() == activity.getEnrolment().getStudent().getUserAccount().getId();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -80,6 +74,13 @@ public class StudentActivityUpdateService extends AbstractService<Student, Activ
 
 		if (!super.getBuffer().getErrors().hasErrors("endPeriod") && !super.getBuffer().getErrors().hasErrors("startPeriod"))
 			super.state(MomentHelper.isAfter(object.getEndDate(), object.getStartDate()), "endPeriod", "student.activity.form.error.endPeriod-too-soon");
+	}
+
+	@Override
+	public void perform(final Activity object) {
+		assert object != null;
+
+		this.repository.save(object);
 	}
 
 	@Override

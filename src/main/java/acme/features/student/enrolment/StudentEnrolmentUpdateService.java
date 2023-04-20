@@ -87,7 +87,7 @@ public class StudentEnrolmentUpdateService extends AbstractService<Student, Enro
 			Enrolment existing;
 
 			existing = this.repository.findOneEnrolmentByCode(enrolment.getCode());
-			super.state(existing == null, "code", "asistant.tutorial.form.error.not-unique-code");
+			super.state(existing == null || existing.getId() == enrolment.getId(), "code", "asistant.tutorial.form.error.not-unique-code");
 		}
 
 	}

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import acme.entities.activities.Activity;
 import acme.entities.enrolment.Enrolment;
 import acme.entities.enums.Approach;
-import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
@@ -33,41 +32,38 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 	@Override
 	public void check() {
 		boolean status;
-
-		status = super.getRequest().hasData("id", int.class);
-
+		status = super.getRequest().hasData("enrolmentId", int.class);
 		super.getResponse().setChecked(status);
 	}
-
 	@Override
 	public void authorise() {
 		boolean status;
-		int id;
+		int enrolmentId;
 		Enrolment enrolment;
-		Principal principal;
-		Student student;
-
-		id = super.getRequest().getData("id", int.class);
-		enrolment = this.repository.findEnrolmentById(id);
-		principal = super.getRequest().getPrincipal();
-		student = this.repository.findStudentByPrincipalId(principal.getActiveRoleId());
-		status = student != null && enrolment.getStudent().equals(student) && !enrolment.isDraftMode();
-
+		enrolmentId = super.getRequest().getData("enrolmentId", int.class);
+		enrolment = this.repository.findEnrolmentById(enrolmentId);
+		status = enrolment != null && super.getRequest().getPrincipal().hasRole(enrolment.getStudent());
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
 		Activity object;
-		int id;
+
+		int enrolmentId;
 		Enrolment enrolment;
+		enrolmentId = super.getRequest().getData("enrolmentId", int.class);
+		enrolment = this.repository.findEnrolmentById(enrolmentId);
 
 		object = new Activity();
-
-		id = super.getRequest().getData("id", int.class);
-		enrolment = this.repository.findEnrolmentById(id);
-
+		object.setTitle("");
+		object.setSummary("");
+		object.setType(Approach.THEORY_SESSION);
+		object.setStartDate(null);
+		object.setEndDate(null);
+		object.setLink("");
 		object.setEnrolment(enrolment);
+		super.getBuffer().setData(object);
 	}
 
 	@Override
@@ -81,8 +77,11 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 	public void validate(final Activity object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("endPeriod") && !super.getBuffer().getErrors().hasErrors("startPeriod"))
-			super.state(MomentHelper.isAfter(object.getEndDate(), object.getStartDate()), "endPeriod", "student.activity.form.error.endPeriod-too-soon");
+		if (!super.getBuffer().getErrors().hasErrors("endDate") && !super.getBuffer().getErrors().hasErrors("startDate")) {
+			super.state(MomentHelper.isAfter(object.getEndDate(), object.getStartDate()), "endDate", "student.activity.form.error.endDate-too-soon");
+			super.state(MomentHelper.isBeforeOrEqual(object.getEndDate(), MomentHelper.parse("yyyy-MM-dd-HH:mm", "2100-12-31-23:59")), "endDate", "student.activity.form.error.endDate-too-late");
+			super.state(MomentHelper.isAfterOrEqual(object.getStartDate(), MomentHelper.parse("yyyy-MM-dd-HH:mm", "2000-01-01-00:00")), "startDate", "student.activity.form.error.startDate-too-soon");
+		}
 	}
 
 	@Override
@@ -95,19 +94,15 @@ public class StudentActivityCreateService extends AbstractService<Student, Activ
 	@Override
 	public void unbind(final Activity object) {
 		assert object != null;
-		int enrolmentId;
-
-		SelectChoices choices;
+		final SelectChoices choices;
 		Tuple tuple;
 
 		choices = SelectChoices.from(Approach.class, object.getType());
-		enrolmentId = super.getRequest().getData("enrolmentId", int.class);
 
-		tuple = super.unbind(object, StudentActivityCreateService.PROPERTIES);
+		tuple = super.unbind(object, "title", "summary", "startDate", "endDate", "link");
+		tuple.put("enrolmentId", super.getRequest().getData("enrolmentId", int.class));
+		tuple.put("type", choices.getSelected().getKey());
 		tuple.put("types", choices);
-		tuple.put("readonly", object.getEnrolment().isDraftMode());
-		super.getResponse().setGlobal("enrolmentId", enrolmentId);
-
 		super.getResponse().setData(tuple);
 	}
 

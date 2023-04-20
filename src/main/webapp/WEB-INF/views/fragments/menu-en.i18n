@@ -44,21 +44,46 @@ master.menu.administrator.populate-sample = Populate DB (samples)
 master.menu.administrator.shut-down = Shut down
 master.menu.administrator.dashboard = Dashboard
 
+
+# master.menu.assistant ########################################################
+master.menu.assistant = Assistant
+master.menu.assistant.dashboard =DashBoard
+
+# master.menu.authenticated.notes ########################################################
+
+master.menu.authenticated.notes = Notes
+master.menu.authenticated.note.list = Notes List
+
+
 # master.menu.authenticated ####################################################
 
 master.menu.authenticated = Authenticated
 master.menu.authenticated.favourite-link = Favourite link
 master.menu.authenticated.all-practicums = List all practicums
 
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Provider
 master.menu.provider.favourite-link = Favourite link
 
+# master.menu.assistant ##########################################################
+master.menu.assistant = Tutorials
+master.menu.assistant.list-all = Tutorials List
+master.menu.assistant.list-mine = My Tutorials
+master.menu.assistant.session.list-all = Session List
+
 # master.menu.consumer ##########################################################
 
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
+
+# master.menu.tutorials ##########################################################
+master.menu.tutorials = Tutorials
+master.menu.user-account.tutorials =  tutorials list
+
+# master.menu.user-account.bulletin ####################################################
+master.menu.user-account.bulletin = Bulletins
 
 # master.menu.auditor ##########################################################
 
@@ -74,7 +99,6 @@ master.menu.company.favourite-link = Favourite link
 master.menu.company.all-practicums = List all practicums
 master.menu.company.my-practicums = LIst my practicums
 master.menu.company.dashboard = Dashboard
-
 
 # master.menu.assistant ##########################################################
 master.menu.assistant = Assistant
@@ -94,4 +118,5 @@ master.menu.user-account.company = Company data
 master.menu.user-account.become-company = Become a company
 master.menu.user-account.assistant = Assistant data
 master.menu.user-account.become-assistant = Become a assistant
+
 

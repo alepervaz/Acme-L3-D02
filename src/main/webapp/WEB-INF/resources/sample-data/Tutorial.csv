@@ -1,10 +1,7 @@
-key,code,title,summary,goals,EstimatedTime,draftMode
-tutorial-01,TUT001,title1,summary1,goal1,10.2,false
-tutorial-02,TUT002,title2,summary2,goal2,10.3,false
-tutorial-03,TUT003,title3,summary3,goal3,10.4,false
-tutorial-04,TUT004,title4,summary4,goal4,10.5,false
-tutorial-05,TUT005,title5,summary5,goal5,10.6,false
-tutorial-06,TUT006,title6,summary6,goal6,10.6,false
-tutorial-07,TUT007,title7,summary7,goal7,10.7,false
-tutorial-08,TUT008,title8,summary8,goal8,10.9,false
-tutorial-09,TUT009,title9,summary9,goal9,10.5,false
+key,code,title,summary,goals,EstimatedTime,draftMode,key:course,key:assistant
+tutorial-01,TUT001,title1,summary1,goal1,10.2,false,course-01,assistant-01
+tutorial-02,TUT002,title2,summary2,goal2,10.3,false,course-02,assistant-02
+tutorial-03,ADG754,title3,100 characters oasdhjoasjdhioasjdsklvn kdnvuighsuiafhbsdiufbisdbfuisdfsdjkncvsdjkfnksjnfksdnvjkdsnv,goal3,40.3,false,course-01,assistant-01
+tutorial-04,ADG755,title4,100 characters oasdhjoasjdhioasjdsklvn kdnvuighsuiafhbsdiufbisdbfuisdfsdjkncvsdjkfnksjnfksdnvjkdsnv,goal4,5.3,false,course-01,assistant-01
+tutorial-05,ADG758,title5,<script>alert('The title alert');</script>,goal4,7.3,false,course-01,assistant-01
+

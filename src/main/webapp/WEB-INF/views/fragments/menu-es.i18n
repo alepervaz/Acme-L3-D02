@@ -41,18 +41,43 @@ master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
 master.menu.administrator.dashboard = Panel de indicadores
 
+
+# master.menu.assistant ########################################################
+master.menu.assistant = Asistentes
+master.menu.assistant.dashboard =DashBoard
+
+
+# master.menu.authenticated.notes ########################################################
+
+master.menu.authenticated.notes = Notas
+master.menu.authenticated.note.list = Listado de notas
+
+# master.menu.tutorials ##########################################################
+
+master.menu.tutorials = Tutoriales
+master.menu.user-account.tutorials = Lista tutoriales
+
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
 master.menu.provider.favourite-link = Enlace favorito
+
+# master.menu.assistant ##########################################################
+master.menu.assistant = Tutoriales
+master.menu.assistant.list-all = Listado de Tutoriales
+master.menu.assistant.list-mine = Mis tutoriales
+master.menu.assistant.session.list-all = Listado de Sesiones
 
 # master.menu.consumer ##########################################################
 
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
 
-# master.menu.auditor ##########################################################
+# master.menu.user-account.bulletin ####################################################
+master.menu.user-account.bulletin = Boletines
 
+# master.menu.auditor ##########################################################
 master.menu.auditor = Auditor
 master.menu.auditor.list-mine = Mostrar mis audits
 master.menu.auditor.list-publish = Mostrar audits publicados
@@ -70,8 +95,8 @@ master.menu.company.my-practicums = Ver mis prácticas
 master.menu.assistant = Asistente
 master.menu.assistant.favourite-link = Enlace favorito
 
-# master.menu.user-account ####################################################
 
+# master.menu.user-account ####################################################
 master.menu.user-account = Cuenta
 master.menu.user-account.general-data = Datos generales
 master.menu.user-account.provider = Datos de proveedor
@@ -84,4 +109,5 @@ master.menu.user-account.company = Datos de compañía
 master.menu.user-account.become-company = Hazte compañía
 master.menu.user-account.assistant = Datos de asistente
 master.menu.user-account.become-assistant = Hazte asistente
+
 

@@ -1,3 +1,4 @@
+key,code,title,courseAbstract,retailPrice,furtherInformation,type
 key,code,title,course-abstract,course-type,retail-price,link,draft-mode,key:lecturer
 course-01,A001,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
 course-02,A002,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01

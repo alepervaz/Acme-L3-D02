@@ -1,17 +1,19 @@
 
 package acme.entities.courses;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.entities.enums.Type;
+import acme.entities.enums.Approach;
 import acme.framework.data.AbstractEntity;
-import acme.roles.Lecturer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,39 +22,34 @@ import lombok.Setter;
 @Setter
 public class Lecture extends AbstractEntity {
 
-	// Serialisation identifier -----------------------------------------------
-
+	//	Serialisation identifier ---------------------------
 	protected static final long	serialVersionUID	= 1L;
 
-	// Attributes -------------------------------------------------------------
-
+	//	Attributes -----------------------------------------
 	@NotBlank
 	@Length(max = 75)
 	protected String			title;
 
 	@NotBlank
 	@Length(max = 100)
-	protected String			abstraction;
+	protected String			lectureAbstract;
 
-	//Positive, not null
+	//estimated learning time
 	@NotNull
-	protected Double			learningTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date				startPeriod;
+
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date				endPeriod;
 
 	@NotBlank
 	@Length(max = 100)
 	protected String			body;
 
 	@NotNull
-	protected Type				type;
+	protected Approach			lectureType;
 
 	@URL
 	protected String			link;
-
-	// Derived attributes -----------------------------------------------------
-
-	// Relationships ----------------------------------------------------------
-	@NotNull
-	@ManyToOne
-	protected Lecturer			lecturer;
-
 }

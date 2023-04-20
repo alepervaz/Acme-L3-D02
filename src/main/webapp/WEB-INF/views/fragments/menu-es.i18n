@@ -57,6 +57,11 @@ master.menu.company.favourite-link = Enlace favorito
 master.menu.company.all-practicums = Ver todas las prácticas
 master.menu.company.my-practicums = Ver mis prácticas
 
+# master.menu.assistant ##########################################################
+
+master.menu.assistant = Asistente
+master.menu.assistant.favourite-link = Enlace favorito
+
 # master.menu.user-account ####################################################
 
 master.menu.user-account = Cuenta
@@ -67,4 +72,6 @@ master.menu.user-account.consumer = Datos de consumidor
 master.menu.user-account.become-consumer = Hazte consumidor
 master.menu.user-account.company = Datos de compañía
 master.menu.user-account.become-company = Hazte compañía
+master.menu.user-account.assistant = Datos de asistente
+master.menu.user-account.become-assistant = Hazte asistente
 

@@ -68,6 +68,10 @@ master.menu.company.my-practicums = LIst my practicums
 master.menu.company.dashboard = Dashboard
 
 
+# master.menu.assistant ##########################################################
+master.menu.assistant = Assistant
+master.menu.assistant.favourite-link = Favourite link
+
 # master.menu.user-account ####################################################
 
 master.menu.user-account = Account
@@ -78,4 +82,6 @@ master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
 master.menu.user-account.company = Company data
 master.menu.user-account.become-company = Become a company
+master.menu.user-account.assistant = Assistant data
+master.menu.user-account.become-assistant = Become a assistant
 

@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerUpdateService.java
+ * AuthenticatedConsumerCreateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,80 +10,89 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.consumer;
+package acme.features.authenticated.banner;
+
+import java.time.Instant;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.entities.banner.Banner;
+import acme.framework.components.accounts.Administrator;
 import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-import acme.roles.Consumer;
+import acme.repositories.BannerRepository;
 
 @Service
-public class AuthenticatedConsumerUpdateService extends AbstractService<Authenticated, Consumer> {
+public class AuthenticatedCreateBannerService extends AbstractService<Authenticated, Banner> {
+
+	// Internal state ---------------------------------------------------------
+
+	public final static String[]	PROPERTIES	= {
+		"instant", "displayStart", "displayEnd", "picture", "slogan", "link"
+	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedConsumerRepository repository;
-
-	// AbstractService interface ----------------------------------------------ç
+	protected BannerRepository		repository;
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Administrator.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void check() {
+
 		super.getResponse().setChecked(true);
 	}
 
 	@Override
 	public void load() {
-		Consumer object;
-		Principal principal;
-		int userAccountId;
+		Banner object;
 
-		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-		object = this.repository.findOneConsumerByUserAccountId(userAccountId);
+		object = new Banner();
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Consumer object) {
+	public void bind(final Banner object) {
 		assert object != null;
 
-		super.bind(object, "company", "sector");
+		super.bind(object, AuthenticatedCreateBannerService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Consumer object) {
+	public void validate(final Banner object) {
 		assert object != null;
+		final Instant now = Instant.now();
+		object.setInstant(Date.from(now));
+
 	}
 
 	@Override
-	public void perform(final Consumer object) {
+	public void perform(final Banner object) {
 		assert object != null;
 
 		this.repository.save(object);
 	}
 
 	@Override
-	public void unbind(final Consumer object) {
-		assert object != null;
-
+	public void unbind(final Banner object) {
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, "company", "sector");
+		tuple = super.unbind(object, AuthenticatedCreateBannerService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

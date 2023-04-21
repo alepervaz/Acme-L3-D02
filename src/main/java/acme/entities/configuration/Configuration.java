@@ -31,7 +31,6 @@ public class Configuration extends AbstractEntity {
 	private String				acceptedCurrencies;
 
 	@NotBlank
-	@Pattern(regexp = "^(\\p{Lu}+(\\s*-\\s*\\p{Lu}+)+)$")
 	protected String			spamWords;
 
 	@Range(min = 0, max = 1)

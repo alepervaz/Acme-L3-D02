@@ -1,15 +1,16 @@
 
 package acme.features.company.practicum;
 
-import acme.entities.courses.Course;
-import acme.entities.practicum.Practicum;
-import acme.entities.sessionPracticum.SessionPracticum;
-import acme.framework.repositories.AbstractRepository;
-import acme.roles.Company;
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
+import acme.entities.courses.Course;
+import acme.entities.practicum.Practicum;
+import acme.entities.session_practicum.SessionPracticum;
+import acme.framework.repositories.AbstractRepository;
+import acme.roles.Company;
 
 @Repository
 public interface CompanyPracticumRepository extends AbstractRepository {

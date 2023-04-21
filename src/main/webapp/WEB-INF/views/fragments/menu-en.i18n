@@ -78,6 +78,18 @@ master.menu.assistant.session.list-all = Session List
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+# master.menu.consumer ##########################################################
+
+master.menu.student = Student
+master.menu.student.enrolment.list = My enrolments
+
+
+
+# master.menu.student ##########################################################
+master.menu.student = Student
+master.menu.student.favourite-link = Favourite link
+master.menu.student.courses = Courses
+
 # master.menu.tutorials ##########################################################
 master.menu.tutorials = Tutorials
 master.menu.user-account.tutorials =  tutorials list
@@ -112,7 +124,8 @@ master.menu.user-account.provider = Provider data
 master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
-master.menu.user-account.auditor = Auditor data
+master.menu.user-account.student = Student data
+master.menu.user-account.become-student = Become a studentmaster.menu.user-account.auditor = Auditor data
 master.menu.user-account.become-auditor = Become a auditor
 master.menu.user-account.company = Company data
 master.menu.user-account.become-company = Become a company

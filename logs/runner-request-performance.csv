@@ -1,9 +1,0 @@
-timestamp,method,feature,time,status
-"2023-04-20 09:47:41.426","GET","/authenticated/offer/list","64","200 OK"
-"2023-04-20 09:47:50.932","GET","/authenticated/offer/show","24","200 OK"
-"2023-04-20 09:47:51.116","GET","/authenticated/offer/show","16","200 OK"
-"2023-04-20 09:48:37.881","GET","/authenticated/offer/show","16","200 OK"
-"2023-04-20 09:50:12.382","GET","/authenticated/offer/list","23","200 OK"
-"2023-04-20 09:50:19.002","GET","/authenticated/offer/show","16","200 OK"
-"2023-04-20 09:50:19.194","GET","/authenticated/offer/show","24","200 OK"
-"2023-04-20 09:50:50.271","GET","/authenticated/offer/show","16","200 OK"

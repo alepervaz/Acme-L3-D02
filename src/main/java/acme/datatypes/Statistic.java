@@ -10,14 +10,16 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Statistic {
 
-	// Attributes -------------------------------------------------------------
-	int		count;
 
-	double	average;
+    // Attributes -------------------------------------------------------------
+    int		count;
 
-	double	max;
+    double	average;
 
-	double	min;
+    double	max;
 
-	double	deviation;
+    double	min;
+
+    double deviation;
+
 }

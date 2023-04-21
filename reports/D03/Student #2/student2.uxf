@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+// fontsize=14
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+</help_text>
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>153</x>
+      <y>279</y>
+      <w>333</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Activites
+
+--
++ title: String {NotBlank, Length(0,75)}
++ summary: String {NotBlank, Length(0,100)}
++ type: TypeSession
++ startDate: Date {TIMESTAMP,NotNull}
++ endDate: Date {TIMESTAMP,NotNull}
++ link: String {URL}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>639</x>
+      <y>279</y>
+      <w>387</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Enrolment
+
+--
++ code: String {NotBlank, Unique, Pattern("^[A-Z]{1,3}[0-9]{3}$")}
++ motivation: String {NotBlank, Length(0,75)}
++ goals: String {NotBlank, Length(0,100)}
++ draftMode: Boolean 
++ / workTime: Double {Digits(3,2), Min(0.01)}
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>477</x>
+      <y>342</y>
+      <w>180</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;&gt;&gt;&gt;&gt;
+m1=1..*
+m2=
+</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>522</x>
+      <y>54</y>
+      <w>216</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>bg=orange
+&lt;&lt;Enum&gt;&gt;
+Approach
+--
++ THEORETICAL
++ HANDS_ON</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>765</x>
+      <y>117</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Entity&gt;&gt;
+Courses</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>153</y>
+      <w>45</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=1..*
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>666</x>
+      <y>558</y>
+      <w>333</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>bg=green
+&lt;&lt;Role&gt;&gt;
+Student
+--
++ statement: String {NotBlank, Length(0,75)}
++ strongFeatures: String {NotBlank, Length(0,100)}
++ weakFeature: String {NotBlank, Length(0,100)}
++ link: String {URL}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>423</y>
+      <w>45</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=x-&gt;
+m1=1..*
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>153</x>
+      <y>54</y>
+      <w>333</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>bg=yellow
+&lt;&lt;Form&gt;&gt;
+Student Dashboards
+--
++ totalNumberOfActivities: Map&lt;Aproach,Integer&gt;
++ averageAtivities: Double {Postive}
++ deviationAtivities: Double {Postive}
++ minimumAtivities: Double {Postive}
++ maximumAtivities: Double {Postive}
++ averageEnrolled: Double {Postive}
++ deviationEnrolled: Double {Postive}
++ minimumEnrolled: Double {Postive}
++ maximumEnrolled: Double {Postive}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1035</x>
+      <y>162</y>
+      <w>207</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Work time (in hours, computed
+from the corresponding
+activities).
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1017</x>
+      <y>216</y>
+      <w>135</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;170.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>216</x>
+      <y>513</y>
+      <w>162</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>A time period (either in 
+the past or the future)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>432</y>
+      <w>27</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

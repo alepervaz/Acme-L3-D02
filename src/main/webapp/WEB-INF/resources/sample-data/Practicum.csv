@@ -9,3 +9,6 @@ practicum-07,CC789,"Title with comma,","Abstract practicum with comma,","Goal wi
 practicum-08,DD012,Title with strange letters: áéíóúüñ,Abstract practicum with strange letters: áéíóúüñ,Goal with strange letters: áéíóúüñ,70,company-02,course-08,false
 practicum-09,EE345,Title with strange characters: !@#$%^&*(),Abstract practicum with strange characters: !@#$%^&*(),Goal with strange characters: !@#$%^&*(),80,company-01,course-09,false
 practicum-10,FF678,Title in other language: 日本語,Abstract practicum in other language: 日本語,Goal in other language: 日本語,90,company-02,course-10,false
+practicum-11,ZZZ333,<script>alert('The title alert');</script>,<script>alert('The abstract practicum alert');</script>,<script>alert('The goals alert');</script>,1,company-01,course-02,false
+practicum-12,ZZZ444,<h1>The title in HTML</h1>,<h1>The abstract practicum in HTML</h1>,<h1>The goals in HTML</h1>,2,company-02,course-03,false
+practicum-13,ZZZ555,DROP TABLE practicum;,DELETE FROM practicum;,TRUNCATE TABLE practicum;,3,company-01,course-04,false

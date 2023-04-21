@@ -1,0 +1,7 @@
+administrator.bulletin.form.label.moment = Created at
+administrator.bulletin.form.label.title = Title
+administrator.bulletin.form.label.message = Message
+administrator.bulletin.form.label.flags = Flag
+administrator.bulletin.form.label.link = Url
+administrator.bulletin.form.label.confirmation = Confirmation
+administrator.bulletin.form.button.create = Create

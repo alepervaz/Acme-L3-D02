@@ -9,4 +9,13 @@ offer.form.label.startDate = Start
 offer.form.label.endDate = End
 offer.form.label.summary = Summary
 offer.form.label.link = Link
+
+
+offer.form.label.price = Price
+
 offer.form.label.draftMode = In edition
+
+offer.form.button.create = Register
+offer.form.button.delete = Delete
+offer.form.button.update = Update
+offer.form.button.publish = Publish

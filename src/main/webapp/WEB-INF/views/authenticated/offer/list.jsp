@@ -11,3 +11,8 @@
 	<acme:list-column code="offer.list.label.endDate" path="endDate" width="25%"/>
 	<acme:list-column code="offer.list.label.price" path="price" width="25%"/>
 </acme:list>
+
+<jstl:if test="${isAdmin}">
+	<acme:button code="offer.form.button.create" action="/authenticated/offer/create"/>
+</jstl:if>
+

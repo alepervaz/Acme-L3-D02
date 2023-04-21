@@ -1,0 +1,9 @@
+bulletin.list.label.title =Titulo
+bulletin.list.label.flags = Critico
+bulletin.list.label.moment = Fue creado en
+
+bulletin.form.label.moment = Fue creado en
+bulletin.form.label.title = Titulo
+bulletin.form.label.message = Mensaje
+bulletin.form.label.flags = Critico
+bulletin.form.label.link = link con Informacion

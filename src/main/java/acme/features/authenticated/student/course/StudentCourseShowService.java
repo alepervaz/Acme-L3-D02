@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.courses.Course;
-import acme.entities.enums.Type;
+import acme.entities.enums.Approach;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
@@ -53,9 +53,9 @@ public class StudentCourseShowService extends AbstractService<Student, Course> {
 		SelectChoices typesChoices;
 		Tuple tuple;
 
-		typesChoices = SelectChoices.from(Type.class, object.getCourseType());
+		typesChoices = SelectChoices.from(Approach.class, object.getType());
 
-		tuple = super.unbind(object, "code", "title", "courseAbstract", "courseType", "retailPrice", "link");
+		tuple = super.unbind(object, "code", "title", "courseAbstract", "Type", "retailPrice", "link");
 		tuple.put("confirmation", false);
 		tuple.put("readonly", true);
 		tuple.put("lecturer", object.getLecturer().getIdentity().getFullName());

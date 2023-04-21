@@ -73,15 +73,17 @@ master.menu.assistant.session.list-all = Listado de Sesiones
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
 
-# master.menu.student ##########################################################
+# master.menu.consumer ##########################################################
 
 master.menu.student = Estudiante
-master.menu.student.courses = Cursos
+master.menu.student.enrolment.list = Mis matrículas
+
 
 # master.menu.student ##########################################################
 
 master.menu.student = Estudiante
 master.menu.student.favourite-link = Enlace favorito
+master.menu.student.courses = Cursos
 
 # master.menu.user-account.bulletin ####################################################
 master.menu.user-account.bulletin = Boletines

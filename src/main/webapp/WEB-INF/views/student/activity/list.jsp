@@ -16,8 +16,8 @@
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/"%>
 
 <acme:list>
-	<acme:list-column code="student.course.list.label.code" path="code" width="20%" />
-    <acme:list-column code="student.course.list.label.title" path="title" width="20%" />
-    <acme:list-column code="student.course.list.label.courseType" path="Type" width="20%"/>
-    <acme:list-column code="student.course.list.label.retailPrice" path="retailPrice" width="20%"/>
+    <acme:list-column code="student.activity.list.label.title" path="title" width="70%" />
+    <acme:list-column code="student.activity.list.label.type" path="type" width="30%" />
 </acme:list>
+
+<acme:button test="${showCreate}" code="student.activity.list.button.create" action="/student/activity/create?enrolmentId=${enrolmentId}"/>

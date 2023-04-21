@@ -77,15 +77,17 @@ master.menu.assistant.session.list-all = Session List
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
-# master.menu.student ##########################################################
+# master.menu.consumer ##########################################################
 
 master.menu.student = Student
-master.menu.student.courses = Courses
+master.menu.student.enrolment.list = My enrolments
+
 
 
 # master.menu.student ##########################################################
 master.menu.student = Student
 master.menu.student.favourite-link = Favourite link
+master.menu.student.courses = Courses
 
 # master.menu.tutorials ##########################################################
 master.menu.tutorials = Tutorials

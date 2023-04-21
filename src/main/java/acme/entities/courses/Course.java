@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import acme.entities.enums.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
@@ -43,9 +42,6 @@ public class Course extends AbstractEntity {
 	protected String			courseAbstract;
 
 	@NotNull
-	protected Type courseType;
-
-	@NotNull
 	protected Money				retailPrice;
 
 	@URL
@@ -57,7 +53,6 @@ public class Course extends AbstractEntity {
 	protected Approach			type;
 
 	//	Derived attributes ------------------------------------
-
 
 	//	Relationships -----------------------------------------
 	@Valid

@@ -1,0 +1,17 @@
+# list ###############################################################
+assistant.session.list.label.title = Title
+assistant.session.list.label.type = Type
+assistant.session.list.label.draftMode = Published
+
+# form ###############################################################
+assistant.session.form.label.title = Title
+assistant.session.form.label.summary = Summary
+assistant.session.form.label.type = Type
+assistant.session.form.label.start = StartDate
+assistant.session.form.label.end = EndDate
+assistant.session.form.label.link = link
+assistant.session.form.button.tutorial = Tutorial List
+assistant.session.form.button.update = Update Session
+assistant.session.form.button.delete = Delete Session
+assistant.session.form.button.publish = Publish Session
+assistant.session.form.button.create = Create Session

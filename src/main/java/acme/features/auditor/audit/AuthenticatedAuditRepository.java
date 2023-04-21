@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.audit;
+package acme.features.auditor.audit;
 
 import java.util.Collection;
 
@@ -20,7 +20,7 @@ public interface AuthenticatedAuditRepository extends AbstractRepository {
 	@Query("select audit from Audit audit where audit.course.id = :id")
 	Collection<Audit> findAuditsByCourse(int id);
 
-	@Query("select audit from Audit audit where audit.draftMode = true")
+	@Query("select audit from Audit audit where audit.draftMode = false")
 	Collection<Audit> findAuditsPublish();
 
 	@Query("select audit from Audit audit where audit.auditor.userAccount.id = :id")

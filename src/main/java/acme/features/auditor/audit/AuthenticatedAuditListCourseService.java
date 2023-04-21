@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerCreateService.java
+ * AuthenticatedConsumerUpdateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,34 +10,38 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.audit;
+package acme.features.auditor.audit;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
-import acme.entities.courses.Course;
 import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
+import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditCreateService extends AbstractService<Authenticated, Audit> {
+public class AuthenticatedAuditListCourseService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
 	public final static String[]			PROPERTIES	= {
-		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm"
+		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
 	protected AuthenticatedAuditRepository	repository;
+
+	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
@@ -51,24 +55,22 @@ public class AuthenticatedAuditCreateService extends AbstractService<Authenticat
 
 	@Override
 	public void check() {
-		super.getResponse().setChecked(true);
+		Boolean status;
+		status = super.getRequest().hasData("id", int.class);
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void load() {
-		Audit object;
-		Principal principal;
+		final List<Audit> object;
+		int courseId;
 		int userAccountId;
-		Auditor auditor;
+		userAccountId = super.getRequest().getPrincipal().getAccountId();
 
-		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-		auditor = this.repository.findOneAuditorByUserAccountId(userAccountId);
+		courseId = super.getRequest().getData("id", int.class);
 
-		object = new Audit();
-		object.setAuditor(auditor);
-		object.setCourse(new Course());
-		object.setDraftMode(true);
+		object = this.repository.findAuditsByCourse(courseId).stream().filter(a -> !a.getDraftMode() || a.getAuditor().getUserAccount().getId() == userAccountId).collect(Collectors.toList());
+
 		super.getBuffer().setData(object);
 	}
 
@@ -76,27 +78,12 @@ public class AuthenticatedAuditCreateService extends AbstractService<Authenticat
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditCreateService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditListCourseService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
-		assert object.getCourse().getCode() != null;
-
-		final Course course = this.repository.findOneCurseByCode(object.getCourse().getCode());
-		object.setCourse(course);
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
-			boolean existCourse;
-			final boolean isUnique;
-
-			existCourse = course == null;
-			super.state(!existCourse, "course.code", "audit.error.not-exist-curse");
-
-			isUnique = this.repository.isUniqueCodeAudit(object.getCode());
-			super.state(isUnique, "code", "audit.error.exist-code");
-		}
-
 	}
 
 	@Override
@@ -108,13 +95,11 @@ public class AuthenticatedAuditCreateService extends AbstractService<Authenticat
 
 	@Override
 	public void unbind(final Audit object) {
+		assert object != null;
+
 		Tuple tuple;
 
-		tuple = super.unbind(object, AuthenticatedAuditCreateService.PROPERTIES);
-		tuple.put("course", object.getCourse());
-		tuple.put("auditor", object.getAuditor());
-		tuple.put("myAudit", true);
-		tuple.put("draftMode", true);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditListCourseService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

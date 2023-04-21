@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerUpdateService.java
+ * AuthenticatedConsumerCreateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,22 +10,22 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.auditor;
+package acme.features.auditor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
+import acme.framework.components.accounts.UserAccount;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditorShowService extends AbstractService<Authenticated, Auditor> {
+public class AuthenticatedAuditorCreateService extends AbstractService<Authenticated, Auditor> {
 
 	//Constants
 
@@ -38,12 +38,16 @@ public class AuthenticatedAuditorShowService extends AbstractService<Authenticat
 	@Autowired
 	protected AuthenticatedAuditorRepository	repository;
 
-	// AbstractService interface ----------------------------------------------ç
+	// AbstractService<Authenticated, Consumer> ---------------------------
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = !super.getRequest().getPrincipal().hasRole(Auditor.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -56,10 +60,14 @@ public class AuthenticatedAuditorShowService extends AbstractService<Authenticat
 		Auditor object;
 		Principal principal;
 		int userAccountId;
+		UserAccount userAccount;
 
 		principal = super.getRequest().getPrincipal();
 		userAccountId = principal.getAccountId();
-		object = this.repository.findOneAuditorByUserAccountId(userAccountId);
+		userAccount = this.repository.findOneUserAccountById(userAccountId);
+
+		object = new Auditor();
+		object.setUserAccount(userAccount);
 
 		super.getBuffer().setData(object);
 	}
@@ -68,7 +76,7 @@ public class AuthenticatedAuditorShowService extends AbstractService<Authenticat
 	public void bind(final Auditor object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditorShowService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditorCreateService.PROPERTIES);
 	}
 
 	@Override
@@ -85,11 +93,10 @@ public class AuthenticatedAuditorShowService extends AbstractService<Authenticat
 
 	@Override
 	public void unbind(final Auditor object) {
-		assert object != null;
-
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditorShowService.PROPERTIES);
+		tuple = super.unbind(object, AuthenticatedAuditorCreateService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
 	}
 

@@ -10,14 +10,17 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.audit;
+package acme.features.auditor.auditingRecord;
+
+import java.time.Duration;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
+import acme.entities.audit.AuditingRecord;
 import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
@@ -26,35 +29,29 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditUpdateService extends AbstractService<Authenticated, Audit> {
+public class AuthenticatedAuditingRecordListService extends AbstractService<Authenticated, AuditingRecord> {
 
 	//Constants
 
-	public final static String[]			PROPERTIES	= {
-		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm", "draftMode"
+	public final static String[]					PROPERTIES	= {
+		"subject", "assessment", "startAudit", "endAudit", "mark", "link", "special"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditRepository	repository;
+	protected AuthenticatedAuditingRecordRepository	repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
 	public void authorise() {
-		Boolean status;
-		final Boolean isMine;
-		int auditUserId;
-		final Audit audit;
-		final int accountId = super.getRequest().getPrincipal().getAccountId();
-		final int auditId = super.getRequest().getData("id", int.class);
+		boolean status;
+
 		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
-		audit = this.repository.findOneAuditById(auditId);
-		auditUserId = audit.getAuditor().getUserAccount().getId();
-		isMine = auditUserId == accountId;
-		super.getResponse().setAuthorised(status && isMine);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -66,52 +63,67 @@ public class AuthenticatedAuditUpdateService extends AbstractService<Authenticat
 
 	@Override
 	public void load() {
-		Audit object;
+		Collection<AuditingRecord> object;
 		int auditId;
 
 		auditId = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneAuditById(auditId);
-		//object.setDraftMode(true);
+
+		object = this.repository.findAuditingRecordsByAuditId(auditId);
+		System.out.println(object.size());
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Audit object) {
+	public void bind(final AuditingRecord object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditUpdateService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditingRecordListService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Audit object) {
+	public void validate(final AuditingRecord object) {
 		assert object != null;
-		if (!object.getDraftMode())
-			super.state(false, "draftMode", "audit.error.edit-draftMode");
 	}
 
 	@Override
-	public void perform(final Audit object) {
+	public void perform(final AuditingRecord object) {
 		assert object != null;
 
 		this.repository.save(object);
 	}
 
 	@Override
-	public void unbind(final Audit object) {
+	public void unbind(final AuditingRecord object) {
 		assert object != null;
-		Principal principal;
-		Integer userAccountId;
-
-		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-
 		Tuple tuple;
-		final Integer idAuditor = object.getAuditor().getUserAccount().getId();
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditUpdateService.PROPERTIES);
-		tuple.put("myAudit", userAccountId == idAuditor);
-		tuple.put("draftMode", object.getDraftMode());
+		Duration duration;
+
+		duration = object.getDuration();
+
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditingRecordListService.PROPERTIES);
+		tuple.put("mark", object.getMark().getMark());
+		tuple.put("duration", String.format("%d H %d m", duration.toHours(), duration.toMinutes() % 60));
+
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<AuditingRecord> objects) {
+		assert objects != null;
+		final int auditId;
+		Audit audit;
+		int userId;
+		int auditUserId;
+
+		auditId = super.getRequest().getData("id", int.class);
+		audit = this.repository.findOneAuditByAuditId(auditId);
+		userId = super.getRequest().getPrincipal().getAccountId();
+		auditUserId = audit.getAuditor().getUserAccount().getId();
+		super.getResponse().setGlobal("auditDraftMode", audit.getDraftMode());
+		super.getResponse().setGlobal("auditId", auditId);
+		super.getResponse().setGlobal("myAudit", userId == auditUserId);
+		super.unbind(objects);
 	}
 
 	@Override

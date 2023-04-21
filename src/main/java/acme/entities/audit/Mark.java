@@ -9,7 +9,13 @@ public enum Mark {
 	private String markString;
 
 
-	private Mark(final String value) {
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getMark();
+	}
+
+	Mark(final String value) {
 		this.markString = value;
 	}
 

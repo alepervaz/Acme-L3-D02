@@ -37,6 +37,10 @@ public class Note extends AbstractEntity {
 	protected String			title;
 
 	@NotBlank
+	@Length(max = 75)
+	protected String			author;
+
+	@NotBlank
 	@Length(max = 100)
 	protected String			message;
 

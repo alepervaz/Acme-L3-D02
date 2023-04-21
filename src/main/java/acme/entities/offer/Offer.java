@@ -58,6 +58,8 @@ public class Offer extends AbstractEntity {
 	@URL
 	protected String			link;
 
+	protected boolean			draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------

@@ -1,5 +1,5 @@
 <%--
-- banner.jsp
+- form.jsp
 -
 - Copyright (C) 2012-2023 Rafael Corchuelo.
 -
@@ -15,9 +15,11 @@
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="acme" uri="http://www.the-acme-framework.org/"%>
 
-<div class="rounded" style="background: <acme:message code='master.banner.background'/>">
-	<img src="images/banner.png" alt="<acme:message code='master.banner.alt'/>" class="img-fluid rounded"/>
-	<a href="${banner.link}">
-		<img src="${banner.picture}" alt="${banner.slogan}" class="img-fluid rounded" style="width: 10%; height: 10%;"/>
-	</a>
-</div>
+<acme:form>
+    <acme:input-textbox code="administrator.configuration.form.label.default-currency" path="defaultCurrency"/>
+    <acme:input-textarea code="administrator.configuration.form.label.accepted-currencies" path="acceptedCurrencies"/>
+    <acme:input-textarea code="administrator.configuration.form.label.spam-words" path="spamWords"/>
+    <acme:input-double code="administrator.configuration.form.label.spam-threshold" path="spamThreshold"/>
+
+    <acme:submit code="administrator.configuration.form.button.update" action="/administrator/configuration/update"/>
+</acme:form>

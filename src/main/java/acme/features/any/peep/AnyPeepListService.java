@@ -10,27 +10,34 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.consumer;
+package acme.features.any.peep;
+
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.accounts.Principal;
+import acme.entities.peep.Peep;
+import acme.framework.components.accounts.Any;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-import acme.roles.Consumer;
 
 @Service
-public class AuthenticatedConsumerUpdateService extends AbstractService<Authenticated, Consumer> {
+public class AnyPeepListService extends AbstractService<Any, Peep> {
+
+	//Constants
+
+	public final static String[]	PROPERTIES	= {
+		"moment", "title", "nick", "message", "email", "link", "draftMode"
+	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedConsumerRepository repository;
+	protected AnyPeepRepository		repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -47,43 +54,39 @@ public class AuthenticatedConsumerUpdateService extends AbstractService<Authenti
 
 	@Override
 	public void load() {
-		Consumer object;
-		Principal principal;
-		int userAccountId;
+		Collection<Peep> object;
 
-		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-		object = this.repository.findOneConsumerByUserAccountId(userAccountId);
+		object = this.repository.findPeeps();
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Consumer object) {
+	public void bind(final Peep object) {
 		assert object != null;
 
-		super.bind(object, "company", "sector");
+		super.bind(object, AnyPeepListService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Consumer object) {
+	public void validate(final Peep object) {
 		assert object != null;
 	}
 
 	@Override
-	public void perform(final Consumer object) {
+	public void perform(final Peep object) {
 		assert object != null;
 
 		this.repository.save(object);
 	}
 
 	@Override
-	public void unbind(final Consumer object) {
+	public void unbind(final Peep object) {
 		assert object != null;
 
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, "company", "sector");
+		tuple = BinderHelper.unbind(object, AnyPeepListService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

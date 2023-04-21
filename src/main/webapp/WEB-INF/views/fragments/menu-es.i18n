@@ -15,6 +15,10 @@ master.menu.sign-up = Registrarse
 master.menu.sign-in = Entrar
 master.menu.sign-out = Salir
 
+# master.menu.any #################################################################
+master.menu.any = Peep
+master.menu.any.peeps = Listado Peeps
+
 # master.menu.anonymous #######################################################
 
 master.menu.anonymous = Anónimo
@@ -39,6 +43,10 @@ master.menu.administrator.user-accounts = Cuentas de usuario
 master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
+master.menu.administrator.banner = Listar banners
+
+master.menu.administrator.configuration = Configuración
+master.menu.administrator.create.bulletin = Crear bulletin
 
 
 # master.menu.assistant ########################################################
@@ -56,7 +64,6 @@ master.menu.authenticated.note.list = Listado de notas
 master.menu.tutorials = Tutoriales
 master.menu.user-account.tutorials = Lista tutoriales
 
-
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
@@ -73,7 +80,21 @@ master.menu.assistant.session.list-all = Listado de Sesiones
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
 
+
+# master.menu.user-account.offer ################################################
+master.menu.user-account.offer = Ofertas
+
+# master.menu.company ##########################################################
+
+master.menu.company = Compañía
+master.menu.company.favourite-link = Enlace favorito
+master.menu.company.all-practicums = Ver todas las prácticas
+master.menu.company.my-practicums = Ver mis prácticas
+
+# master.menu.user-account ####################################################
+
 # master.menu.consumer ##########################################################
+
 
 master.menu.student = Estudiante
 master.menu.student.enrolment.list = Mis matrículas
@@ -108,12 +129,15 @@ master.menu.assistant.favourite-link = Enlace favorito
 
 
 # master.menu.user-account ####################################################
+
 master.menu.user-account = Cuenta
 master.menu.user-account.general-data = Datos generales
 master.menu.user-account.provider = Datos de proveedor
 master.menu.user-account.become-provider = Hazte proveedor
 master.menu.user-account.consumer = Datos de consumidor
 master.menu.user-account.become-consumer = Hazte consumidor
+master.menu.user-account.company = Datos de compañía
+master.menu.user-account.become-company = Hazte compañía
 master.menu.user-account.student = Datos de estudiante
 master.menu.user-account.become-student = Hazte estudiante
 master.menu.user-account.auditor = Datos de auditor
@@ -122,5 +146,4 @@ master.menu.user-account.company = Datos de compañía
 master.menu.user-account.become-company = Hazte compañía
 master.menu.user-account.assistant = Datos de asistente
 master.menu.user-account.become-assistant = Hazte asistente
-
 

@@ -43,8 +43,8 @@
 			<acme:menu-suboption code="master.menu.consumer.favourite-link" action="http://www.example.com/"/>
 		</acme:menu-option>
 		
-		<acme:menu-option code="master.menu.auditor" access="hasRole('Auditor')">
-			<acme:menu-suboption code="master.menu.auditor.list-mine" action="/authenticated/audit/list-mine"/>
+		<acme:menu-option code="master.menu.auditor" access="isAuthenticated()">
+			<acme:menu-suboption code="master.menu.auditor.list-mine" action="/authenticated/audit/list-mine" access="hasRole('Auditor')"/>
 			<acme:menu-suboption code="master.menu.auditor.list-publish" action="/authenticated/audit/list-publish"/>
 			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/>
 		</acme:menu-option>

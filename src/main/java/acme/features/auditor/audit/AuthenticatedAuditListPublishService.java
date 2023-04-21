@@ -47,7 +47,7 @@ public class AuthenticatedAuditListPublishService extends AbstractService<Authen
 	public void authorise() {
 		boolean status;
 
-		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
+		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -90,7 +90,14 @@ public class AuthenticatedAuditListPublishService extends AbstractService<Authen
 		Tuple tuple;
 
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditListPublishService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<Audit> objects) {
+		super.getResponse().setGlobal("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
+		super.unbind(objects);
 	}
 
 	@Override

@@ -111,7 +111,6 @@ public class AuthenticatedAuditingRecordUpdateService extends AbstractService<Au
 		final int idAuditor = object.getAudit().getAuditor().getUserAccount().getId();
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditingRecordUpdateService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == idAuditor);
-		//tuple.put("draftMode", object.getAudit().getDraftMode());
 		super.getResponse().setData(tuple);
 	}
 

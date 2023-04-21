@@ -23,6 +23,7 @@ import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
+import acme.roles.Auditor;
 
 @Service
 public class AuthenticatedAuditShowService extends AbstractService<Authenticated, Audit> {
@@ -42,7 +43,11 @@ public class AuthenticatedAuditShowService extends AbstractService<Authenticated
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -87,6 +92,7 @@ public class AuthenticatedAuditShowService extends AbstractService<Authenticated
 		Tuple tuple;
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditShowService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == object.getAuditor().getUserAccount().getId());
+		tuple.put("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
 		super.getResponse().setData(tuple);
 	}
 

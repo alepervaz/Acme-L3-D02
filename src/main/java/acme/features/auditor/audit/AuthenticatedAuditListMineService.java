@@ -95,7 +95,14 @@ public class AuthenticatedAuditListMineService extends AbstractService<Authentic
 		Tuple tuple;
 
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditListMineService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<Audit> objects) {
+		super.getResponse().setGlobal("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
+		super.unbind(objects);
 	}
 
 	@Override

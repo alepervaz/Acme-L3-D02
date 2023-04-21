@@ -29,7 +29,7 @@ public class Peep extends AbstractEntity {
 
 	//Attributes
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Past
 	@NotNull
 	private Date				moment;
@@ -51,4 +51,7 @@ public class Peep extends AbstractEntity {
 
 	@URL
 	private String				link;
+
+	@NotNull
+	private Boolean				draftMode			= true;
 }

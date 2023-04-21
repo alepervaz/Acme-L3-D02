@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerUpdateService.java
+ * AuthenticatedConsumerCreateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,37 +10,34 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.audit;
-
-import java.util.Collection;
+package acme.features.auditor.audit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
+import acme.entities.courses.Course;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditListMineService extends AbstractService<Authenticated, Audit> {
+public class AuthenticatedAuditCreateService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
 	public final static String[]			PROPERTIES	= {
-		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "draftMode"
+		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
 	protected AuthenticatedAuditRepository	repository;
-
-	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
@@ -59,13 +56,19 @@ public class AuthenticatedAuditListMineService extends AbstractService<Authentic
 
 	@Override
 	public void load() {
-		Collection<Audit> object;
-		int auditorId;
+		Audit object;
+		Principal principal;
+		int userAccountId;
+		Auditor auditor;
 
-		auditorId = super.getRequest().getPrincipal().getAccountId();
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+		auditor = this.repository.findOneAuditorByUserAccountId(userAccountId);
 
-		object = this.repository.findAuditsByAuditor(auditorId);
-
+		object = new Audit();
+		object.setAuditor(auditor);
+		object.setCourse(new Course());
+		object.setDraftMode(true);
 		super.getBuffer().setData(object);
 	}
 
@@ -73,12 +76,27 @@ public class AuthenticatedAuditListMineService extends AbstractService<Authentic
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditListMineService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditCreateService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
+		assert object.getCourse().getCode() != null;
+
+		final Course course = this.repository.findOneCurseByCode(object.getCourse().getCode());
+		object.setCourse(course);
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+			boolean existCourse;
+			final boolean isUnique;
+
+			existCourse = course == null;
+			super.state(!existCourse, "course.code", "audit.error.not-exist-curse");
+
+			isUnique = this.repository.isUniqueCodeAudit(object.getCode());
+			super.state(isUnique, "code", "audit.error.exist-code");
+		}
+
 	}
 
 	@Override
@@ -90,11 +108,13 @@ public class AuthenticatedAuditListMineService extends AbstractService<Authentic
 
 	@Override
 	public void unbind(final Audit object) {
-		assert object != null;
-
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditListMineService.PROPERTIES);
+		tuple = super.unbind(object, AuthenticatedAuditCreateService.PROPERTIES);
+		tuple.put("course", object.getCourse());
+		tuple.put("auditor", object.getAuditor());
+		tuple.put("myAudit", true);
+		tuple.put("draftMode", true);
 		super.getResponse().setData(tuple);
 	}
 

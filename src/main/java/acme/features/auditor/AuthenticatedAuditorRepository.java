@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.auditor;
+package acme.features.auditor;
 
 import java.util.Collection;
 

@@ -10,13 +10,15 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.auditor;
+package acme.features.auditor.audit;
+
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.entities.audit.Audit;
 import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
@@ -25,25 +27,29 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditorUpdateService extends AbstractService<Authenticated, Auditor> {
+public class AuthenticatedAuditListMineService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
-	public final static String[]				PROPERTIES	= {
-		"firm", "proffesionalId", "certifications", "link"
+	public final static String[]			PROPERTIES	= {
+		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditorRepository	repository;
+	protected AuthenticatedAuditRepository	repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -53,43 +59,42 @@ public class AuthenticatedAuditorUpdateService extends AbstractService<Authentic
 
 	@Override
 	public void load() {
-		Auditor object;
-		Principal principal;
-		int userAccountId;
+		Collection<Audit> object;
+		int auditorId;
 
-		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-		object = this.repository.findOneAuditorByUserAccountId(userAccountId);
+		auditorId = super.getRequest().getPrincipal().getAccountId();
+
+		object = this.repository.findAuditsByAuditor(auditorId);
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Auditor object) {
+	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditorUpdateService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditListMineService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Auditor object) {
+	public void validate(final Audit object) {
 		assert object != null;
 	}
 
 	@Override
-	public void perform(final Auditor object) {
+	public void perform(final Audit object) {
 		assert object != null;
 
 		this.repository.save(object);
 	}
 
 	@Override
-	public void unbind(final Auditor object) {
+	public void unbind(final Audit object) {
 		assert object != null;
 
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditorUpdateService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditListMineService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

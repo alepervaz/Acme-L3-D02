@@ -10,15 +10,13 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.auditor;
-
-import java.util.Collection;
+package acme.features.auditor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.audit.Audit;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
@@ -27,7 +25,7 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditListService extends AbstractService<Authenticated, Auditor> {
+public class AuthenticatedAuditorUpdateService extends AbstractService<Authenticated, Auditor> {
 
 	//Constants
 
@@ -55,11 +53,13 @@ public class AuthenticatedAuditListService extends AbstractService<Authenticated
 
 	@Override
 	public void load() {
-		Collection<Audit> object;
-		int courseId;
+		Auditor object;
+		Principal principal;
+		int userAccountId;
 
-		courseId = super.getRequest().getData("id", int.class);
-		object = this.repository.findAuditsByCourse(courseId);
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+		object = this.repository.findOneAuditorByUserAccountId(userAccountId);
 
 		super.getBuffer().setData(object);
 	}
@@ -68,7 +68,7 @@ public class AuthenticatedAuditListService extends AbstractService<Authenticated
 	public void bind(final Auditor object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditListService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditorUpdateService.PROPERTIES);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class AuthenticatedAuditListService extends AbstractService<Authenticated
 
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditListService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditorUpdateService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

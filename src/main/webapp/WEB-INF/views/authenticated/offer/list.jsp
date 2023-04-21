@@ -15,3 +15,4 @@
 <jstl:if test="${isAdmin}">
 	<acme:button code="offer.form.button.create" action="/authenticated/offer/create"/>
 </jstl:if>
+

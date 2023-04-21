@@ -92,6 +92,7 @@
 		<acme:menu-option code="master.menu.assistant" access="hasRole('Assistant')">
 			<acme:menu-suboption code="master.menu.assistant.favourite-link" action="http://www.example.com/"/>
 	</acme:menu-option>
+
 	</acme:menu-left>
 
 	<acme:menu-right>

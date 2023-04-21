@@ -31,5 +31,4 @@
 			<acme:submit code="offer.form.button.create" action="/authenticated/offer/create"/>
 		</jstl:when>		
 	</jstl:choose>	
-	
 </acme:form>

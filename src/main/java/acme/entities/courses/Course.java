@@ -13,7 +13,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.entities.enums.Approach;
-import acme.entities.enums.Type;
 import acme.framework.components.datatypes.Money;
 import acme.framework.data.AbstractEntity;
 import acme.roles.Lecturer;
@@ -43,9 +42,6 @@ public class Course extends AbstractEntity {
 	protected String			courseAbstract;
 
 	@NotNull
-	protected Type				courseType;
-
-	@NotNull
 	protected Money				retailPrice;
 
 	@URL
@@ -53,16 +49,15 @@ public class Course extends AbstractEntity {
 
 	protected boolean			draftMode;
 
-	//	Derived attributes ------------------------------------
-
-	//	estimatedTotalTime;
-
-	//	Relationships -----------------------------------------
-
 	@NotNull
 	protected Approach			type;
 
-	// Derived attributes -----------------------------------------------------
+	//	Derived attributes ------------------------------------
 
-	// Relationships ----------------------------------------------------------
+	//	Relationships -----------------------------------------
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	protected Lecturer			lecturer;
+
 }

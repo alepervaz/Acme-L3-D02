@@ -1,0 +1,21 @@
+# list ###############################################################
+assistant.tutorial.list.label.code = Code
+assistant.tutorial.list.label.estimatedTime = Estimated Time
+assistant.tutorial.list.label.title = Title
+assistant.tutorial.list.button.create = Tutorial create
+assistant.session.list.button.create = Session Create
+
+# form ###############################################################
+assistant.tutorial.form.label.code = Code
+assistant.tutorial.form.label.course = Course
+assistant.tutorial.form.label.title = Title
+assistant.tutorial.form.label.summary = Summary
+assistant.tutorial.form.label.goals = Goals
+assistant.tutorial.form.label.estimatedTime = Estimated Time
+assistant.tutorial.form.button.create = Create Tutorial
+assistant.tutorial.form.button.tutorial = Tutorial List
+assistant.tutorial.form.button.update = Update Tutorial
+assistant.tutorial.form.button.delete = Delete Tutorial
+assistant.tutorial.form.button.publish = Publish Tutorial
+assistant.session.form.button.session = Session List
+assistant.session.form.button.create = Create Session

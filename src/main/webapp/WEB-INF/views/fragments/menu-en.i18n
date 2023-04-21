@@ -84,6 +84,12 @@ master.menu.assistant.session.list-all = Session List
 master.menu.consumer = Consumer
 master.menu.consumer.favourite-link = Favourite link
 
+
+
+# master.menu.user-account.offer ################################################
+master.menu.user-account.offer = Offers
+
+
 # master.menu.consumer ##########################################################
 
 master.menu.student = Student
@@ -123,6 +129,7 @@ master.menu.company.dashboard = Dashboard
 # master.menu.assistant ##########################################################
 master.menu.assistant = Assistant
 master.menu.assistant.favourite-link = Favourite link
+
 
 
 # master.menu.user-account ####################################################

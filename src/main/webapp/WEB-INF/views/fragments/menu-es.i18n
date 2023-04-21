@@ -80,6 +80,10 @@ master.menu.assistant.session.list-all = Listado de Sesiones
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
 
+
+# master.menu.user-account.offer ################################################
+master.menu.user-account.offer = Ofertas
+
 # master.menu.company ##########################################################
 
 master.menu.company = Compañía

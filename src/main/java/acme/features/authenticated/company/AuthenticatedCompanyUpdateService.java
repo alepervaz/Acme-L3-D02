@@ -50,8 +50,7 @@ public class AuthenticatedCompanyUpdateService extends AbstractService<Authentic
 
 		principal = super.getRequest().getPrincipal();
 		userAccountId = principal.getAccountId();
-		//company = this.repository.findOneCompanyByUserAccountId(userAccountId);
-		company = null;
+		company = this.repository.findOneCompanyByUserAccountId(userAccountId);
 		super.getBuffer().setData(company);
 	}
 

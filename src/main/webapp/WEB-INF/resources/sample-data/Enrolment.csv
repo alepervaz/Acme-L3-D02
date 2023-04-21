@@ -1,4 +1,5 @@
-key,code,motivation,goals,key:student,key:course,draftMode
-enrolment-01,DDD007,"Voy a probar que el motivation de la segunda actividad acepte 75 caracteres","Probando caracteres de otra lengua: 批准",student-01,course-01,false
-enrolment-02,ZZ999,"Prueba de caracteres: 离开塞维利亚大学","Voy a probar que el goals de la segunda inscripción acepte 100 caracteres para así comprobarlo 78785",student-02,course-02,false
-enrolment-03,ZZA999,"creo que ya esta todo probado","aprobar todas",student-01,course-03,false
+key,code,motivation,goals,cardHolderName,cardLowerNibble,draftMode,key:student,key:course
+enrolment-01,DDD007,"Voy a probar que el motivation de la segunda actividad acepte 75 caracteres","Probando caracteres de otra lengua: 批准",John Smith,2587,false,student-01,course-01
+enrolment-02,ZZ999,"Prueba de caracteres: 离开塞维利亚大学","Voy a probar que el goals de la segunda inscripción acepte 100 caracteres para así comprobarlo 78785",Ana Santiago,4799,false,student-02,course-02
+enrolment-03,ZZA999,"creo que ya esta todo probado","aprobar todas",Chloe Aby,6321,false,student-01,course-03
+enrolment-04,SAA541,"Perfeccionar mis conocimientos","Salir con trabajo",Ana Santiago,4799,true,student-02,course-03

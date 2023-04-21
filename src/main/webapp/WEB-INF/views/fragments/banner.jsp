@@ -17,4 +17,7 @@
 
 <div class="rounded" style="background: <acme:message code='master.banner.background'/>">
 	<img src="images/banner.png" alt="<acme:message code='master.banner.alt'/>" class="img-fluid rounded"/>
+	<a href="${banner.link}">
+		<img src="${banner.picture}" alt="${banner.slogan}" class="img-fluid rounded" style="width: 10%; height: 10%;"/>
+	</a>
 </div>

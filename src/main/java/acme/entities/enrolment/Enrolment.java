@@ -1,6 +1,9 @@
 
 package acme.entities.enrolment;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -12,6 +15,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import acme.entities.activities.Activity;
 import acme.entities.courses.Course;
 import acme.framework.data.AbstractEntity;
 import acme.roles.Student;
@@ -42,20 +46,31 @@ public class Enrolment extends AbstractEntity {
 	@Length(max = 100)
 	protected String			goals;
 
+	protected String			cardHolderName;
+
+	protected String			cardLowerNibble;
+
 	@NotNull
-	protected Boolean			draftMode;
+	protected boolean			draftMode;
 
 
 	// Derived attributes -----------------------------------------------------
 	@Transient
-	//TODO: función derivada
-	private static Double workTime() {
+	private static Double workTime(final List<Activity> activities) {
 		/*
-		 * Se trata de una propiedad derivada
-		 * que va a calcular el periodo de tiempo de una inscripccion
-		 * mediante las actividades asociadas a esta.
+		 * Se trata de una propiedad dericada que calucla el perido
+		 * de tiempo de una inscripcción mediante sus actividades asociadas.
 		 */
-		return null;
+		double res = 0.0;
+		if (!activities.isEmpty())
+			for (final Activity activity : activities) {
+				double hours = 0.;
+				final Date startDate = activity.getStartDate();
+				final Date endDate = activity.getEndDate();
+				hours = Math.abs(endDate.getTime() / 3600000. - startDate.getTime() / 3600000.);
+				res += hours;
+			}
+		return res;
 	}
 
 

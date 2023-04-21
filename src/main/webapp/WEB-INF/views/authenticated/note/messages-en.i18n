@@ -1,0 +1,13 @@
+note.list.label.moment = Created at
+note.list.label.title = Title
+note.list.label.author = Author
+note.list.button.create = Create Note
+
+note.form.label.moment = Created at
+note.form.label.title = Title
+note.form.label.author = Author
+note.form.label.message = Message
+note.form.label.email = Email
+note.form.label.link = Link
+note.form.label.confirmation = Confirmation
+note.form.button.create = Create Note

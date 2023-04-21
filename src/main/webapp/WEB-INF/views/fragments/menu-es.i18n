@@ -39,20 +39,52 @@ master.menu.administrator.user-accounts = Cuentas de usuario
 master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
+master.menu.administrator.create.bulletin = Crear bulletin
+
+
+# master.menu.assistant ########################################################
+master.menu.assistant = Asistentes
+master.menu.assistant.dashboard =DashBoard
+
+
+# master.menu.authenticated.notes ########################################################
+
+master.menu.authenticated.notes = Notas
+master.menu.authenticated.note.list = Listado de notas
 
 # master.menu.tutorials ##########################################################
+
 master.menu.tutorials = Tutoriales
 master.menu.user-account.tutorials = Lista tutoriales
+
 
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
 master.menu.provider.favourite-link = Enlace favorito
 
+# master.menu.assistant ##########################################################
+master.menu.assistant = Tutoriales
+master.menu.assistant.list-all = Listado de Tutoriales
+master.menu.assistant.list-mine = Mis tutoriales
+master.menu.assistant.session.list-all = Listado de Sesiones
+
 # master.menu.consumer ##########################################################
 
 master.menu.consumer = Consumidor
 master.menu.consumer.favourite-link = Enlace favorito
+
+# master.menu.consumer ##########################################################
+
+master.menu.student = Estudiante
+master.menu.student.enrolment.list = Mis matrículas
+
+
+# master.menu.student ##########################################################
+
+master.menu.student = Estudiante
+master.menu.student.favourite-link = Enlace favorito
+master.menu.student.courses = Cursos
 
 # master.menu.user-account.bulletin ####################################################
 master.menu.user-account.bulletin = Boletines
@@ -83,6 +115,8 @@ master.menu.user-account.provider = Datos de proveedor
 master.menu.user-account.become-provider = Hazte proveedor
 master.menu.user-account.consumer = Datos de consumidor
 master.menu.user-account.become-consumer = Hazte consumidor
+master.menu.user-account.student = Datos de estudiante
+master.menu.user-account.become-student = Hazte estudiante
 master.menu.user-account.auditor = Datos de auditor
 master.menu.user-account.become-auditor = Hazte auditor
 master.menu.user-account.company = Datos de compañía

@@ -1,3 +1,4 @@
+
 package acme.datatypes;
 
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Statistic {
 
+
     // Attributes -------------------------------------------------------------
     int		count;
 
@@ -19,4 +21,5 @@ public class Statistic {
     double	min;
 
     double deviation;
+
 }

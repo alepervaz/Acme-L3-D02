@@ -1,4 +1,4 @@
-key,code,title,course-abstract,course-type,retail-price,link,draft-mode,key:lecturer
+key,code,title,course-abstract,type,retail-price,link,draft-mode,key:lecturer
 course-01,A001,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
 course-02,A002,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
 course-03,BB111,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
@@ -37,5 +37,4 @@ course-35,A026,title-course,abstract-course,THEORY_SESSION,EUR 10.00,http:\\www.
 course-36,A027,title-course,abstract-course,THEORY_SESSION,EUR 10.00,https:\\www.example.course.es,true,lecturer-01
 course-37,A028,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,false,lecturer-01
 course-38,A029,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
-course-39,A030,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-01
 course-40,A031,title-course,abstract-course,THEORY_SESSION,EUR 10.00,null,true,lecturer-02

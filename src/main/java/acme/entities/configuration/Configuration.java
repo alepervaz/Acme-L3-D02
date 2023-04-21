@@ -5,10 +5,11 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Range;
+
 import acme.framework.data.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Getter
@@ -29,14 +30,11 @@ public class Configuration extends AbstractEntity {
 	@Pattern(regexp = "^([A-Z]{3})(-\\s*[A-Z]{3})*")
 	private String				acceptedCurrencies;
 
+	@NotBlank
+	protected String			spamWords;
 
-	 @NotBlank
-	 @Pattern(regexp = "^(\\p{Lu}+(\\s*-\\s*\\p{Lu}+)+)$")
-	 protected String spamWords;
-
-	 @Range(min = 0, max = 1)
-	 protected double spamThreshold;
-
+	@Range(min = 0, max = 1)
+	protected double			spamThreshold;
 
 	// Derived attributes -----------------------------------------------------
 

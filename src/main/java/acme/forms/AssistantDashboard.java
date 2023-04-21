@@ -1,11 +1,7 @@
 
 package acme.forms;
 
-import java.util.Map;
-
-import javax.validation.constraints.Positive;
-
-import acme.entities.enums.Approach;
+import acme.datatypes.Statistic;
 import acme.framework.data.AbstractForm;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,32 +12,18 @@ public class AssistantDashboard extends AbstractForm {
 
 	// Serialisation identifier -----------------------------------------------
 
-	protected static final long		serialVersionUID	= 1L;
+	protected static final long	serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
 	// Total number of tutorial (the index in the list represent type of tutorial).
-	private Map<Approach, Integer>	totalNumberOfTutorials;
+	private int					totalNumberOfTutorial;
 
 	// Average, deviation, minimum, and maximum time length of his or her sessions.
-	@Positive
-	private Double					averageSession;
-	@Positive
-	private Double					deviationSession;
-	@Positive
-	private Double					minimumSession;
-	@Positive
-	private Double					maximumSession;
+	private Statistic			sessionLength;
 
 	// Average, deviation, minimum, and maximum time length of his or her tutorial.
-	@Positive
-	private Double					averageTutorial;
-	@Positive
-	private Double					deviationTutorial;
-	@Positive
-	private Double					minimumTutorial;
-	@Positive
-	private Double					maximumTutorial;
+	private Statistic			tutorialLength;
 
 	// Derived attributes -----------------------------------------------------
 

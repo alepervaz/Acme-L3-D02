@@ -27,7 +27,7 @@
 		<acme:input-checkbox readonly="true" code="authenticated.audit.form.label.draftMode" path="draftMode"/>
 	</jstl:if>
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && isAuditor}">
 			<acme:submit method="get" code="authenticated.audit.form.button.records" action="/authenticated/auditing-record/list?auditId=${id}"/>
 			
 			<acme:submit test="${myAudit && draftMode}" code="authenticated.audit.form.button.publish" action="/authenticated/audit/publish"/>

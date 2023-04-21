@@ -47,7 +47,7 @@ public class Tutorial extends AbstractEntity {
 
 	@NotNull
 	@Positive
-	protected double			estimatedTime;
+	protected Double			estimatedTime;
 
 	@NotNull
 	protected Boolean			draftMode;
@@ -55,7 +55,6 @@ public class Tutorial extends AbstractEntity {
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
-
 	@ManyToOne(optional = false)
 	@NotNull
 	@Valid

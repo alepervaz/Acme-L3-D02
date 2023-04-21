@@ -10,42 +10,46 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.course;
+package acme.features.auditor.audit;
 
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.courses.Course;
-import acme.features.auditor.AuthenticatedAuditorRepository;
+import acme.entities.audit.Audit;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
+import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedCourseListService extends AbstractService<Authenticated, Course> {
+public class AuthenticatedAuditListPublishService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
-	public final static String[]				PROPERTIES	= {
-		"code", "title", "courseAbstract", "retailPrice", "furtherInformation", "type"
+	public final static String[]			PROPERTIES	= {
+		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditorRepository	repository;
+	protected AuthenticatedAuditRepository	repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -55,33 +59,45 @@ public class AuthenticatedCourseListService extends AbstractService<Authenticate
 
 	@Override
 	public void load() {
-		Collection<Course> object;
-
-		object = this.repository.findCourses();
-
+		final Collection<Audit> object;
+		object = this.repository.findAuditsPublish();
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Course object) {
+	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedCourseListService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditListPublishService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Course object) {
+	public void validate(final Audit object) {
 		assert object != null;
 	}
 
 	@Override
-	public void unbind(final Course object) {
+	public void perform(final Audit object) {
+		assert object != null;
+
+		this.repository.save(object);
+	}
+
+	@Override
+	public void unbind(final Audit object) {
 		assert object != null;
 
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedCourseListService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditListPublishService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<Audit> objects) {
+		super.getResponse().setGlobal("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
+		super.unbind(objects);
 	}
 
 	@Override

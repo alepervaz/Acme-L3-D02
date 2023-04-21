@@ -10,29 +10,27 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.course;
-
-import java.util.Collection;
+package acme.features.auditor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.courses.Course;
-import acme.features.auditor.AuthenticatedAuditorRepository;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
+import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedCourseListService extends AbstractService<Authenticated, Course> {
+public class AuthenticatedAuditorUpdateService extends AbstractService<Authenticated, Auditor> {
 
 	//Constants
 
 	public final static String[]				PROPERTIES	= {
-		"code", "title", "courseAbstract", "retailPrice", "furtherInformation", "type"
+		"firm", "proffesionalId", "certifications", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -55,32 +53,43 @@ public class AuthenticatedCourseListService extends AbstractService<Authenticate
 
 	@Override
 	public void load() {
-		Collection<Course> object;
+		Auditor object;
+		Principal principal;
+		int userAccountId;
 
-		object = this.repository.findCourses();
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+		object = this.repository.findOneAuditorByUserAccountId(userAccountId);
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Course object) {
+	public void bind(final Auditor object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedCourseListService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditorUpdateService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Course object) {
+	public void validate(final Auditor object) {
 		assert object != null;
 	}
 
 	@Override
-	public void unbind(final Course object) {
+	public void perform(final Auditor object) {
+		assert object != null;
+
+		this.repository.save(object);
+	}
+
+	@Override
+	public void unbind(final Auditor object) {
 		assert object != null;
 
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedCourseListService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditorUpdateService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

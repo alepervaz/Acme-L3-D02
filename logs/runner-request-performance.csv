@@ -1,4 +1,5 @@
 timestamp,method,feature,time,status
+
 "2023-04-21 17:40:00.437","GET","/student/enrolment/list","113","200 OK"
 "2023-04-21 17:40:02.94","GET","/student/enrolment/show","66","200 OK"
 "2023-04-21 17:40:08.938","GET","/student/enrolment/list","14","200 OK"
@@ -16,3 +17,4 @@ timestamp,method,feature,time,status
 "2023-04-21 17:43:00.808","GET","/student/course/list","16","200 OK"
 "2023-04-21 17:43:06.575","GET","/student/course/show","13","200 OK"
 "2023-04-21 17:43:11.594","GET","/student/lecture/list","17","500 INTERNAL_SERVER_ERROR"
+

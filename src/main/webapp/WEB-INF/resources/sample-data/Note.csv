@@ -1,9 +1,9 @@
-key,moment,title,message,emailAddress,link
-Note-01,2025/05/05 10:00,title1,message1,note1@acme.com,http://www.example
-Note-02,2025/05/06 10:00,title2,message2,note2@acme.com,http://www.example
-Note-03,2025/05/07 10:00,title3,message3,note3@acme.com,http://www.example
-Note-04,2025/05/08 10:00,title4,message4,note4@acme.com,http://www.example
-Note-05,2025/05/09 10:00,title5,message5,note5@acme.com,http://www.example
-Note-06,2025/05/10 10:00,title6,message6,note6@acme.com,http://www.example
-Note-07,2025/05/11 10:00,title7,message7,note7@acme.com,http://www.example
-Note-08,2025/05/12 10:00,title8,message8,note8@acme.com,http://www.example
+key,moment,title,author,message,emailAddress,link
+Note-01,2025/05/05 10:00,title1,author-01,message1,note1@acme.com,http://www.example
+Note-02,2025/05/06 10:00,title2,author-02,message2,note2@acme.com,http://www.example
+Note-03,2025/05/07 10:00,title3,author-03,message3,note3@acme.com,http://www.example
+Note-04,2025/05/08 10:00,title4,author-04,message4,note4@acme.com,http://www.example
+Note-05,2025/05/09 10:00,title5,author-05,message5,note5@acme.com,http://www.example
+Note-06,2025/05/10 10:00,title6,author-06,message6,note6@acme.com,http://www.example
+Note-07,2025/05/11 10:00,title7,author-07,message7,note7@acme.com,http://www.example
+Note-08,2025/05/12 10:00,title8,author-08,message8,note8@acme.com,http://www.example

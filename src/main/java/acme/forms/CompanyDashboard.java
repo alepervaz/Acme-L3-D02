@@ -1,12 +1,13 @@
+
 package acme.forms;
 
 import java.util.List;
 
+import javax.validation.constraints.Positive;
+
 import acme.framework.data.AbstractForm;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -30,7 +31,6 @@ public class CompanyDashboard extends AbstractForm {
 	private Double				minimumSessionLength;
 	@Positive
 	private Double				maximumSessionLength;
-
 
 	// Average, deviation, minimum, and maximum period length of their practica.
 	@Positive

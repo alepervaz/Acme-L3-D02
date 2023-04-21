@@ -39,6 +39,7 @@
 			<acme:menu-suboption code="master.menu.administrator.shut-down" action="/administrator/shut-down"/>
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.dashboard" action="/administrator/administrator-dashboard/show"/>
+			<acme:menu-suboption code="master.menu.administrator.create.bulletin" action="/administrator/bulletin/create"/>
 		</acme:menu-option>
  		<acme:menu-option code="master.menu.authenticated.notes" access="isAuthenticated()">
 			<acme:menu-suboption code="master.menu.authenticated.note.list" action="/authenticated/note/list"/>
@@ -46,7 +47,6 @@
 		<acme:menu-option code="master.menu.provider" access="hasRole('Provider')">
 			<acme:menu-suboption code="master.menu.provider.favourite-link" action="http://www.example.com/"/>
 		</acme:menu-option>
-		
 		<acme:menu-option code="master.menu.assistant" access="hasRole('Assistant')">
 			<acme:menu-suboption code="master.menu.assistant.list-all" action="/assistant/tutorial/list-all"/>
 			<acme:menu-suboption code="master.menu.assistant.list-mine" action="/assistant/tutorial/list-mine"/>

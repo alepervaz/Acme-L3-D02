@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerCreateService.java
+ * AuthenticatedConsumerUpdateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,26 +10,28 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.auditor.audit;
+package acme.features.authenticated.audit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
+import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditDeleteService extends AbstractService<Authenticated, Audit> {
+public class AuthenticatedAuditPublishService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
 	public final static String[]			PROPERTIES	= {
-		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm"
+		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -37,16 +39,20 @@ public class AuthenticatedAuditDeleteService extends AbstractService<Authenticat
 	@Autowired
 	protected AuthenticatedAuditRepository	repository;
 
+	// AbstractService interface ----------------------------------------------ç
+
 
 	@Override
 	public void authorise() {
 		Boolean status;
 		final Boolean isMine;
 		int auditUserId;
+		final Audit audit;
 		final int accountId = super.getRequest().getPrincipal().getAccountId();
 		final int auditId = super.getRequest().getData("id", int.class);
 		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
-		auditUserId = this.repository.findOneAuditById(auditId).getAuditor().getUserAccount().getId();
+		audit = this.repository.findOneAuditById(auditId);
+		auditUserId = audit.getAuditor().getUserAccount().getId();
 		isMine = auditUserId == accountId;
 		super.getResponse().setAuthorised(status && isMine);
 	}
@@ -65,7 +71,6 @@ public class AuthenticatedAuditDeleteService extends AbstractService<Authenticat
 
 		auditId = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneAuditById(auditId);
-		object.setDraftMode(true);
 
 		super.getBuffer().setData(object);
 	}
@@ -74,27 +79,36 @@ public class AuthenticatedAuditDeleteService extends AbstractService<Authenticat
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditDeleteService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditPublishService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
-
 	}
 
 	@Override
 	public void perform(final Audit object) {
 		assert object != null;
+		object.setDraftMode(false);
 
-		this.repository.delete(object);
+		this.repository.save(object);
 	}
 
 	@Override
 	public void unbind(final Audit object) {
-		Tuple tuple;
+		assert object != null;
+		Principal principal;
+		Integer userAccountId;
 
-		tuple = super.unbind(object, AuthenticatedAuditDeleteService.PROPERTIES);
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+
+		Tuple tuple;
+		final Integer idAuditor = object.getAuditor().getUserAccount().getId();
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditPublishService.PROPERTIES);
+		tuple.put("myAudit", userAccountId == idAuditor);
+		tuple.put("draftMode", object.getDraftMode());
 		super.getResponse().setData(tuple);
 	}
 

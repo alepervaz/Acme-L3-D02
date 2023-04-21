@@ -10,7 +10,7 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.auditor.audit;
+package acme.features.authenticated.audit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditPublishService extends AbstractService<Authenticated, Audit> {
+public class AuthenticatedAuditUpdateService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
@@ -71,6 +71,7 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 
 		auditId = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneAuditById(auditId);
+		//object.setDraftMode(true);
 
 		super.getBuffer().setData(object);
 	}
@@ -79,18 +80,19 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditPublishService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditUpdateService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
+		if (!object.getDraftMode())
+			super.state(false, "draftMode", "audit.error.edit-draftMode");
 	}
 
 	@Override
 	public void perform(final Audit object) {
 		assert object != null;
-		object.setDraftMode(false);
 
 		this.repository.save(object);
 	}
@@ -106,7 +108,7 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 
 		Tuple tuple;
 		final Integer idAuditor = object.getAuditor().getUserAccount().getId();
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditPublishService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditUpdateService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == idAuditor);
 		tuple.put("draftMode", object.getDraftMode());
 		super.getResponse().setData(tuple);

@@ -79,7 +79,7 @@ public class AssistantSessionShowService extends AbstractService<Assistant, Sess
 		tuple.put("masterId", super.getRequest().getData("id", int.class));
 		tuple.put("type", choices);
 		tuple.put("tutorial", tutorial);
-		tuple.put("tutorialDraftMode", tutorial.getDraftMode());
+		tuple.put("tutorialDraftMode", tutorial.isDraftMode());
 
 		super.getResponse().setData(tuple);
 	}

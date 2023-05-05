@@ -50,7 +50,6 @@ public class Enrolment extends AbstractEntity {
 
 	protected String			cardLowerNibble;
 
-	@NotNull
 	protected boolean			draftMode;
 
 

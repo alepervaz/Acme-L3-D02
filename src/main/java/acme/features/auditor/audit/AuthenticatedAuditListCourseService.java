@@ -70,7 +70,7 @@ public class AuthenticatedAuditListCourseService extends AbstractService<Authent
 
 		courseId = super.getRequest().getData("id", int.class);
 
-		object = this.repository.findAuditsByCourse(courseId).stream().filter(a -> !a.getDraftMode() || a.getAuditor().getUserAccount().getId() == userAccountId).collect(Collectors.toList());
+		object = this.repository.findAuditsByCourse(courseId).stream().filter(a -> !a.isDraftMode() || a.getAuditor().getUserAccount().getId() == userAccountId).collect(Collectors.toList());
 
 		super.getBuffer().setData(object);
 	}

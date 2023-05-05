@@ -1,5 +1,5 @@
 
-package acme.entities.courses;
+package acme.entities.lecture;
 
 import java.util.Date;
 

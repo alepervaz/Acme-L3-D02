@@ -86,7 +86,7 @@ public class AuthenticatedAuditUpdateService extends AbstractService<Authenticat
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
-		if (!object.getDraftMode())
+		if (!object.isDraftMode())
 			super.state(false, "draftMode", "audit.error.edit-draftMode");
 	}
 
@@ -110,7 +110,7 @@ public class AuthenticatedAuditUpdateService extends AbstractService<Authenticat
 		final Integer idAuditor = object.getAuditor().getUserAccount().getId();
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditUpdateService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == idAuditor);
-		tuple.put("draftMode", object.getDraftMode());
+		tuple.put("draftMode", object.isDraftMode());
 		super.getResponse().setData(tuple);
 	}
 

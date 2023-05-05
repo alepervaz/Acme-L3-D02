@@ -49,7 +49,7 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 		sessionId = super.getRequest().getData("id", int.class);
 		session = this.repository.findOneSessionById(sessionId);
 		assistant = session == null ? null : session.getTutorial().getAssistant();
-		status = session != null && session.getDraftMode() && principal.hasRole(assistant);
+		status = session != null && session.isDraftMode() && principal.hasRole(assistant);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -100,7 +100,7 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 		tuple.put("masterId", super.getRequest().getData("id", int.class));
 		tuple.put("type", choices);
 		tuple.put("tutorial", tutorial);
-		tuple.put("tutorialDraftMode", tutorial.getDraftMode());
+		tuple.put("tutorialDraftMode", tutorial.isDraftMode());
 
 		super.getResponse().setData(tuple);
 	}

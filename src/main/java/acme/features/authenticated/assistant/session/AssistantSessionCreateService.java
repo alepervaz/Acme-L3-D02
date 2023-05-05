@@ -95,7 +95,7 @@ public class AssistantSessionCreateService extends AbstractService<Assistant, Se
 		tuple = super.unbind(session, AssistantSessionCreateService.PROPERTIES);
 		tuple.put("id", super.getRequest().getData("id", int.class));
 		tuple.put("type", choices);
-		tuple.put("tutorialDraftMode", session.getTutorial().getDraftMode());
+		tuple.put("tutorialDraftMode", session.getTutorial().isDraftMode());
 		super.getResponse().setData(tuple);
 	}
 

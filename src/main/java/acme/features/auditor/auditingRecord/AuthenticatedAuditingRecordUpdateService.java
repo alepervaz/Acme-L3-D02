@@ -15,7 +15,7 @@ package acme.features.auditor.auditingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.audit.AuditingRecord;
+import acme.entities.audit_record.AuditingRecord;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
@@ -87,7 +87,7 @@ public class AuthenticatedAuditingRecordUpdateService extends AbstractService<Au
 	@Override
 	public void validate(final AuditingRecord object) {
 		assert object != null;
-		if (!object.getAudit().getDraftMode())
+		if (!object.getAudit().isDraftMode())
 			super.state(false, "draftMode", "audit.error.edit-draftMode");
 	}
 

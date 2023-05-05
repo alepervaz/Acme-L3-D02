@@ -108,7 +108,7 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 		final Integer idAuditor = object.getAuditor().getUserAccount().getId();
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditPublishService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == idAuditor);
-		tuple.put("draftMode", object.getDraftMode());
+		tuple.put("draftMode", object.isDraftMode());
 		super.getResponse().setData(tuple);
 	}
 

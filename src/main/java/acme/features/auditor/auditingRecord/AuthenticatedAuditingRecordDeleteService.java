@@ -15,7 +15,7 @@ package acme.features.auditor.auditingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.audit.AuditingRecord;
+import acme.entities.audit_record.AuditingRecord;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
@@ -82,7 +82,7 @@ public class AuthenticatedAuditingRecordDeleteService extends AbstractService<Au
 
 	@Override
 	public void validate(final AuditingRecord object) {
-		if (!object.getAudit().getDraftMode())
+		if (!object.getAudit().isDraftMode())
 			super.state(false, "draftMode", "audit.error.edit-draftMode");
 
 	}
@@ -99,7 +99,7 @@ public class AuthenticatedAuditingRecordDeleteService extends AbstractService<Au
 		Tuple tuple;
 
 		tuple = super.unbind(object, AuthenticatedAuditingRecordDeleteService.PROPERTIES);
-		tuple.put("draftMode", object.getAudit().getDraftMode());
+		tuple.put("draftMode", object.getAudit().isDraftMode());
 		super.getResponse().setData(tuple);
 	}
 

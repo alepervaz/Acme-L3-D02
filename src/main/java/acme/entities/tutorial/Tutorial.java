@@ -49,8 +49,7 @@ public class Tutorial extends AbstractEntity {
 	@Positive
 	protected Double			estimatedTime;
 
-	@NotNull
-	protected Boolean			draftMode;
+	protected boolean			draftMode;
 
 	// Derived attributes -----------------------------------------------------
 

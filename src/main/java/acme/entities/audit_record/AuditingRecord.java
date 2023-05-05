@@ -1,5 +1,5 @@
 
-package acme.entities.audit;
+package acme.entities.audit_record;
 
 import java.time.Duration;
 import java.util.Date;
@@ -17,6 +17,8 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
+import acme.entities.audit.Audit;
+import acme.entities.enums.Mark;
 import acme.framework.data.AbstractEntity;
 import acme.framework.helpers.MomentHelper;
 import lombok.Getter;
@@ -54,8 +56,7 @@ public class AuditingRecord extends AbstractEntity {
 	@URL
 	protected String			link;
 
-	@NotNull
-	protected Boolean			special = false; //false by default
+	protected boolean			special				= false; //false by default
 
 
 	@Override

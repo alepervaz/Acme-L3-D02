@@ -15,8 +15,8 @@ package acme.features.auditor.auditingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.audit.AuditingRecord;
-import acme.entities.audit.Mark;
+import acme.entities.audit_record.AuditingRecord;
+import acme.entities.enums.Mark;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -97,7 +97,7 @@ public class AuthenticatedAuditingRecordShowService extends AbstractService<Auth
 		userAccountId = super.getRequest().getPrincipal().getAccountId();
 		auditor = object.getAudit().getAuditor();
 		userAuditorId = auditor.getUserAccount().getId();
-		draftMode = object.getAudit().getDraftMode();
+		draftMode = object.getAudit().isDraftMode();
 
 		choice = SelectChoices.from(Mark.class, object.getMark());
 		tuple = BinderHelper.unbind(object, AuthenticatedAuditingRecordShowService.PROPERTIES);

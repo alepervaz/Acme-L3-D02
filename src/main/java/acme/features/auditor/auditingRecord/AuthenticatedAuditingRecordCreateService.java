@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
-import acme.entities.audit.AuditingRecord;
-import acme.entities.audit.Mark;
+import acme.entities.audit_record.AuditingRecord;
+import acme.entities.enums.Mark;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -75,8 +75,8 @@ public class AuthenticatedAuditingRecordCreateService extends AbstractService<Au
 		audit = this.repository.findOneAuditByAuditId(auditId);
 
 		object = new AuditingRecord();
-		if (!audit.getDraftMode())
-			object.setSpecial(!audit.getDraftMode());
+		if (!audit.isDraftMode())
+			object.setSpecial(!audit.isDraftMode());
 		object.setAudit(audit);
 		super.getBuffer().setData(object);
 	}
@@ -91,8 +91,8 @@ public class AuthenticatedAuditingRecordCreateService extends AbstractService<Au
 	@Override
 	public void validate(final AuditingRecord object) {
 		assert object != null;
-		if (!object.getAudit().getDraftMode())
-			if (!object.getSpecial())
+		if (!object.getAudit().isDraftMode())
+			if (!object.isSpecial())
 				super.state(false, "special", "audit.error.edit-draftMode");
 
 	}
@@ -116,7 +116,7 @@ public class AuthenticatedAuditingRecordCreateService extends AbstractService<Au
 		tuple.put("myAudit", true);
 
 		tuple.put("choice", choice);
-		tuple.put("auditDraftMode", object.getAudit().getDraftMode());
+		tuple.put("auditDraftMode", object.getAudit().isDraftMode());
 		//tuple.put("draftMode", object.getAudit().getDraftMode());
 		super.getResponse().setGlobal("auditId", auditId);
 		super.getResponse().setData(tuple);

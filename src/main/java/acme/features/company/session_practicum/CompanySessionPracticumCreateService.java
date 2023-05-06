@@ -19,7 +19,7 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 
 	// Constants -------------------------------------------------------------
 	protected static final String[]				PROPERTIES_BIND		= {
-		"title", "abstractSession", "description", "start", "end", "link"
+		"title", "abstractSession", "description", "start", "end", "link", "confirmed"
 	};
 
 	protected static final String[]				PROPERTIES_UNBIND	= {
@@ -79,7 +79,8 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 		sessionPracticum = new SessionPracticum();
 		sessionPracticum.setPracticum(practicum);
 		sessionPracticum.setAdditional(!draftMode);
-		sessionPracticum.setConfirmed(draftMode);
+		if (!sessionPracticum.isAdditional())
+			sessionPracticum.setConfirmed(true);
 
 		super.getBuffer().setData(sessionPracticum);
 	}
@@ -111,6 +112,16 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 			if (!super.getBuffer().getErrors().hasErrors("end"))
 				super.state(MomentHelper.isAfter(end, inAWeekFromStart), "end", "company.session-practicum.error.end-after-start");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("confirmed")) {
+			Practicum practicum;
+
+			practicum = sessionPracticum.getPracticum();
+			System.out.println(sessionPracticum.isConfirmed());
+			System.out.println(practicum.isDraftMode());
+			super.state(sessionPracticum.isConfirmed() || practicum.isDraftMode(), "confirmed", "company.session-practicum.error.confirmed");
+		}
+
 	}
 
 	@Override

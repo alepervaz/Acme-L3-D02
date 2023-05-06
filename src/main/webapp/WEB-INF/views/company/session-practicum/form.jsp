@@ -23,17 +23,23 @@
     <acme:input-moment code="company.session-practicum.form.label.end" path="end"/>
     <acme:input-url code="company.session-practicum.form.label.link" path="link"/>
     <jstl:choose>
-        <jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode == true}">
-            <acme:submit code="company.session-practicum.form.button.update" action="/company/session-practicum/update"/>
-            <acme:submit code="company.session-practicum.form.button.delete" action="/company/session-practicum/delete"/>
+        <jstl:when test="${draftMode || (!draftMode && confirmed)}">
+            <acme:hidden-data path="confirmed"/>
         </jstl:when>
-        <jstl:when test="${acme:anyOf(_command, 'show|update|delete|confirm') && draftMode == false && confirmed==false}">
-            <acme:submit code="company.session-practicum.form.button.update" action="/company/session-practicum/update"/>
-            <acme:submit code="company.session-practicum.form.button.delete" action="/company/session-practicum/delete"/>
-            <acme:submit code="company.session-practicum.form.button.confirm" action="/company/session-practicum/confirm"/>
+        <jstl:otherwise>
+            <acme:input-checkbox code="company.session-practicum.form.label.confirmed" path="confirmed"/>
+        </jstl:otherwise>
+    </jstl:choose>
+    <jstl:choose>
+        <jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode}">
+            <acme:submit code="company.session-practicum.form.button.update"
+                         action="/company/session-practicum/update"/>
+            <acme:submit code="company.session-practicum.form.button.delete"
+                         action="/company/session-practicum/delete"/>
         </jstl:when>
         <jstl:when test="${_command == 'create'}">
-            <acme:submit code="company.session-practicum.form.button.create" action="/company/session-practicum/create?masterId=${masterId}"/>
+            <acme:submit code="company.session-practicum.form.button.create"
+                         action="/company/session-practicum/create?masterId=${masterId}"/>
         </jstl:when>
     </jstl:choose>
 </acme:form>

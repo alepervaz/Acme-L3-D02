@@ -47,7 +47,6 @@ public class AuthenticatedAuditController extends AbstractController<Authenticat
 
 	@PostConstruct
 	protected void initialise() {
-
 		super.addBasicCommand("show", this.showAuditService);
 		super.addBasicCommand("update", this.updateAuditService);
 		super.addBasicCommand("create", this.createAuditService);
@@ -57,7 +56,5 @@ public class AuthenticatedAuditController extends AbstractController<Authenticat
 		super.addCustomCommand("list-mine", "list", this.listMineAuditService);
 		super.addCustomCommand("list-course", "list", this.listAuditByCourseService);
 		super.addCustomCommand("publish", "update", this.publishAuditService);
-
 	}
-
 }

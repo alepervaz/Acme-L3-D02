@@ -18,7 +18,8 @@
 <acme:list>
   <acme:list-column code="company.practicum.list.label.code" path="code" width="10%"/>
   <acme:list-column code="company.practicum.list.label.estimatedTimeInHours" path="estimatedTimeInHours" width="10%"/>
-  <acme:list-column code="company.practicum.list.label.title" path="title" width="80%"/>
+  <acme:list-column code="company.practicum.list.label.title" path="title" width="75%"/>
+    <acme:list-column code="company.practicum.list.label.published" path="confirmed" width="5%"/>
   <acme:list-payload path="payload"/>
 </acme:list>	
 <jstl:if test="${_command == 'list-mine'}">

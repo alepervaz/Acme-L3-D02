@@ -1,12 +1,13 @@
 
 package acme.features.company.company_dashboard;
 
-import acme.framework.repositories.AbstractRepository;
-import acme.roles.Company;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import acme.framework.repositories.AbstractRepository;
+import acme.roles.Company;
 
 @Repository
 public interface CompanyDashboardRepository extends AbstractRepository {

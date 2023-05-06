@@ -17,19 +17,17 @@ import java.util.Date;
 @Service
 public class CompanySessionPracticumCreateService extends AbstractService<Company, SessionPracticum> {
 
+	public static final int ONE_WEEK = 1;
 	// Constants -------------------------------------------------------------
-	protected static final String[]				PROPERTIES_BIND		= {
-		"title", "abstractSession", "description", "start", "end", "link", "confirmed"
+	protected static final String[] PROPERTIES_BIND = {
+			"title", "abstractSession", "description", "start", "end", "link", "confirmed"
 	};
-
-	protected static final String[]				PROPERTIES_UNBIND	= {
-		"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[] PROPERTIES_UNBIND = {
+			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
-	public static final int						ONE_WEEK			= 1;
-
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository	repository;
+	private CompanySessionPracticumRepository repository;
 
 	// AbstractService Interface ----------------------------------------------
 
@@ -50,6 +48,7 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 		Practicum practicum;
 		boolean hasExtraAvailable;
 		Principal principal;
+		Company company;
 
 		principal = super.getRequest().getPrincipal();
 		practicumId = super.getRequest().getData("masterId", int.class);
@@ -58,8 +57,9 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 
 		if (practicum != null) {
 			hasExtraAvailable = this.repository.findManySessionPracticumsByExtraAvailableAndPracticumId(practicum.getId()).isEmpty();
+			company = practicum.getCompany();
 
-			status = (practicum.isDraftMode() || hasExtraAvailable) && principal.hasRole(practicum.getCompany());
+			status = (practicum.isDraftMode() || hasExtraAvailable) && principal.hasRole(company);
 		}
 
 		super.getResponse().setAuthorised(status);
@@ -117,8 +117,7 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 			Practicum practicum;
 
 			practicum = sessionPracticum.getPracticum();
-			System.out.println(sessionPracticum.isConfirmed());
-			System.out.println(practicum.isDraftMode());
+
 			super.state(sessionPracticum.isConfirmed() || practicum.isDraftMode(), "confirmed", "company.session-practicum.error.confirmed");
 		}
 

@@ -11,10 +11,12 @@ import acme.repositories.SpamRepository;
 @Service
 public class SpamService {
 
+	// Internal state ---------------------------------------------------------
 	@Autowired
 	private SpamRepository repository;
 
 
+	// Methods -----------------------------------------------------------------
 	public boolean validateTextInput(final String input) {
 		String spamWords;
 		double spamThreshold;

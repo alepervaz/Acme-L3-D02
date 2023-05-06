@@ -39,6 +39,15 @@ master.menu.anonymous.favourite-link.alepervaz = 49190242G: Perez Vazquez, Aleja
 master.menu.anonymous.favourite-link.sersansan2 = 75918873J: Santiago Sánchez, Sergio
 master.menu.anonymous.favorite-link.marvicmar = 48190702K:Vico Martín, María
 
+# master.menu.authenticathed ##################################################
+
+master.menu.authenticated = Authenticated
+master.menu.authenticated.favourite-link = Favourite link
+master.menu.authenticated.all-notes = List all notes
+master.menu.authenticated.all-bulletins = List all bulletins
+master.menu.authenticated.all-practicums = List all practicums
+master.menu.authenticated.all-audits = List all audits
+
 # master.menu.administrator ###################################################
 
 master.menu.administrator = Administrator

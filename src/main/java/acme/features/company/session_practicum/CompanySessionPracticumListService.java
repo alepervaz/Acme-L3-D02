@@ -10,22 +10,22 @@ import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Date;
 
-@Controller
+@Service
 public class CompanySessionPracticumListService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
-	protected static final String[]				PROPERTIES	= {
-		"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[] PROPERTIES = {
+			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository	repository;
+	private CompanySessionPracticumRepository repository;
 
 
 	// AbstractService Interface ----------------------------------------------
@@ -44,11 +44,13 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 		int practicumId;
 		Practicum practicum;
 		Principal principal;
+		Company company;
 
 		principal = super.getRequest().getPrincipal();
 		practicumId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
-		status = practicum != null && (!practicum.isDraftMode() || principal.hasRole(practicum.getCompany()));
+		company = practicum == null ? null : practicum.getCompany();
+		status = practicum != null && (!practicum.isDraftMode() || principal.hasRole(company));
 
 		super.getResponse().setAuthorised(status);
 	}

@@ -28,6 +28,9 @@ company.practicum.list.label.code = Código
 company.practicum.list.label.title = Título
 company.practicum.list.label.abstractPracticum = Resumen práctica
 company.practicum.list.label.estimatedTimeInHours = Tiempo estimado en horas
+company.practicum.list.label.published = Publicada
+company.practicum.list.label.yes = Si
+company.practicum.list.label.no = No
 
 # Messages for buttons in list
 company.practicum.list.button.create = Crear práctica

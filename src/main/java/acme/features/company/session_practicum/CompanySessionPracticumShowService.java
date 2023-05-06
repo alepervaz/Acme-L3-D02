@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 public class CompanySessionPracticumShowService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
-	protected static final String[]				PROPERTIES	= {
-		"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[] PROPERTIES = {
+			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository	repository;
+	private CompanySessionPracticumRepository repository;
 
 
 	// AbstractService Interface ----------------------------------------------
@@ -40,13 +40,15 @@ public class CompanySessionPracticumShowService extends AbstractService<Company,
 		SessionPracticum sessionPracticum;
 		Practicum practicum;
 		Principal principal;
+		Company company;
 
 		principal = super.getRequest().getPrincipal();
 		sessionPracticumId = super.getRequest().getData("id", int.class);
 		sessionPracticum = this.repository.findOneSessionPracticumById(sessionPracticumId);
 		practicum = this.repository.findOnePracticumBySessionPracticumId(sessionPracticumId);
+		company = practicum == null ? null : practicum.getCompany();
 
-		status = practicum != null && (!practicum.isDraftMode() && sessionPracticum.isConfirmed() || principal.hasRole(practicum.getCompany()));
+		status = practicum != null && (!practicum.isDraftMode() && sessionPracticum.isConfirmed() || principal.hasRole(company));
 
 		super.getResponse().setAuthorised(status);
 	}

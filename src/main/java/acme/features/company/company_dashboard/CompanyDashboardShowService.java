@@ -1,18 +1,19 @@
 
 package acme.features.company.company_dashboard;
 
+import java.time.Month;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.datatypes.Statistic;
 import acme.forms.CompanyDashboard;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.Month;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class CompanyDashboardShowService extends AbstractService<Company, CompanyDashboard> {

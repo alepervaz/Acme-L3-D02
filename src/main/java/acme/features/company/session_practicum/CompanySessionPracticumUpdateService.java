@@ -17,20 +17,17 @@ import java.util.Date;
 @Service
 public class CompanySessionPracticumUpdateService extends AbstractService<Company, SessionPracticum> {
 
+	public static final int ONE_WEEK = 1;
 	// Constants --------------------------------------------------------------
-	protected static final String[]				PROPERTIES_BIND		= {
-		"title", "abstractSession", "description", "start", "end", "link"
+	protected static final String[] PROPERTIES_BIND = {
+			"title", "abstractSession", "description", "start", "end", "link"
 	};
-
-	protected static final String[]				PROPERTIES_UNBIND	= {
-		"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[] PROPERTIES_UNBIND = {
+			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
 	};
-
-	public static final int						ONE_WEEK			= 1;
-
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository	repository;
+	private CompanySessionPracticumRepository repository;
 
 	// AbstractService Interface ----------------------------------------------
 
@@ -51,13 +48,15 @@ public class CompanySessionPracticumUpdateService extends AbstractService<Compan
 		SessionPracticum sessionPracticum;
 		Practicum practicum;
 		Principal principal;
+		Company company;
 
 		principal = super.getRequest().getPrincipal();
 		sessionPracticumId = super.getRequest().getData("id", int.class);
 		sessionPracticum = this.repository.findOneSessionPracticumById(sessionPracticumId);
 		practicum = this.repository.findOnePracticumBySessionPracticumId(sessionPracticumId);
+		company = practicum == null ? null : practicum.getCompany();
 
-		status = practicum != null && (practicum.isDraftMode() || sessionPracticum.isAdditional()) && principal.hasRole(practicum.getCompany());
+		status = practicum != null && (practicum.isDraftMode() || sessionPracticum.isAdditional()) && principal.hasRole(company);
 
 		super.getResponse().setAuthorised(status);
 	}

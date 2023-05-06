@@ -32,8 +32,13 @@ master.menu.anonymous.favorite-link.marvicmar = 48190702K:Vico Martín, María
 
 master.menu.authenticated = Autenticado
 master.menu.authenticated.favourite-link = Enlace favorito
+master.menu.authenticated.all-notes = Ver todas las notas
+master.menu.authenticated.all-bulletins = Ver todos los boletines
 master.menu.authenticated.all-practicums = Ver todas las prácticas
-master.menu.company.dashboard = Panel de indicadores
+master.menu.authenticated.all-audits = Ver todos los audits
+
+
+
 
 # master.menu.administrator ###################################################
 
@@ -43,11 +48,8 @@ master.menu.administrator.user-accounts = Cuentas de usuario
 master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
-
 master.menu.administrator.banner = Listar banners
-
 master.menu.administrator.configuration = Configuración
-
 master.menu.administrator.create.bulletin = Crear bulletin
 
 
@@ -124,6 +126,7 @@ master.menu.company = Compañía
 master.menu.company.favourite-link = Enlace favorito
 master.menu.company.all-practicums = Ver todas las prácticas
 master.menu.company.my-practicums = Ver mis prácticas
+master.menu.company.dashboard = Panel de indicadores
 
 # master.menu.assistant ##########################################################
 

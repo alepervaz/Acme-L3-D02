@@ -26,17 +26,17 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditShowService extends AbstractService<Authenticated, Audit> {
+public class AuditShowService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
-	public final static String[]			PROPERTIES	= {
+	public final static String[]	PROPERTIES	= {
 		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm", "draftMode"
 	};
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditRepository	repository;
+	protected AuditRepository		repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -72,7 +72,7 @@ public class AuthenticatedAuditShowService extends AbstractService<Authenticated
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditShowService.PROPERTIES);
+		super.bind(object, AuditShowService.PROPERTIES);
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class AuthenticatedAuditShowService extends AbstractService<Authenticated
 		userAccountId = principal.getAccountId();
 
 		Tuple tuple;
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditShowService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuditShowService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == object.getAuditor().getUserAccount().getId());
 		tuple.put("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
 		super.getResponse().setData(tuple);

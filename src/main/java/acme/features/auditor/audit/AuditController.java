@@ -22,25 +22,25 @@ import acme.framework.components.accounts.Authenticated;
 import acme.framework.controllers.AbstractController;
 
 @Controller
-public class AuthenticatedAuditController extends AbstractController<Authenticated, Audit> {
+public class AuditController extends AbstractController<Authenticated, Audit> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AuthenticatedAuditShowService			showAuditService;
+	protected AuditShowService			showAuditService;
 	@Autowired
-	protected AuthenticatedAuditListMineService		listMineAuditService;
+	protected AuditListMineService		listMineAuditService;
 	@Autowired
-	protected AuthenticatedAuditListCourseService	listAuditByCourseService;
+	protected AuditListCourseService	listAuditByCourseService;
 	@Autowired
-	protected AuthenticatedAuditUpdateService		updateAuditService;
+	protected AuditUpdateService		updateAuditService;
 	@Autowired
-	protected AuthenticatedAuditCreateService		createAuditService;
+	protected AuditCreateService		createAuditService;
 	@Autowired
-	protected AuthenticatedAuditDeleteService		deleteAuditService;
+	protected AuditDeleteService		deleteAuditService;
 	@Autowired
-	protected AuthenticatedAuditPublishService		publishAuditService;
+	protected AuditPublishService		publishAuditService;
 	@Autowired
-	protected AuthenticatedAuditListPublishService	listPublishAuditService;
+	protected AuditListPublishService	listPublishAuditService;
 
 	// Constructors -----------------------------------------------------------
 

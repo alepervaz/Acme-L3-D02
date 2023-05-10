@@ -11,7 +11,7 @@ import acme.entities.audit.AuditingRecord;
 import acme.framework.repositories.AbstractRepository;
 
 @Repository
-public interface AuthenticatedAuditingRecordRepository extends AbstractRepository {
+public interface AuditingRecordRepository extends AbstractRepository {
 
 	@Query("select a from AuditingRecord a where a.id = :id")
 	AuditingRecord findOneAuditingRecordById(int id);

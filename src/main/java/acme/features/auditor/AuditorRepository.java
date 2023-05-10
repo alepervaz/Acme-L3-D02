@@ -13,7 +13,7 @@ import acme.framework.repositories.AbstractRepository;
 import acme.roles.Auditor;
 
 @Repository
-public interface AuthenticatedAuditorRepository extends AbstractRepository {
+public interface AuditorRepository extends AbstractRepository {
 
 	@Query("select ua from UserAccount ua where ua.id = :id")
 	UserAccount findOneUserAccountById(int id);

@@ -29,18 +29,18 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditingRecordListService extends AbstractService<Authenticated, AuditingRecord> {
+public class AuditingRecordListService extends AbstractService<Authenticated, AuditingRecord> {
 
 	//Constants
 
-	public final static String[]					PROPERTIES	= {
+	public final static String[]		PROPERTIES	= {
 		"subject", "assessment", "startAudit", "endAudit", "mark", "link", "special"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditingRecordRepository	repository;
+	protected AuditingRecordRepository	repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -78,7 +78,7 @@ public class AuthenticatedAuditingRecordListService extends AbstractService<Auth
 	public void bind(final AuditingRecord object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditingRecordListService.PROPERTIES);
+		super.bind(object, AuditingRecordListService.PROPERTIES);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class AuthenticatedAuditingRecordListService extends AbstractService<Auth
 
 		duration = object.getDuration();
 
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditingRecordListService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuditingRecordListService.PROPERTIES);
 		tuple.put("mark", object.getMark().getMark());
 		tuple.put("duration", String.format("%d H %d m", duration.toHours(), duration.toMinutes() % 60));
 

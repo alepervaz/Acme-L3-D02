@@ -22,18 +22,18 @@ import acme.framework.controllers.AbstractController;
 import acme.roles.Auditor;
 
 @Controller
-public class AuthenticatedAuditorController extends AbstractController<Authenticated, Auditor> {
+public class AuditorController extends AbstractController<Authenticated, Auditor> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditorCreateService	createService;
+	protected AuditorCreateService	createService;
 
 	@Autowired
-	protected AuthenticatedAuditorUpdateService	updateService;
+	protected AuditorUpdateService	updateService;
 
 	@Autowired
-	protected AuthenticatedAuditListService		auditListService;
+	protected AuditListService		auditListService;
 
 	// Constructors -----------------------------------------------------------
 

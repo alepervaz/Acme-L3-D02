@@ -27,18 +27,18 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditingRecordCreateService extends AbstractService<Authenticated, AuditingRecord> {
+public class AuditingRecordCreateService extends AbstractService<Authenticated, AuditingRecord> {
 
 	//Constants
 
-	public final static String[]					PROPERTIES	= {
+	public final static String[]		PROPERTIES	= {
 		"subject", "assessment", "startAudit", "mark", "endAudit", "link", "special"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditingRecordRepository	repository;
+	protected AuditingRecordRepository	repository;
 
 
 	@Override
@@ -85,7 +85,7 @@ public class AuthenticatedAuditingRecordCreateService extends AbstractService<Au
 	public void bind(final AuditingRecord object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditingRecordCreateService.PROPERTIES);
+		super.bind(object, AuditingRecordCreateService.PROPERTIES);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class AuthenticatedAuditingRecordCreateService extends AbstractService<Au
 
 		auditId = object.getAudit().getId();
 		choice = SelectChoices.from(Mark.class, object.getMark());
-		tuple = super.unbind(object, AuthenticatedAuditingRecordCreateService.PROPERTIES);
+		tuple = super.unbind(object, AuditingRecordCreateService.PROPERTIES);
 		tuple.put("myAudit", true);
 
 		tuple.put("choice", choice);

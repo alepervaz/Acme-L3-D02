@@ -26,18 +26,18 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedAuditPublishService extends AbstractService<Authenticated, Audit> {
+public class AuditPublishService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
-	public final static String[]			PROPERTIES	= {
+	public final static String[]	PROPERTIES	= {
 		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedAuditRepository	repository;
+	protected AuditRepository		repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -79,7 +79,7 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedAuditPublishService.PROPERTIES);
+		super.bind(object, AuditPublishService.PROPERTIES);
 	}
 
 	@Override
@@ -99,14 +99,14 @@ public class AuthenticatedAuditPublishService extends AbstractService<Authentica
 	public void unbind(final Audit object) {
 		assert object != null;
 		Principal principal;
-		Integer userAccountId;
+		int userAccountId;
 
 		principal = super.getRequest().getPrincipal();
 		userAccountId = principal.getAccountId();
 
 		Tuple tuple;
-		final Integer idAuditor = object.getAuditor().getUserAccount().getId();
-		tuple = BinderHelper.unbind(object, AuthenticatedAuditPublishService.PROPERTIES);
+		final int idAuditor = object.getAuditor().getUserAccount().getId();
+		tuple = BinderHelper.unbind(object, AuditPublishService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == idAuditor);
 		tuple.put("draftMode", object.getDraftMode());
 		super.getResponse().setData(tuple);

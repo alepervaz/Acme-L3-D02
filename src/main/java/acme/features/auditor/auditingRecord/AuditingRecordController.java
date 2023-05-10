@@ -11,19 +11,19 @@ import acme.framework.components.accounts.Authenticated;
 import acme.framework.controllers.AbstractController;
 
 @Controller
-public class AuthenticatedAuditingRecordController extends AbstractController<Authenticated, AuditingRecord> {
+public class AuditingRecordController extends AbstractController<Authenticated, AuditingRecord> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AuthenticatedAuditingRecordShowService	showAuditingRecordService;
+	protected AuditingRecordShowService		showAuditingRecordService;
 	@Autowired
-	protected AuthenticatedAuditingRecordListService	listAuditingRecordService;
+	protected AuditingRecordListService		listAuditingRecordService;
 	@Autowired
-	protected AuthenticatedAuditingRecordCreateService	createAuditingRecordService;
+	protected AuditingRecordCreateService	createAuditingRecordService;
 	@Autowired
-	protected AuthenticatedAuditingRecordDeleteService	deleteAuditingRecordService;
+	protected AuditingRecordDeleteService	deleteAuditingRecordService;
 	@Autowired
-	protected AuthenticatedAuditingRecordUpdateService	updateAuditingRecordService;
+	protected AuditingRecordUpdateService	updateAuditingRecordService;
 
 
 	// Constructors -----------------------------------------------------------

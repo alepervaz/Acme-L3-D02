@@ -1,6 +1,10 @@
 
 package acme.features.assistant.session;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +14,7 @@ import acme.entities.tutorial.Tutorial;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
+import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
@@ -83,7 +88,20 @@ public class AssistantSessionPublishService extends AbstractService<Assistant, S
 	@Override
 	public void validate(final Session session) {
 		assert session != null;
-
+		Date OneDayAhead;
+		boolean condition1;
+		boolean condition2;
+		if (!super.getBuffer().getErrors().hasErrors("start")) {
+			OneDayAhead = MomentHelper.deltaFromCurrentMoment(1, ChronoUnit.DAYS);
+			super.state(MomentHelper.isAfter(session.getStart(), OneDayAhead), "start", "assistant.session.start-error");
+		}
+		if (!super.getBuffer().getErrors().hasErrors("end"))
+			super.state(MomentHelper.isAfter(session.getEnd(), session.getStart()), "end", "assistant.session.finish-error");
+		if (!super.getBuffer().getErrors().hasErrors("end")) {
+			condition1 = MomentHelper.isLongEnough(session.getStart(), session.getEnd(), 1, ChronoUnit.HOURS);
+			condition2 = MomentHelper.computeDuration(session.getStart(), session.getEnd()).getSeconds() <= Duration.ofHours(5).getSeconds();
+			super.state(condition1 && condition2, "end", "assistant.session.error-end-time");
+		}
 	}
 
 	@Override

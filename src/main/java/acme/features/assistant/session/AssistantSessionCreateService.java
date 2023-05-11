@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,41 +14,37 @@ import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantSessionShowService extends AbstractService<Assistant, Session> {
+public class AssistantSessionCreateService extends AbstractService<Assistant, Session> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]		PROPERTIES	= {
+	public static final String[]			PROPERTIES	= {
 		"title", "summary", "type", "start", "end", "link", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private AssistantSessionRepository	repository;
+	protected AssistantSessionRepository	repository;
 
 
 	// AbstractService interface ----------------------------------------------
 	@Override
 	public void check() {
 		boolean status;
-
 		status = super.getRequest().hasData("id", int.class);
-
 		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void authorise() {
-		final boolean status;
-		int sessionId;
-		final Session session;
-		final Assistant assistant;
-		final Principal principal;
+		boolean status;
+		Principal principal;
+		Tutorial tutorial;
+		int tutorialid;
 
+		tutorialid = super.getRequest().getData("id", int.class);
+		tutorial = this.repository.findOneTutorialById(tutorialid);
 		principal = super.getRequest().getPrincipal();
-		sessionId = super.getRequest().getData("id", int.class);
-		session = this.repository.findOneSessionById(sessionId);
-		assistant = session == null ? null : session.getTutorial().getAssistant();
-		status = session != null && principal.hasRole(assistant);
+		status = principal.hasRole(Assistant.class);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -56,31 +52,51 @@ public class AssistantSessionShowService extends AbstractService<Assistant, Sess
 	@Override
 	public void load() {
 		final Session session;
-		final int sessionId;
+		Tutorial tutorial;
+		int tutorialid;
 
-		sessionId = super.getRequest().getData("id", int.class);
-		session = this.repository.findOneSessionById(sessionId);
+		tutorialid = super.getRequest().getData("id", int.class);
+		tutorial = this.repository.findOneTutorialById(tutorialid);
+		session = new Session();
+		session.setDraftMode(true);
+		session.setTutorial(tutorial);
 
 		super.getBuffer().setData(session);
+	}
+
+	@Override
+	public void bind(final Session session) {
+		assert session != null;
+		super.bind(session, AssistantSessionCreateService.PROPERTIES);
+	}
+
+	@Override
+	public void validate(final Session session) {
+		assert session != null;
+
+	}
+
+	@Override
+	public void perform(final Session session) {
+		assert session != null;
+
+		this.repository.save(session);
 	}
 
 	@Override
 	public void unbind(final Session session) {
 		assert session != null;
 
-		Tutorial tutorial;
 		SelectChoices choices;
 		Tuple tuple;
 
-		tutorial = session.getTutorial();
 		choices = SelectChoices.from(Approach.class, session.getType());
 
-		tuple = super.unbind(session, AssistantSessionShowService.PROPERTIES);
-		tuple.put("masterId", super.getRequest().getData("id", int.class));
+		tuple = super.unbind(session, AssistantSessionCreateService.PROPERTIES);
+		tuple.put("id", super.getRequest().getData("id", int.class));
 		tuple.put("type", choices);
-		tuple.put("tutorial", tutorial);
-		tuple.put("tutorialDraftMode", tutorial.isDraftMode());
-
+		tuple.put("tutorialDraftMode", session.getTutorial().isDraftMode());
 		super.getResponse().setData(tuple);
 	}
+
 }

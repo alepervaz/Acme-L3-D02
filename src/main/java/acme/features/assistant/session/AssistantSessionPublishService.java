@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

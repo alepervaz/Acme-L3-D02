@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.tutorial;
+package acme.features.assistant.tutorial;
 
 import java.util.Collection;
 
@@ -11,13 +11,11 @@ import acme.entities.tutorial.Tutorial;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
-import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantTutorialCreateService extends AbstractService<Assistant, Tutorial> {
+public class AssistantTutorialPublishService extends AbstractService<Assistant, Tutorial> {
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
@@ -25,6 +23,7 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 	};
 
 	// Internal state ---------------------------------------------------------
+
 	@Autowired
 	protected AssistantTutorialRepository	repository;
 
@@ -32,31 +31,37 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 	// AbstractService interface ----------------------------------------------
 	@Override
 	public void check() {
-		super.getResponse().setChecked(true);
+		boolean status;
+
+		status = super.getRequest().hasData("id", int.class);
+
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void authorise() {
 		boolean status;
+		int tutorialId;
+		final Tutorial tutorial;
+		final Assistant assistant;
 		Principal principal;
 
 		principal = super.getRequest().getPrincipal();
-		status = principal.hasRole(Assistant.class);
+		tutorialId = super.getRequest().getData("id", int.class);
+		tutorial = this.repository.findOneTutorialById(tutorialId);
+		assistant = tutorial == null ? null : tutorial.getAssistant();
+		status = tutorial != null && tutorial.isDraftMode() && principal.hasRole(assistant);
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		final Tutorial tutorial;
-		final Assistant assistant;
-		Principal principal;
+		Tutorial tutorial;
+		int tutorialId;
 
-		principal = super.getRequest().getPrincipal();
-		assistant = this.repository.findOneAssistantById(principal.getActiveRoleId());
-		tutorial = new Tutorial();
-		tutorial.setDraftMode(true);
-		tutorial.setAssistant(assistant);
+		tutorialId = super.getRequest().getData("id", int.class);
+		tutorial = this.repository.findOneTutorialById(tutorialId);
 
 		super.getBuffer().setData(tutorial);
 	}
@@ -71,7 +76,7 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 		courseId = super.getRequest().getData("course", int.class);
 		course = this.repository.findOneCourseById(courseId);
 
-		super.bind(tutorial, AssistantTutorialCreateService.PROPERTIES);
+		super.bind(tutorial, AssistantTutorialPublishService.PROPERTIES);
 		tutorial.setCourse(course);
 	}
 
@@ -85,11 +90,14 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 			tutorial = this.repository.findOneTutorialByCode(object.getCode());
 			super.state(tutorial == null || tutorial.getId() == object.getId(), "code", "assistant.tutorial.form.error.not-unique-code");
 		}
+
 	}
 
 	@Override
 	public void perform(final Tutorial tutorial) {
 		assert tutorial != null;
+
+		tutorial.setDraftMode(false);
 
 		this.repository.save(tutorial);
 	}
@@ -105,16 +113,10 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 		courses = this.repository.findAllCourses();
 		choices = SelectChoices.from(courses, "title", tutorial.getCourse());
 
-		tuple = super.unbind(tutorial, AssistantTutorialCreateService.PROPERTIES);
+		tuple = super.unbind(tutorial, AssistantTutorialPublishService.PROPERTIES);
 		tuple.put("course", choices);
 		tuple.put("courses", courses);
+
 		super.getResponse().setData(tuple);
 	}
-
-	@Override
-	public void onSuccess() {
-		if (super.getRequest().getMethod().equals(HttpMethod.POST))
-			PrincipalHelper.handleUpdate();
-	}
-
 }

@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.session;
 
 import java.util.Collection;
 

@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,20 +14,19 @@ import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantSessionUpdateService extends AbstractService<Assistant, Session> {
+public class AssistantSessionShowService extends AbstractService<Assistant, Session> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
+	public static final String[]		PROPERTIES	= {
 		"title", "summary", "type", "start", "end", "link", "draftMode"
 	};
-	// Internal state ---------------------------------------------------------
 
+	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AssistantSessionRepository	repository;
+	private AssistantSessionRepository	repository;
+
 
 	// AbstractService interface ----------------------------------------------
-
-
 	@Override
 	public void check() {
 		boolean status;
@@ -39,17 +38,17 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 
 	@Override
 	public void authorise() {
-		boolean status;
-		final int sessionId;
+		final boolean status;
+		int sessionId;
 		final Session session;
 		final Assistant assistant;
-		Principal principal;
+		final Principal principal;
 
 		principal = super.getRequest().getPrincipal();
 		sessionId = super.getRequest().getData("id", int.class);
 		session = this.repository.findOneSessionById(sessionId);
 		assistant = session == null ? null : session.getTutorial().getAssistant();
-		status = session != null && session.isDraftMode() && principal.hasRole(assistant);
+		status = session != null && principal.hasRole(assistant);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -57,32 +56,12 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 	@Override
 	public void load() {
 		final Session session;
-		int sessionId;
+		final int sessionId;
 
 		sessionId = super.getRequest().getData("id", int.class);
 		session = this.repository.findOneSessionById(sessionId);
 
 		super.getBuffer().setData(session);
-	}
-
-	@Override
-	public void bind(final Session object) {
-		assert object != null;
-
-		super.bind(object, AssistantSessionUpdateService.PROPERTIES);
-
-	}
-
-	@Override
-	public void validate(final Session session) {
-		assert session != null;
-	}
-
-	@Override
-	public void perform(final Session session) {
-		assert session != null;
-
-		this.repository.save(session);
 	}
 
 	@Override

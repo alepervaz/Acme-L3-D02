@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.tutorial;
+package acme.features.assistant.tutorial;
 
 import java.util.Collection;
 

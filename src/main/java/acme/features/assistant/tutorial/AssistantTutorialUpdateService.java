@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.tutorial;
+package acme.features.assistant.tutorial;
 
 import java.util.Collection;
 
@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.courses.Course;
-import acme.entities.session.Session;
 import acme.entities.tutorial.Tutorial;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
@@ -16,19 +15,20 @@ import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantTutorialDeleteService extends AbstractService<Assistant, Tutorial> {
+public class AssistantTutorialUpdateService extends AbstractService<Assistant, Tutorial> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]		PROPERTIES	= {
+	public static final String[]			PROPERTIES	= {
 		"code", "title", "summary", "goals", "estimatedTime", "draftMode"
 	};
-
 	// Internal state ---------------------------------------------------------
-	@Autowired
-	private AssistantTutorialRepository	repository;
 
+	@Autowired
+	protected AssistantTutorialRepository	repository;
 
 	// AbstractService interface ----------------------------------------------
+
+
 	@Override
 	public void check() {
 		boolean status;
@@ -41,7 +41,7 @@ public class AssistantTutorialDeleteService extends AbstractService<Assistant, T
 	@Override
 	public void authorise() {
 		boolean status;
-		int tutorialId;
+		final int tutorialId;
 		final Tutorial tutorial;
 		final Assistant assistant;
 		Principal principal;
@@ -67,8 +67,8 @@ public class AssistantTutorialDeleteService extends AbstractService<Assistant, T
 	}
 
 	@Override
-	public void bind(final Tutorial tutorial) {
-		assert tutorial != null;
+	public void bind(final Tutorial object) {
+		assert object != null;
 
 		int courseId;
 		Course course;
@@ -76,24 +76,27 @@ public class AssistantTutorialDeleteService extends AbstractService<Assistant, T
 		courseId = super.getRequest().getData("course", int.class);
 		course = this.repository.findOneCourseById(courseId);
 
-		super.bind(tutorial, AssistantTutorialDeleteService.PROPERTIES);
-		tutorial.setCourse(course);
+		super.bind(object, AssistantTutorialUpdateService.PROPERTIES);
+		object.setCourse(course);
 	}
 
 	@Override
-	public void validate(final Tutorial tutorial) {
-		assert tutorial != null;
+	public void validate(final Tutorial object) {
+		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+			Tutorial tutorial;
+
+			tutorial = this.repository.findOneTutorialByCode(object.getCode());
+			super.state(tutorial == null || tutorial.getId() == object.getId(), "code", "assistant.tutorial.form.error.not-unique-code");
+		}
 	}
 
 	@Override
 	public void perform(final Tutorial tutorial) {
 		assert tutorial != null;
 
-		Collection<Session> sessions;
-
-		sessions = this.repository.findManySessionsByTutorialId(tutorial.getId());
-		this.repository.deleteAll(sessions);
-		this.repository.delete(tutorial);
+		this.repository.save(tutorial);
 	}
 
 	@Override
@@ -107,9 +110,9 @@ public class AssistantTutorialDeleteService extends AbstractService<Assistant, T
 		courses = this.repository.findAllCourses();
 		choices = SelectChoices.from(courses, "title", tutorial.getCourse());
 
-		tuple = super.unbind(tutorial, AssistantTutorialDeleteService.PROPERTIES);
-		tuple.put("course", choices.getSelected().getKey());
-		tuple.put("courseChoices", courses);
+		tuple = super.unbind(tutorial, AssistantTutorialUpdateService.PROPERTIES);
+		tuple.put("course", choices);
+		tuple.put("courses", courses);
 
 		super.getResponse().setData(tuple);
 	}

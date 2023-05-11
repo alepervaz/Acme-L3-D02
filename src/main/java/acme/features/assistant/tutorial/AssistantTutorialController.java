@@ -1,33 +1,33 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.tutorial;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import acme.entities.session.Session;
+import acme.entities.tutorial.Tutorial;
 import acme.framework.controllers.AbstractController;
 import acme.roles.Assistant;
 
 @Controller
-public class AssistantSessionController extends AbstractController<Assistant, Session> {
+public class AssistantTutorialController extends AbstractController<Assistant, Tutorial> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private AssistantSessionShowService		showService;
+	private AssistantTutorialShowService		showService;
 	@Autowired
-	private AssistantSessionCreateService	createService;
+	private AssistantTutorialCreateService		createService;
 	@Autowired
-	private AssistantSessionUpdateService	updateService;
+	private AssistantTutorialUpdateService		updateService;
 	@Autowired
-	private AssistantSessionDeleteService	deleteService;
+	private AssistantTutorialDeleteService		deleteService;
 	@Autowired
-	private AssistantSessionListService		listService;
+	private AssistantTutorialListAllService		listAllService;
 	@Autowired
-	private AssistantSessionPublishService	publishService;
+	private AssistantTutorialListMineService	listMineService;
 	@Autowired
-	private AssistantSessionListAllService	listAllService;
+	private AssistantTutorialPublishService		publishService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -37,11 +37,10 @@ public class AssistantSessionController extends AbstractController<Assistant, Se
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("update", this.updateService);
 		super.addBasicCommand("delete", this.deleteService);
-		super.addBasicCommand("list", this.listService);
 
-		super.addCustomCommand("publish", "update", this.publishService);
 		super.addCustomCommand("list-all", "list", this.listAllService);
-
+		super.addCustomCommand("list-mine", "list", this.listMineService);
+		super.addCustomCommand("publish", "update", this.publishService);
 	}
 
 }

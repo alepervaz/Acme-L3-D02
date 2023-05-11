@@ -33,6 +33,7 @@
 		<acme:menu-option code="master.menu.authenticated" access="isAuthenticated">
 			<acme:menu-suboption code="master.menu.authenticated.favourite-link" action="http://www.example.com/"/>
 			<acme:menu-separator/>
+			<acme:menu-suboption code="master.menu.authenticated.Tutorial" action="/authenticated/tutorial/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-notes" action="/authenticated/note/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-bulletins" action="/authenticated/bulletin/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-practicums" action="/authenticated/practicum/list"/>

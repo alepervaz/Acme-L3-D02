@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.assistantDashboard;
+package acme.features.assistant.assistantDashboard;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

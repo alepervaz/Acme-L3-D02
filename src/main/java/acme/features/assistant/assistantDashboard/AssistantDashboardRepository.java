@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.assistantDashboard;
+package acme.features.assistant.assistantDashboard;
 
 import java.util.Collection;
 

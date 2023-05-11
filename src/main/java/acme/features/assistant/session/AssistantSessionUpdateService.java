@@ -1,11 +1,12 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.enums.Approach;
 import acme.entities.session.Session;
+import acme.entities.tutorial.Tutorial;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
@@ -13,19 +14,20 @@ import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantSessionDeleteService extends AbstractService<Assistant, Session> {
+public class AssistantSessionUpdateService extends AbstractService<Assistant, Session> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]		PROPERTIES	= {
+	public static final String[]			PROPERTIES	= {
 		"title", "summary", "type", "start", "end", "link", "draftMode"
 	};
-
 	// Internal state ---------------------------------------------------------
-	@Autowired
-	private AssistantSessionRepository	repository;
 
+	@Autowired
+	protected AssistantSessionRepository	repository;
 
 	// AbstractService interface ----------------------------------------------
+
+
 	@Override
 	public void check() {
 		boolean status;
@@ -64,10 +66,11 @@ public class AssistantSessionDeleteService extends AbstractService<Assistant, Se
 	}
 
 	@Override
-	public void bind(final Session session) {
-		assert session != null;
+	public void bind(final Session object) {
+		assert object != null;
 
-		super.bind(session, AssistantSessionDeleteService.PROPERTIES);
+		super.bind(object, AssistantSessionUpdateService.PROPERTIES);
+
 	}
 
 	@Override
@@ -79,22 +82,26 @@ public class AssistantSessionDeleteService extends AbstractService<Assistant, Se
 	public void perform(final Session session) {
 		assert session != null;
 
-		this.repository.delete(session);
+		this.repository.save(session);
 	}
 
 	@Override
 	public void unbind(final Session session) {
 		assert session != null;
 
+		Tutorial tutorial;
 		SelectChoices choices;
 		Tuple tuple;
 
+		tutorial = session.getTutorial();
 		choices = SelectChoices.from(Approach.class, session.getType());
 
-		tuple = super.unbind(session, AssistantSessionCreateService.PROPERTIES);
-		tuple.put("masterId", super.getRequest().getData("masterId", int.class));
+		tuple = super.unbind(session, AssistantSessionShowService.PROPERTIES);
+		tuple.put("masterId", super.getRequest().getData("id", int.class));
 		tuple.put("type", choices);
-		tuple.put("tutorialDraftMode", session.getTutorial().isDraftMode());
+		tuple.put("tutorial", tutorial);
+		tuple.put("tutorialDraftMode", tutorial.isDraftMode());
+
 		super.getResponse().setData(tuple);
 	}
 }

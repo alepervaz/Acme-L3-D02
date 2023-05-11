@@ -1,5 +1,5 @@
 
-package acme.features.authenticated.assistant.session;
+package acme.features.assistant.session;
 
 import java.util.Collection;
 
@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.session.Session;
+import acme.entities.tutorial.Tutorial;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
 
 @Service
-public class AssistantSessionListAllService extends AbstractService<Assistant, Session> {
+public class AssistantSessionListService extends AbstractService<Assistant, Session> {
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
@@ -29,16 +30,22 @@ public class AssistantSessionListAllService extends AbstractService<Assistant, S
 
 	@Override
 	public void check() {
-		super.getResponse().setChecked(true);
+		boolean status;
+		status = super.getRequest().hasData("id", int.class);
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void authorise() {
 		boolean status;
 		Principal principal;
+		Tutorial tutorial;
+		int tutorialId;
 
+		tutorialId = super.getRequest().getData("id", int.class);
+		tutorial = this.repository.findOneTutorialById(tutorialId);
 		principal = super.getRequest().getPrincipal();
-		status = principal.hasRole(Assistant.class);
+		status = tutorial != null && principal.hasRole(Assistant.class);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -46,8 +53,10 @@ public class AssistantSessionListAllService extends AbstractService<Assistant, S
 	@Override
 	public void load() {
 		Collection<Session> sessions;
+		int tutorialId;
 
-		sessions = this.repository.findManySession();
+		tutorialId = super.getRequest().getData("id", int.class);
+		sessions = this.repository.findManySessionByTutorialId(tutorialId);
 
 		super.getBuffer().setData(sessions);
 	}
@@ -58,9 +67,8 @@ public class AssistantSessionListAllService extends AbstractService<Assistant, S
 
 		Tuple tuple;
 
-		tuple = super.unbind(session, AssistantSessionListAllService.PROPERTIES);
+		tuple = super.unbind(session, AssistantSessionListService.PROPERTIES);
 
 		super.getResponse().setData(tuple);
 	}
-
 }

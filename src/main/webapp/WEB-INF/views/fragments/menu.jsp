@@ -116,9 +116,7 @@
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.company.dashboard" action="/company/company-dashboard/show"/>
 		</acme:menu-option>
-		<acme:menu-option code="master.menu.assistant" access="hasRole('Assistant')">
-			<acme:menu-suboption code="master.menu.assistant.favourite-link" action="http://www.example.com/"/>
-	</acme:menu-option>
+	
 
 	</acme:menu-left>
 

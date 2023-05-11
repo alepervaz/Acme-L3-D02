@@ -36,6 +36,7 @@ master.menu.authenticated.all-notes = Ver todas las notas
 master.menu.authenticated.all-bulletins = Ver todos los boletines
 master.menu.authenticated.all-practicums = Ver todas las prácticas
 master.menu.authenticated.all-audits = Ver todos los audits
+master.menu.authenticated.Tutorial = Listado de tutoriales
 
 
 

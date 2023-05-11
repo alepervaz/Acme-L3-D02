@@ -47,6 +47,7 @@ master.menu.authenticated.all-notes = List all notes
 master.menu.authenticated.all-bulletins = List all bulletins
 master.menu.authenticated.all-practicums = List all practicums
 master.menu.authenticated.all-audits = List all audits
+master.menu.authenticated.Tutorial = Tutorial List
 
 # master.menu.administrator ###################################################
 

@@ -4,6 +4,7 @@ assistant.tutorial.list.label.estimatedTime = Tiempo Estimado
 assistant.tutorial.list.label.title = Titulo
 assistant.tutorial.list.button.create = Crear Tutorial
 assistant.session.list.button.create = Crear Sesion
+assistant.tutorial.list.label.summary = Resumen
 
 # form ###############################################################
 assistant.tutorial.form.label.code = Codigo

@@ -1,10 +1,11 @@
 
 package acme.features.student.enrolment;
 
-import java.text.ParsePosition;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ import acme.entities.courses.Course;
 import acme.entities.enrolment.Enrolment;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.jsp.SelectChoices;
+import acme.framework.components.models.Errors;
 import acme.framework.components.models.Tuple;
-import acme.framework.helpers.MessageHelper;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Student;
@@ -22,9 +23,14 @@ import acme.roles.Student;
 @Service
 public class StudentEnrolmentPublishService extends AbstractService<Student, Enrolment> {
 
+	// Constants -------------------------------------------------------------
+	public static final String[]			PROPERTIES	= {
+		"code", "motivation", "goals", "cardHolderName", "cardLowerNibble", "cardNumber", "expirationDate", "cvv"
+	};
+
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected StudentEnrolmentRepository repository;
+	protected StudentEnrolmentRepository	repository;
 
 
 	// AbstractService <Student,Enrolment> ----------------------------------------------
@@ -66,66 +72,77 @@ public class StudentEnrolmentPublishService extends AbstractService<Student, Enr
 	}
 
 	@Override
-	public void bind(final Enrolment object) {
-		assert object != null;
+	public void bind(final Enrolment enrolment) {
+		assert enrolment != null;
 
-		super.bind(object, "cardHolderName", "cardLowerNibble");
+		int courseId;
+		Course course;
+
+		courseId = super.getRequest().getData("course", int.class);
+		course = this.repository.findOneCourseById(courseId);
+
+		super.bind(enrolment, StudentEnrolmentPublishService.PROPERTIES);
+		enrolment.setCourse(course);
 	}
 
 	@Override
-	public void validate(final Enrolment object) {
-		assert object != null;
-		SimpleDateFormat formatter;
-		String format;
-		Integer cvv;
-		String expireDateString;
-		Date expireDate;
+	public void validate(final Enrolment enrolment) {
+		assert enrolment != null;
 
-		expireDateString = super.getRequest().getData("expireDate", String.class).trim().concat(" 00:00");
-		format = MessageHelper.getMessage("default.format.moment", null, "yyyy/MM/dd HH:mm", super.getRequest().getLocale());
-		formatter = new SimpleDateFormat(format);
-		formatter.setLenient(false);
+		String locale;
+		SimpleDateFormat dateFormat;
+		String dateString;
+		Date expirationDate;
+		Errors errors;
+		boolean hasExpirationDateErrors;
 
-		expireDate = formatter.parse(expireDateString, new ParsePosition(0));
-		cvv = super.getRequest().getData("cvv", Integer.class);
+		if (enrolment.getExpirationDate() != null) {
+			locale = Locale.getDefault().getLanguage();
+			dateFormat = new SimpleDateFormat(locale.equals("es") ? "MM/yy" : "yy/MM");
+			dateFormat.setLenient(false);
 
-		super.state(object.getCardLowerNibble() != null && object.getCardLowerNibble().matches("^([0-9]{16})$"), "cardLowerNibble", "student.enrolment.form.error.invalid-card-number");
-		super.state(!"".equals(object.getCardHolderName()), "cardHolderName", "student.enrolment.form.error.invalid-card-holder");
-		super.state(cvv != null, "cvv", "student.enrolment.form.error.invalid-cvv");
-		super.state(expireDate != null, "expireDate", "student.enrolment.form.error.invalid-expireDate-format");
-		if (expireDate != null)
-			super.state(!MomentHelper.isAfterOrEqual(MomentHelper.getCurrentMoment(), expireDate), "expireDate", "student.enrolment.form.error.invalid-expireDate-value");
-		if (cvv != null)
-			super.state(String.valueOf(cvv).length() == 3, "cvv", "student.enrolment.form.error.invalid-cvv");
+			dateString = enrolment.getExpirationDate();
+			try {
+				expirationDate = dateFormat.parse(dateString);
+			} catch (final ParseException e) {
+				expirationDate = null;
+			}
 
-		super.state(object.isDraftMode(), "draftMode", "student.enrolment.form.error.finalised");
+			errors = super.getBuffer().getErrors();
+			hasExpirationDateErrors = errors.hasErrors("expirationDate");
+
+			super.state(!hasExpirationDateErrors && expirationDate != null, "expirationDate", "student.enrolment.form.error.incorrectDateFormat");
+
+			if (!hasExpirationDateErrors && expirationDate != null)
+				super.state(MomentHelper.isFuture(expirationDate), "expirationDate", "student.enrolment.form.error.expirationDate");
+		}
 	}
 
 	@Override
-	public void perform(final Enrolment object) {
-		assert object != null;
+	public void perform(final Enrolment enrolment) {
+		assert enrolment != null;
 
-		object.setDraftMode(false);
-		object.setCardLowerNibble(object.getCardLowerNibble().substring(12, 16));
+		enrolment.setDraftMode(false);
+		enrolment.setCardLowerNibble(enrolment.getCardNumber().substring(12, 16));
 
-		this.repository.save(object);
+		this.repository.save(enrolment);
 	}
 
 	@Override
-	public void unbind(final Enrolment object) {
-		assert object != null;
+	public void unbind(final Enrolment enrolment) {
+		assert enrolment != null;
 
 		List<Course> courses;
 		final SelectChoices choices;
 		Tuple tuple;
 
 		courses = this.repository.findManyCourses();
-		choices = SelectChoices.from(courses, "code", object.getCourse());
+		choices = SelectChoices.from(courses, "code", enrolment.getCourse());
 
-		tuple = super.unbind(object, "cardHolderName", "cardLowerNibble", "draftMode");
+		tuple = super.unbind(enrolment, StudentEnrolmentPublishService.PROPERTIES);
 		tuple.put("course", choices.getSelected().getKey());
 		tuple.put("courses", choices);
-		tuple.put("draftMode", object.isDraftMode());
+		tuple.put("draftMode", enrolment.isDraftMode());
 
 		super.getResponse().setData(tuple);
 	}

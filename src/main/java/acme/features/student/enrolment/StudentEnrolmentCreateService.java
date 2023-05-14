@@ -19,7 +19,7 @@ public class StudentEnrolmentCreateService extends AbstractService<Student, Enro
 
 	// Constants -------------------------------------------------------------
 	public static final String[]			PROPERTIES	= {
-		"code", "motivation", "goals"
+		"code", "motivation", "goals", "cardHolderName"
 	};
 
 	// Internal state ---------------------------------------------------------

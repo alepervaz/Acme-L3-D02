@@ -3,6 +3,7 @@ package acme.features.authenticated.offer;
 
 import java.util.Collection;
 
+import acme.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,17 @@ import acme.framework.services.AbstractService;
 
 @Service
 public class AuthenticatedOfferListService extends AbstractService<Authenticated, Offer> {
-	;
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
+	protected static final String[]			PROPERTIES	= {
 		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	protected AuthenticatedOfferRepository	repository;
+	@Autowired
+	protected CurrencyService currencyService;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -54,7 +55,7 @@ public class AuthenticatedOfferListService extends AbstractService<Authenticated
 	public void bind(final Offer object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedOfferCreateService.PROPERTIES);
+		super.bind(object, PROPERTIES);
 	}
 
 	@Override
@@ -64,7 +65,8 @@ public class AuthenticatedOfferListService extends AbstractService<Authenticated
 		Tuple tuple;
 		boolean isAdmin;
 		isAdmin = super.getRequest().getPrincipal().hasRole(Administrator.class);
-		tuple = super.unbind(object, AuthenticatedOfferCreateService.PROPERTIES);
+		tuple = super.unbind(object, PROPERTIES);
+		tuple.put("price", this.currencyService.changeIntoSystemCurrency(object.getPrice()));
 		tuple.put("isAdmin", isAdmin);
 		super.getResponse().setData(tuple);
 	}

@@ -23,18 +23,22 @@ public class CurrencyService {
 
 		String targetCurrency;
 		RestTemplate api;
-		ExchangeRate record;
+		ExchangeRate exchangeRate;
 		Double rate;
 		double targetAmount;
 		Money target;
 
 		targetCurrency = this.repository.findCurrentCurrency();
+
+		if (source.getCurrency().equals(targetCurrency))
+			return source;
+
 		api = new RestTemplate();
-		record = api.getForObject("https://api.exchangerate.host/latest?base={0}&symbols={1}", ExchangeRate.class, source.getCurrency(), targetCurrency);
+		exchangeRate = api.getForObject("https://api.exchangerate.host/latest?base={0}&symbols={1}", ExchangeRate.class, source.getCurrency(), targetCurrency);
 
-		assert record != null;
+		assert exchangeRate != null;
 
-		rate = record.getRates().get(targetCurrency);
+		rate = exchangeRate.getRates().get(targetCurrency);
 		targetAmount = rate * source.getAmount();
 		target = new Money();
 		target.setAmount(targetAmount);

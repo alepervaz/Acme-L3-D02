@@ -1,5 +1,5 @@
 
-package acme.features.company.company_dashboard;
+package acme.features.company.companyDashboard;
 
 import java.time.Month;
 import java.util.Map;

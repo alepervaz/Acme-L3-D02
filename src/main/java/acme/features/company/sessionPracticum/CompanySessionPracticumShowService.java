@@ -1,8 +1,8 @@
 
-package acme.features.company.session_practicum;
+package acme.features.company.sessionPracticum;
 
 import acme.entities.practicum.Practicum;
-import acme.entities.session_practicum.SessionPracticum;
+import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;

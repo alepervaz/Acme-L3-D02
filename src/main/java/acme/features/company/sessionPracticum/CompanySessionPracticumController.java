@@ -1,7 +1,7 @@
 
-package acme.features.company.session_practicum;
+package acme.features.company.sessionPracticum;
 
-import acme.entities.session_practicum.SessionPracticum;
+import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.controllers.AbstractController;
 import acme.roles.Company;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,14 @@
 
-package acme.features.company.session_practicum;
+package acme.features.company.sessionPracticum;
 
 import acme.entities.practicum.Practicum;
-import acme.entities.session_practicum.SessionPracticum;
+import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
+import acme.services.SpamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 	// Internal state ---------------------------------------------------------
 	@Autowired
 	private CompanySessionPracticumRepository repository;
+	@Autowired
+	protected SpamService spamDetector;
 
 	// AbstractService Interface ----------------------------------------------
 
@@ -120,6 +123,16 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 
 			super.state(sessionPracticum.isConfirmed() || practicum.isDraftMode(), "confirmed", "company.session-practicum.error.confirmed");
 		}
+
+		// Spam validation
+		if (!super.getBuffer().getErrors().hasErrors("title"))
+			super.state(this.spamDetector.validateTextInput(sessionPracticum.getTitle()), "title", "company.session-practicum.error.spam.title");
+		if (!super.getBuffer().getErrors().hasErrors("abstractSession"))
+			super.state(this.spamDetector.validateTextInput(sessionPracticum.getAbstractSession()), "abstractSession", "company.session-practicum.error.spam.abstract-session");
+		if (!super.getBuffer().getErrors().hasErrors("description"))
+			super.state(this.spamDetector.validateTextInput(sessionPracticum.getDescription()), "description", "company.session-practicum.error.spam.description");
+		if (!super.getBuffer().getErrors().hasErrors("link"))
+			super.state(this.spamDetector.validateTextInput(sessionPracticum.getLink()), "link", "company.session-practicum.error.spam.link");
 
 	}
 

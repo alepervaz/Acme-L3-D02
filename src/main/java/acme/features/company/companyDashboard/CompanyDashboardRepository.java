@@ -1,6 +1,7 @@
 
-package acme.features.company.company_dashboard;
+package acme.features.company.companyDashboard;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -47,7 +48,7 @@ public interface CompanyDashboardRepository extends AbstractRepository {
 	@Query("select count(p) from Practicum p where p.company.id = ?1")
 	int findCountPractica(int companyId);
 
-	@Query("SELECT FUNCTION('MONTH', sp.start), COUNT(sp) FROM SessionPracticum sp WHERE sp.practicum.company.id = ?1 GROUP BY FUNCTION('MONTH', sp.start) ORDER BY COUNT(sp) DESC")
-	List<Object[]> findTotalNumberOfPracticaByMonth(int companyId);
+	@Query("SELECT FUNCTION('MONTH', sp.start), COUNT(sp) FROM SessionPracticum sp WHERE sp.practicum.company.id = ?1 and sp.start >= FUNCTION('DATE_SUB', ?2, FUNCTION('INTERVAL', 1, 'YEAR')) and sp.end <= ?2 GROUP BY FUNCTION('MONTH', sp.start) ORDER BY COUNT(sp) DESC")
+	List<Object[]> findTotalNumberOfPracticaByMonth(int companyId, Date currentMoment);
 
 }

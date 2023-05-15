@@ -1,5 +1,5 @@
 
-package acme.features.administrator.administrator_dashboard;
+package acme.features.administrator.administratorDashboard;
 
 import java.util.Collection;
 import java.util.Date;

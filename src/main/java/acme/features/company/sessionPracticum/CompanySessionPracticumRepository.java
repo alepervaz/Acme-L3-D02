@@ -1,8 +1,8 @@
 
-package acme.features.company.session_practicum;
+package acme.features.company.sessionPracticum;
 
 import acme.entities.practicum.Practicum;
-import acme.entities.session_practicum.SessionPracticum;
+import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.repositories.AbstractRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

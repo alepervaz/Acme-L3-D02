@@ -1,5 +1,5 @@
 
-package acme.entities.session_practicum;
+package acme.entities.sessionPracticum;
 
 import acme.entities.practicum.Practicum;
 import acme.framework.data.AbstractEntity;

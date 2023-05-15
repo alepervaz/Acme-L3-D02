@@ -14,7 +14,7 @@ import acme.framework.services.AbstractService;
 public class AuthenticatedOfferShowService extends AbstractService<Authenticated, Offer> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
+	protected static final String[]			PROPERTIES	= {
 		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link", "draftMode"
 	};
 
@@ -68,6 +68,7 @@ public class AuthenticatedOfferShowService extends AbstractService<Authenticated
 		isAdmin = super.getRequest().getPrincipal().hasRole(Administrator.class);
 		tuple = super.unbind(object, AuthenticatedOfferCreateService.PROPERTIES);
 		tuple.put("editable", object.isDraftMode() && isAdmin);
+		// tuple.put("price", this.currencyService.changeIntoSystemCurrency(object.getPrice())); // Si es Authenticated
 		tuple.put("isAdmin", isAdmin);
 
 		super.getResponse().setData(tuple);

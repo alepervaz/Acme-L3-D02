@@ -12,9 +12,6 @@
 
 package acme.features.authenticated.course;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import acme.entities.courses.Course;
 import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
@@ -22,20 +19,25 @@ import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
+import acme.services.CurrencyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticatedCourseShowService extends AbstractService<Authenticated, Course> {
 
 	//Constants
 
-	public final static String[]			PROPERTIES	= {
-		"id", "code", "title", "courseAbstract", "retailPrice", "furtherInformation", "type"
+	protected static final String[] PROPERTIES = {
+			"id", "code", "title", "courseAbstract", "furtherInformation", "type"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedCourseRepository	repository;
+	protected AuthenticatedCourseRepository repository;
+	@Autowired
+	protected CurrencyService currencyService;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -81,6 +83,7 @@ public class AuthenticatedCourseShowService extends AbstractService<Authenticate
 		Tuple tuple;
 
 		tuple = BinderHelper.unbind(object, AuthenticatedCourseShowService.PROPERTIES);
+		tuple.put("retailPrice", this.currencyService.changeIntoSystemCurrency(object.getRetailPrice()));
 		super.getResponse().setData(tuple);
 	}
 

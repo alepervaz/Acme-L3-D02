@@ -19,6 +19,7 @@ authenticated.auditingRecord.form.label.mark = Mark
 authenticated.auditingRecord.form.label.link = Link
 authenticated.auditingRecord.form.label.draftMode = Audit in edition
 authenticated.auditingRecord.form.label.special = Audit as correction
+authenticated.auditingRecord.form.label.placeHolder.mark = A+ / A / B / C / F / F-
 
 
 

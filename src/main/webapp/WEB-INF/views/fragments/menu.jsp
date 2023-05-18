@@ -38,6 +38,9 @@
 			<acme:menu-suboption code="master.menu.authenticated.all-bulletins" action="/authenticated/bulletin/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-practicums" action="/authenticated/practicum/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-audits" action="/authenticated/audit/list-publish"/>
+			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/>
+		
+
 		</acme:menu-option>
 		<!-- Aquí estarían los enlaces -->
 
@@ -61,6 +64,7 @@
 			<acme:menu-suboption code="master.menu.authenticated.note.list" action="/authenticated/note/list"/>
 		</acme:menu-option>
 		<!-- Ver si se borra -->
+
 
 
 		<acme:menu-option code="master.menu.provider" access="hasRole('Provider')">
@@ -97,6 +101,7 @@
 		<!-- Ver si se borra -->
 		<acme:menu-option code="master.menu.user-account.bulletin" access="isAuthenticated()">
 			<acme:menu-suboption code="master.menu.user-account.bulletin" action="/authenticated/bulletin/list"/>
+<<<<<<< HEAD
     	</acme:menu-option>
 		<!-- Ver si se borra -->
 
@@ -105,6 +110,15 @@
 			<acme:menu-suboption code="master.menu.auditor.list-mine" action="/authenticated/audit/list-mine" access="hasRole('Auditor')"/> <!-- Debería de ser un list, no un list-mine, este debe de estar en la secciónde Auditor -->
 			<acme:menu-suboption code="master.menu.auditor.list-publish" action="/authenticated/audit/list-publish"/> <!-- Este sería el list -->
 			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/> <!-- Este con el payload no sería necesario -->
+=======
+    </acme:menu-option>
+		
+		<acme:menu-option code="master.menu.auditor" access="hasRole('Auditor')">
+			<acme:menu-suboption code="master.menu.auditor.list-mine" action="/auditor/audit/list-mine" />
+
+			<acme:menu-suboption code="master.menu.auditor.list-publish" action="/auditor/audit/list-publish"/>
+			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/>
+>>>>>>> task-15-I5
 		</acme:menu-option>
 		<!-- Ver si se borra -->
 

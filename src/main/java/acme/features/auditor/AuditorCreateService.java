@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerUpdateService.java
+ * AuthenticatedConsumerCreateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,44 +10,44 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.course;
-
-import java.util.Collection;
+package acme.features.auditor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.courses.Course;
-import acme.features.auditor.AuditorRepository;
 import acme.framework.components.accounts.Authenticated;
+import acme.framework.components.accounts.Principal;
+import acme.framework.components.accounts.UserAccount;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-import acme.services.CurrencyService;
+import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedCourseListService extends AbstractService<Authenticated, Course> {
+public class AuditorCreateService extends AbstractService<Authenticated, Auditor> {
 
 	//Constants
 
 	public final static String[]	PROPERTIES	= {
-		"code", "title", "courseAbstract", "retailPrice", "link", "type"
+		"firm", "proffesionalId", "certifications", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected CurrencyService		currencyService;
 	protected AuditorRepository		repository;
 
-	// AbstractService interface ----------------------------------------------ç
+	// AbstractService<Authenticated, Consumer> ---------------------------
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = !super.getRequest().getPrincipal().hasRole(Auditor.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -57,33 +57,46 @@ public class AuthenticatedCourseListService extends AbstractService<Authenticate
 
 	@Override
 	public void load() {
-		Collection<Course> object;
+		Auditor object;
+		Principal principal;
+		int userAccountId;
+		UserAccount userAccount;
 
-		object = this.repository.findCourses();
+		principal = super.getRequest().getPrincipal();
+		userAccountId = principal.getAccountId();
+		userAccount = this.repository.findOneUserAccountById(userAccountId);
+
+		object = new Auditor();
+		object.setUserAccount(userAccount);
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Course object) {
+	public void bind(final Auditor object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedCourseListService.PROPERTIES);
+		super.bind(object, AuditorCreateService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Course object) {
+	public void validate(final Auditor object) {
 		assert object != null;
 	}
 
 	@Override
-	public void unbind(final Course object) {
+	public void perform(final Auditor object) {
 		assert object != null;
 
+		this.repository.save(object);
+	}
+
+	@Override
+	public void unbind(final Auditor object) {
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AuthenticatedCourseListService.PROPERTIES);
-		tuple.put("retailPrice", this.currencyService.changeIntoSystemCurrency(object.getRetailPrice()));
+		tuple = super.unbind(object, AuditorCreateService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
 	}
 

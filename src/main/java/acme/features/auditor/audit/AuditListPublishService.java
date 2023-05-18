@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
-import acme.framework.components.accounts.Authenticated;
+import acme.entities.courses.Course;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
@@ -27,7 +27,7 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuditListPublishService extends AbstractService<Authenticated, Audit> {
+public class AuditListPublishService extends AbstractService<Auditor, Audit> {
 
 	//Constants
 
@@ -47,7 +47,7 @@ public class AuditListPublishService extends AbstractService<Authenticated, Audi
 	public void authorise() {
 		boolean status;
 
-		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
+		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -74,6 +74,20 @@ public class AuditListPublishService extends AbstractService<Authenticated, Audi
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
+		assert object.getCourse().getCode() != null;
+
+		final Course course = this.repository.findOneCurseByCode(object.getCourse().getCode());
+		object.setCourse(course);
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+			boolean existCourse;
+			final boolean isUnique;
+
+			existCourse = course == null;
+			super.state(!existCourse, "course.code", "audit.error.not-exist-curse");
+
+			isUnique = this.repository.isUniqueCodeAudit(object.getCode());
+			super.state(isUnique, "code", "audit.error.exist-code");
+		}
 	}
 
 	@Override

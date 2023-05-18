@@ -26,6 +26,14 @@
       		<acme:menu-suboption code="master.menu.anonymous.favorite-link.marvicmar" action="https://zacatrus.es/"/>
 		</acme:menu-option>
 		
+		<acme:menu-option code="master.menu.authenticated" access="isAuthenticated">
+			<acme:menu-suboption code="master.menu.authenticated.favourite-link" action="http://www.example.com/"/>
+			<acme:menu-separator/>
+			<acme:menu-suboption code="master.menu.authenticated.all-audits" action="/authenticated/audit/list-publish"/>
+			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/>
+			
+		</acme:menu-option>
+		
 		<acme:menu-option code="master.menu.tutorials" access="isAuthenticated()">
 			<acme:menu-suboption code="master.menu.user-account.tutorials" action="/authenticated/tutorial/list"/>
 		</acme:menu-option>
@@ -38,9 +46,12 @@
 			<acme:menu-separator/>
 			<acme:menu-suboption code="master.menu.administrator.shut-down" action="/administrator/shut-down"/>
 		</acme:menu-option>
+		
  		<acme:menu-option code="master.menu.authenticated.notes" access="isAuthenticated()">
 			<acme:menu-suboption code="master.menu.authenticated.note.list" action="/authenticated/note/list"/>
 		</acme:menu-option>
+		
+		
 		<acme:menu-option code="master.menu.provider" access="hasRole('Provider')">
 			<acme:menu-suboption code="master.menu.provider.favourite-link" action="http://www.example.com/"/>
 		</acme:menu-option>
@@ -67,10 +78,10 @@
 			<acme:menu-suboption code="master.menu.user-account.bulletin" action="/authenticated/bulletin/list"/>
     </acme:menu-option>
 		
-		<acme:menu-option code="master.menu.auditor" access="isAuthenticated()">
-				<acme:menu-suboption code="master.menu.auditor.list-mine" action="/authenticated/audit/list-mine" access="hasRole('Auditor')"/>
+		<acme:menu-option code="master.menu.auditor" access="hasRole('Auditor')">
+			<acme:menu-suboption code="master.menu.auditor.list-mine" action="/auditor/audit/list-mine" />
 
-			<acme:menu-suboption code="master.menu.auditor.list-publish" action="/authenticated/audit/list-publish"/>
+			<acme:menu-suboption code="master.menu.auditor.list-publish" action="/auditor/audit/list-publish"/>
 			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/>
 		</acme:menu-option>
 

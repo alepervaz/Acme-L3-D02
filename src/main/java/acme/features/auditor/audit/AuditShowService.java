@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
@@ -26,7 +25,7 @@ import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuditShowService extends AbstractService<Authenticated, Audit> {
+public class AuditShowService extends AbstractService<Auditor, Audit> {
 
 	//Constants
 
@@ -45,7 +44,7 @@ public class AuditShowService extends AbstractService<Authenticated, Audit> {
 	public void authorise() {
 		boolean status;
 
-		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
+		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
 
 		super.getResponse().setAuthorised(status);
 	}

@@ -1,5 +1,5 @@
 /*
- * AuthenticatedConsumerCreateService.java
+ * AuthenticatedConsumerUpdateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -10,40 +10,44 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.auditor.audit;
+package acme.features.authenticated.audit;
+
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.Audit;
-import acme.entities.courses.Course;
-import acme.framework.components.accounts.Principal;
+import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
+import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuditCreateService extends AbstractService<Auditor, Audit> {
+public class AuthenticatedAuditListPublishService extends AbstractService<Authenticated, Audit> {
 
 	//Constants
 
-	public final static String[]	PROPERTIES	= {
-		"course.code", "code", "conclusion", "strongPoints", "weakPoints", "auditor.firm"
+	public final static String[]			PROPERTIES	= {
+		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuditRepository		repository;
+	protected AuthenticatedAuditRepository	repository;
+
+	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
 	public void authorise() {
 		boolean status;
 
-		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
+		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -55,19 +59,8 @@ public class AuditCreateService extends AbstractService<Auditor, Audit> {
 
 	@Override
 	public void load() {
-		Audit object;
-		Principal principal;
-		int userAccountId;
-		Auditor auditor;
-
-		principal = super.getRequest().getPrincipal();
-		userAccountId = principal.getAccountId();
-		auditor = this.repository.findOneAuditorByUserAccountId(userAccountId);
-
-		object = new Audit();
-		object.setAuditor(auditor);
-		object.setCourse(new Course());
-		object.setDraftMode(true);
+		final Collection<Audit> object;
+		object = this.repository.findAuditsPublish();
 		super.getBuffer().setData(object);
 	}
 
@@ -75,27 +68,12 @@ public class AuditCreateService extends AbstractService<Auditor, Audit> {
 	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuditCreateService.PROPERTIES);
+		super.bind(object, AuthenticatedAuditListPublishService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Audit object) {
 		assert object != null;
-		assert object.getCourse().getCode() != null;
-
-		final Course course = this.repository.findOneCurseByCode(object.getCourse().getCode());
-		object.setCourse(course);
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
-			boolean existCourse;
-			final boolean isUnique;
-
-			existCourse = course == null;
-			super.state(!existCourse, "course.code", "audit.error.not-exist-curse");
-
-			isUnique = this.repository.isUniqueCodeAudit(object.getCode());
-			super.state(isUnique, "code", "audit.error.exist-code");
-		}
-
 	}
 
 	@Override
@@ -107,14 +85,19 @@ public class AuditCreateService extends AbstractService<Auditor, Audit> {
 
 	@Override
 	public void unbind(final Audit object) {
+		assert object != null;
+
 		Tuple tuple;
 
-		tuple = super.unbind(object, AuditCreateService.PROPERTIES);
-		tuple.put("course", object.getCourse());
-		tuple.put("auditor", object.getAuditor());
-		tuple.put("myAudit", true);
-		tuple.put("draftMode", true);
+		tuple = BinderHelper.unbind(object, AuthenticatedAuditListPublishService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<Audit> objects) {
+		super.getResponse().setGlobal("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
+		super.unbind(objects);
 	}
 
 	@Override

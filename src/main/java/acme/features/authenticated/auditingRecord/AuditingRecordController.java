@@ -1,5 +1,5 @@
 
-package acme.features.auditor.auditingRecord;
+package acme.features.authenticated.auditingRecord;
 
 import javax.annotation.PostConstruct;
 
@@ -15,25 +15,16 @@ public class AuditingRecordController extends AbstractController<Authenticated, 
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AuditingRecordShowService		showAuditingRecordService;
+	protected AuditingRecordShowService	showAuditingRecordService;
 	@Autowired
-	protected AuditingRecordListService		listAuditingRecordService;
-	@Autowired
-	protected AuditingRecordCreateService	createAuditingRecordService;
-	@Autowired
-	protected AuditingRecordDeleteService	deleteAuditingRecordService;
-	@Autowired
-	protected AuditingRecordUpdateService	updateAuditingRecordService;
+	protected AuditingRecordListService	listAuditingRecordService;
 
 
 	// Constructors -----------------------------------------------------------
 	@PostConstruct
 	protected void initialise() {
-		super.addBasicCommand("create", this.createAuditingRecordService);
 		super.addBasicCommand("show", this.showAuditingRecordService);
 		super.addBasicCommand("list", this.listAuditingRecordService);
-		super.addBasicCommand("delete", this.deleteAuditingRecordService);
-		super.addBasicCommand("update", this.updateAuditingRecordService);
 
 	}
 

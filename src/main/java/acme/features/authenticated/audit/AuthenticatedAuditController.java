@@ -10,7 +10,7 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.auditor.audit;
+package acme.features.authenticated.audit;
 
 import javax.annotation.PostConstruct;
 
@@ -18,29 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import acme.entities.audit.Audit;
+import acme.framework.components.accounts.Authenticated;
 import acme.framework.controllers.AbstractController;
-import acme.roles.Auditor;
 
 @Controller
-public class AuditController extends AbstractController<Auditor, Audit> {
+public class AuthenticatedAuditController extends AbstractController<Authenticated, Audit> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AuditShowService			showAuditService;
+	protected AuthenticatedAuditShowService			showAuditService;
 	@Autowired
-	protected AuditListMineService		listMineAuditService;
+	protected AuthenticatedAuditListCourseService	listAuditByCourseService;
 	@Autowired
-	protected AuditListCourseService	listAuditByCourseService;
-	@Autowired
-	protected AuditUpdateService		updateAuditService;
-	@Autowired
-	protected AuditCreateService		createAuditService;
-	@Autowired
-	protected AuditDeleteService		deleteAuditService;
-	@Autowired
-	protected AuditPublishService		publishAuditService;
-	@Autowired
-	protected AuditListPublishService	listPublishAuditService;
+	protected AuthenticatedAuditListPublishService	listPublishAuditService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -49,14 +39,9 @@ public class AuditController extends AbstractController<Auditor, Audit> {
 	protected void initialise() {
 
 		super.addBasicCommand("show", this.showAuditService);
-		super.addBasicCommand("update", this.updateAuditService);
-		super.addBasicCommand("create", this.createAuditService);
-		super.addBasicCommand("delete", this.deleteAuditService);
 
 		super.addCustomCommand("list-publish", "list", this.listPublishAuditService);
-		super.addCustomCommand("list-mine", "list", this.listMineAuditService);
 		super.addCustomCommand("list-course", "list", this.listAuditByCourseService);
-		super.addCustomCommand("publish", "update", this.publishAuditService);
 
 	}
 

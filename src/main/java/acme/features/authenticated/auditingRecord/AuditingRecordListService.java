@@ -10,30 +10,32 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.auditor.auditingRecord;
+package acme.features.authenticated.auditingRecord;
+
+import java.time.Duration;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.entities.audit.Audit;
 import acme.entities.audit.AuditingRecord;
-import acme.entities.audit.Mark;
 import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-import acme.roles.Auditor;
 
 @Service
-public class AuditingRecordShowService extends AbstractService<Authenticated, AuditingRecord> {
+public class AuditingRecordListService extends AbstractService<Authenticated, AuditingRecord> {
 
 	//Constants
 
 	public final static String[]		PROPERTIES	= {
-		"id", "subject", "assessment", "startAudit", "endAudit", "mark", "link", "special"
+		"subject", "assessment", "startAudit", "endAudit", "mark", "link", "special"
 	};
+
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -46,28 +48,27 @@ public class AuditingRecordShowService extends AbstractService<Authenticated, Au
 	public void authorise() {
 		boolean status;
 
-		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
+		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
+
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void check() {
-		boolean status;
-
-		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
-		status = status && super.getRequest().hasData("id");
-
+		Boolean status;
+		status = super.getRequest().hasData("id", int.class);
 		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void load() {
-		AuditingRecord object;
-		int auditingRecordId;
+		Collection<AuditingRecord> object;
+		int auditId;
 
-		auditingRecordId = super.getRequest().getData("id", int.class);
+		auditId = super.getRequest().getData("id", int.class);
 
-		object = this.repository.findOneAuditingRecordById(auditingRecordId);
+		object = this.repository.findAuditingRecordsByAuditId(auditId);
+		System.out.println(object.size());
 
 		super.getBuffer().setData(object);
 	}
@@ -76,7 +77,7 @@ public class AuditingRecordShowService extends AbstractService<Authenticated, Au
 	public void bind(final AuditingRecord object) {
 		assert object != null;
 
-		super.bind(object, AuditingRecordShowService.PROPERTIES);
+		super.bind(object, AuditingRecordListService.PROPERTIES);
 	}
 
 	@Override
@@ -85,29 +86,43 @@ public class AuditingRecordShowService extends AbstractService<Authenticated, Au
 	}
 
 	@Override
+	public void perform(final AuditingRecord object) {
+		assert object != null;
+
+		this.repository.save(object);
+	}
+
+	@Override
 	public void unbind(final AuditingRecord object) {
 		assert object != null;
-		final Auditor auditor;
-		final int userAccountId;
 		Tuple tuple;
-		int userAuditorId;
-		SelectChoices choice;
-		Boolean draftMode;
+		Duration duration;
 
-		userAccountId = super.getRequest().getPrincipal().getAccountId();
-		auditor = object.getAudit().getAuditor();
-		userAuditorId = auditor.getUserAccount().getId();
-		draftMode = object.getAudit().getDraftMode();
+		duration = object.getDuration();
 
-		choice = SelectChoices.from(Mark.class, object.getMark());
-		tuple = BinderHelper.unbind(object, AuditingRecordShowService.PROPERTIES);
-		tuple.put("mark", object.getMark().getMark());
-		tuple.put("myAudit", userAccountId == userAuditorId);
-		tuple.put("choice", choice);
-		tuple.put("auditDraftMode", draftMode);
-		tuple.put("audit", draftMode);
+		tuple = BinderHelper.unbind(object, AuditingRecordListService.PROPERTIES);
+		tuple.put("mark", object.getMark().toString());
+		tuple.put("duration", String.format("%d H %d m", duration.toHours(), duration.toMinutes() % 60));
 
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<AuditingRecord> objects) {
+		assert objects != null;
+		final int auditId;
+		Audit audit;
+		int userId;
+		int auditUserId;
+
+		auditId = super.getRequest().getData("id", int.class);
+		audit = this.repository.findOneAuditByAuditId(auditId);
+		userId = super.getRequest().getPrincipal().getAccountId();
+		auditUserId = audit.getAuditor().getUserAccount().getId();
+		super.getResponse().setGlobal("auditDraftMode", audit.getDraftMode());
+		super.getResponse().setGlobal("auditId", auditId);
+		super.getResponse().setGlobal("myAudit", userId == auditUserId);
+		super.unbind(objects);
 	}
 
 	@Override

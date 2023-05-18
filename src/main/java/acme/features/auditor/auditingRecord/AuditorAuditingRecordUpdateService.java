@@ -12,32 +12,35 @@
 
 package acme.features.auditor.auditingRecord;
 
+import java.time.Duration;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.audit.AuditingRecord;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
+import acme.framework.helpers.MomentHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
 
 @Service
-public class AuditingRecordUpdateService extends AbstractService<Authenticated, AuditingRecord> {
+public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor, AuditingRecord> {
 
 	//Constants
 
-	public final static String[]		PROPERTIES	= {
+	public final static String[]				PROPERTIES	= {
 		"subject", "assessment", "startAudit", "mark", "endAudit", "link", "special"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuditingRecordRepository	repository;
+	protected AuditorAuditingRecordRepository	repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -81,14 +84,22 @@ public class AuditingRecordUpdateService extends AbstractService<Authenticated, 
 	public void bind(final AuditingRecord object) {
 		assert object != null;
 
-		super.bind(object, AuditingRecordUpdateService.PROPERTIES);
+		super.bind(object, AuditorAuditingRecordUpdateService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final AuditingRecord object) {
 		assert object != null;
-		if (!object.getAudit().getDraftMode())
-			super.state(false, "draftMode", "audit.error.edit-draftMode");
+		final boolean draft = object.getAudit().getDraftMode();
+		if (!super.getBuffer().getErrors().hasErrors("special"))
+			super.state(draft || !draft && object.getSpecial(), "special", "audit.error.edit-draftMode");
+		final Date start = object.getStartAudit();
+		final Date end = object.getEndAudit();
+		final Duration duration = MomentHelper.computeDuration(start, end);
+		if (!super.getBuffer().getErrors().hasErrors("mark"))
+			super.state(MomentHelper.isBefore(start, end), "mark", "auditingRecord.error.not-valid-mark");
+		if (!super.getBuffer().getErrors().hasErrors("endAudit"))
+			super.state(duration.toMinutes() >= 30, "endAudit", "auditingRecord.error.not-enougth-time");
 	}
 
 	@Override
@@ -109,7 +120,7 @@ public class AuditingRecordUpdateService extends AbstractService<Authenticated, 
 
 		Tuple tuple;
 		final int idAuditor = object.getAudit().getAuditor().getUserAccount().getId();
-		tuple = BinderHelper.unbind(object, AuditingRecordUpdateService.PROPERTIES);
+		tuple = BinderHelper.unbind(object, AuditorAuditingRecordUpdateService.PROPERTIES);
 		tuple.put("myAudit", userAccountId == idAuditor);
 		super.getResponse().setData(tuple);
 	}

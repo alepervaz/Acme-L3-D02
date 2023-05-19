@@ -1,5 +1,5 @@
 
-package acme.features.administrator;
+package acme.features.administrator.bulletin;
 
 import javax.annotation.PostConstruct;
 

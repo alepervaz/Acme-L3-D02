@@ -10,46 +10,45 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.course;
+package acme.features.auditor.audit;
+
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.courses.Course;
-import acme.features.auditor.AuditorRepository;
-import acme.framework.components.accounts.Authenticated;
+import acme.entities.audit.Audit;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-import acme.services.CurrencyService;
+import acme.roles.Auditor;
 
 @Service
-public class AuthenticatedCourseShowService extends AbstractService<Authenticated, Course> {
+public class AuditListMineService extends AbstractService<Auditor, Audit> {
 
 	//Constants
 
-	public final static String[]			PROPERTIES	= {
-		"id", "code", "title", "courseAbstract", "retailPrice", "link", "type"
+	public final static String[]	PROPERTIES	= {
+		"id", "course.code", "code", "conclusion", "strongPoints", "weakPoints", "draftMode"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedCourseRepository	repository;
-	@Autowired
-	protected CurrencyService				currencyService;
-
-	@Autowired
-	protected AuditorRepository				auditorRepository;
+	protected AuditRepository		repository;
 
 	// AbstractService interface ----------------------------------------------ç
 
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Auditor.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -59,40 +58,50 @@ public class AuthenticatedCourseShowService extends AbstractService<Authenticate
 
 	@Override
 	public void load() {
-		Course object;
-		int courseId;
+		Collection<Audit> object;
+		int auditorId;
 
-		courseId = super.getRequest().getData("id", int.class);
+		auditorId = super.getRequest().getPrincipal().getAccountId();
 
-		object = this.repository.findOneCourseById(courseId);
+		object = this.repository.findAuditsByAuditor(auditorId);
 
 		super.getBuffer().setData(object);
 	}
 
 	@Override
-	public void bind(final Course object) {
+	public void bind(final Audit object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedCourseShowService.PROPERTIES);
+		super.bind(object, AuditListMineService.PROPERTIES);
 	}
 
 	@Override
-	public void validate(final Course object) {
+	public void validate(final Audit object) {
 		assert object != null;
 	}
 
 	@Override
-	public void unbind(final Course object) {
+	public void perform(final Audit object) {
 		assert object != null;
-		int accountId;
-		boolean isAuditor;
+
+		this.repository.save(object);
+	}
+
+	@Override
+	public void unbind(final Audit object) {
+		assert object != null;
+
 		Tuple tuple;
-		accountId = super.getRequest().getPrincipal().getAccountId();
-		isAuditor = this.auditorRepository.findOneAuditorByUserAccountId(accountId) != null;
-		tuple = BinderHelper.unbind(object, AuthenticatedCourseShowService.PROPERTIES);
-		tuple.put("retailPrice", this.currencyService.changeIntoSystemCurrency(object.getRetailPrice()));
+
+		tuple = BinderHelper.unbind(object, AuditListMineService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
-		super.getResponse().setGlobal("isAuditor", isAuditor);
+	}
+
+	@Override
+	public void unbind(final Collection<Audit> objects) {
+		super.getResponse().setGlobal("isAuditor", super.getRequest().getPrincipal().hasRole(Auditor.class));
+		super.unbind(objects);
 	}
 
 	@Override

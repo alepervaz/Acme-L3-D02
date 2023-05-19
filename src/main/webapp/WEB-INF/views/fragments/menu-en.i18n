@@ -80,6 +80,7 @@ master.menu.authenticated.note.list = Notes List
 master.menu.authenticated = Authenticated
 master.menu.authenticated.favourite-link = Favourite link
 master.menu.authenticated.all-practicums = List all practicums
+master.menu.authenticated.all-audits = List all audits
 
 # master.menu.provider ########################################################
 

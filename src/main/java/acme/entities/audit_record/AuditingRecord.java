@@ -13,12 +13,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.entities.audit.Audit;
-import acme.entities.enums.Mark;
 import acme.framework.data.AbstractEntity;
 import acme.framework.helpers.MomentHelper;
 import lombok.Getter;
@@ -50,8 +50,14 @@ public class AuditingRecord extends AbstractEntity {
 	@Past
 	protected Date				endAudit;
 
-	@NotNull
-	protected Mark				mark;
+	/*
+	 * @NotNull
+	 * protected Mark mark;
+	 */
+
+	@NotBlank
+	@Pattern(regexp = "^A\\+?|B|C|F-?$")
+	protected String			mark;
 
 	@URL
 	protected String			link;
@@ -62,7 +68,7 @@ public class AuditingRecord extends AbstractEntity {
 	@Override
 	public String toString() {
 		//I adjust the getMark to get A+ or F- in case AP or FL
-		return "AuditingRecord [subject=" + this.subject + ", assessment=" + this.assessment + ", startAudit=" + this.startAudit + ", endAudit=" + this.endAudit + ", mark=" + this.mark.getMark() + ", link=" + this.link + "]";
+		return "AuditingRecord [subject=" + this.subject + ", assessment=" + this.assessment + ", startAudit=" + this.startAudit + ", endAudit=" + this.endAudit + ", mark=" + this.mark.toString() + ", link=" + this.link + "]";
 	}
 
 	// Derived attributes -----------------------------------------------------

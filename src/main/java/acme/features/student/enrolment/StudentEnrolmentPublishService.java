@@ -94,7 +94,28 @@ public class StudentEnrolmentPublishService extends AbstractService<Student, Enr
 		String dateString;
 		Date expirationDate;
 		Errors errors;
+		final String nullError = "student.enrolment.form.error.null";
+
 		boolean hasExpirationDateErrors;
+		final String holderName = enrolment.getCardHolderName();
+
+		if (!super.getBuffer().getErrors().hasErrors("cardHolderName")) {
+			final boolean validCardHolderName = holderName != null && !holderName.isEmpty();
+
+			super.state(validCardHolderName, "cardHolderName", nullError);
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("cardNumber")) {
+			final boolean validCardNumber = enrolment.getCardNumber() != null;
+
+			super.state(validCardNumber, "cardNumber", nullError);
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("cvv")) {
+			final boolean validCVV = enrolment.getCvv() != null;
+
+			super.state(validCVV, "cvv", nullError);
+		}
 
 		if (enrolment.getExpirationDate() != null) {
 			locale = Locale.getDefault().getLanguage();

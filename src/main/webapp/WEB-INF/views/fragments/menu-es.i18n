@@ -120,6 +120,7 @@ master.menu.auditor = Auditor
 master.menu.auditor.list-mine = Mostrar mis audits
 master.menu.auditor.list-publish = Mostrar audits publicados
 master.menu.auditor.list-by-course = Mostrar audits por curso
+master.menu.authenticated.all-audits = Listar todos audits
 
 # master.menu.company ##########################################################
 

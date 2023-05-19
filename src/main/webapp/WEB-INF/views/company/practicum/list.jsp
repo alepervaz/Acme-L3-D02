@@ -19,7 +19,9 @@
   <acme:list-column code="company.practicum.list.label.code" path="code" width="10%"/>
   <acme:list-column code="company.practicum.list.label.estimatedTimeInHours" path="estimatedTimeInHours" width="10%"/>
   <acme:list-column code="company.practicum.list.label.title" path="title" width="75%"/>
-    <acme:list-column code="company.practicum.list.label.published" path="draftMode" width="5%"/>
+  <jstl:if test="${_command == 'list-mine'}">
+    <acme:list-column code="company.practicum.list.label.published" path="published" width="5%"/>
+  </jstl:if>
   <acme:list-payload path="payload"/>
 </acme:list>	
 <jstl:if test="${_command == 'list-mine'}">

@@ -57,7 +57,7 @@ public class CompanyPracticumListMineService extends AbstractService<Company, Pr
 		String payload;
 
 		tuple = super.unbind(practicum, CompanyPracticumListMineService.PROPERTIES);
-		published = MessageHelper.getMessage(practicum.isDraftMode() ? "company.practicum.list.label.yes" : "company.practicum.list.label.no");
+		published = MessageHelper.getMessage(!practicum.isDraftMode() ? "company.practicum.list.label.yes" : "company.practicum.list.label.no");
 		payload = String.format("%s; %s; %s; %s", practicum.getCourse().getTitle(), practicum.getCourse().getCode(), practicum.getAbstractPracticum(), practicum.getGoals());
 		tuple.put("payload", payload);
 		tuple.put("published", published);

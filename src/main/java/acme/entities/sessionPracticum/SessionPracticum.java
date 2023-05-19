@@ -53,7 +53,7 @@ public class SessionPracticum extends AbstractEntity {
 
 	private boolean				additional;
 
-	private boolean				confirmed;
+	//private boolean				confirmed;
 
 	// Derived attributes -----------------------------------------------------
 

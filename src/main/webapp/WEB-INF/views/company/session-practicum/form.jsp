@@ -22,14 +22,9 @@
     <acme:input-moment code="company.session-practicum.form.label.start" path="start"/>
     <acme:input-moment code="company.session-practicum.form.label.end" path="end"/>
     <acme:input-url code="company.session-practicum.form.label.link" path="link"/>
-    <jstl:choose>
-        <jstl:when test="${draftMode || (!draftMode && confirmed)}">
-            <acme:hidden-data path="confirmed"/>
-        </jstl:when>
-        <jstl:otherwise>
-            <acme:input-checkbox code="company.session-practicum.form.label.confirmed" path="confirmed"/>
-        </jstl:otherwise>
-    </jstl:choose>
+    <jstl:if test="${_command == 'create' && !draftMode}">
+        <acme:input-checkbox code="company.session-practicum.form.label.confirmed" path="confirmed"/>
+    </jstl:if>
     <jstl:choose>
         <jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode}">
             <acme:submit code="company.session-practicum.form.button.update"

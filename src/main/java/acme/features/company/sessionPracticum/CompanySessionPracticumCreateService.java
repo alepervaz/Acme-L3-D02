@@ -1,6 +1,12 @@
 
 package acme.features.company.sessionPracticum;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.entities.practicum.Practicum;
 import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.components.accounts.Principal;
@@ -9,28 +15,24 @@ import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
 import acme.services.SpamService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 @Service
 public class CompanySessionPracticumCreateService extends AbstractService<Company, SessionPracticum> {
 
-	public static final int ONE_WEEK = 1;
 	// Constants -------------------------------------------------------------
-	protected static final String[] PROPERTIES_BIND = {
-			"title", "abstractSession", "description", "start", "end", "link", "confirmed"
+	public static final int						ONE_WEEK			= 1;
+	protected static final String[]				PROPERTIES_BIND		= {
+		"title", "abstractSession", "description", "start", "end", "link"
 	};
-	protected static final String[] PROPERTIES_UNBIND = {
-			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[]				PROPERTIES_UNBIND	= {
+		"title", "abstractSession", "description", "start", "end", "link", "additional"
 	};
+
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository repository;
+	private CompanySessionPracticumRepository	repository;
 	@Autowired
-	protected SpamService spamDetector;
+	protected SpamService						spamDetector;
 
 	// AbstractService Interface ----------------------------------------------
 
@@ -82,8 +84,6 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 		sessionPracticum = new SessionPracticum();
 		sessionPracticum.setPracticum(practicum);
 		sessionPracticum.setAdditional(!draftMode);
-		if (!sessionPracticum.isAdditional())
-			sessionPracticum.setConfirmed(true);
 
 		super.getBuffer().setData(sessionPracticum);
 	}
@@ -118,10 +118,12 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 
 		if (!super.getBuffer().getErrors().hasErrors("confirmed")) {
 			Practicum practicum;
+			boolean confirmed;
 
+			confirmed = super.getRequest().getData("confirmed", boolean.class);
 			practicum = sessionPracticum.getPracticum();
 
-			super.state(sessionPracticum.isConfirmed() || practicum.isDraftMode(), "confirmed", "company.session-practicum.error.confirmed");
+			super.state(confirmed || practicum.isDraftMode(), "confirmed", "company.session-practicum.error.confirmed");
 		}
 
 		// Spam validation

@@ -1,6 +1,12 @@
 
 package acme.features.company.sessionPracticum;
 
+import java.util.Collection;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.entities.practicum.Practicum;
 import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.components.accounts.Principal;
@@ -9,23 +15,18 @@ import acme.framework.helpers.MessageHelper;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.Date;
 
 @Service
 public class CompanySessionPracticumListService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
-	protected static final String[] PROPERTIES = {
-			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[]				PROPERTIES	= {
+		"title", "abstractSession", "description", "start", "end", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository repository;
+	private CompanySessionPracticumRepository	repository;
 
 
 	// AbstractService Interface ----------------------------------------------
@@ -50,7 +51,7 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 		practicumId = super.getRequest().getData("masterId", int.class);
 		practicum = this.repository.findOnePracticumById(practicumId);
 		company = practicum == null ? null : practicum.getCompany();
-		status = practicum != null && (!practicum.isDraftMode() || principal.hasRole(company));
+		status = practicum != null && principal.hasRole(company);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -71,7 +72,6 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 		assert sessionPracticum != null;
 
 		Tuple tuple;
-		final String confirmed;
 		final String additional;
 		String payload;
 		Date start;
@@ -80,11 +80,9 @@ public class CompanySessionPracticumListService extends AbstractService<Company,
 		start = sessionPracticum.getStart();
 		end = sessionPracticum.getEnd();
 		tuple = super.unbind(sessionPracticum, CompanySessionPracticumListService.PROPERTIES);
-		confirmed = MessageHelper.getMessage(sessionPracticum.isConfirmed() ? "company.session-practicum.list.label.yes" : "company.session-practicum.list.label.no");
 		additional = MessageHelper.getMessage(sessionPracticum.isAdditional() ? "company.session-practicum.list.label.yes" : "company.session-practicum.list.label.no");
 		payload = String.format("%s; %s", sessionPracticum.getAbstractSession(), sessionPracticum.getDescription());
 		tuple.put("payload", payload);
-		tuple.put("confirmed", confirmed);
 		tuple.put("additional", additional);
 		tuple.put("exactDuration", MomentHelper.computeDuration(start, end).toHours());
 

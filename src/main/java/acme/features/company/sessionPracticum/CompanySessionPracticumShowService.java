@@ -1,26 +1,27 @@
 
 package acme.features.company.sessionPracticum;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.entities.practicum.Practicum;
 import acme.entities.sessionPracticum.SessionPracticum;
 import acme.framework.components.accounts.Principal;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Company;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CompanySessionPracticumShowService extends AbstractService<Company, SessionPracticum> {
 
 	// Constants --------------------------------------------------------------
-	protected static final String[] PROPERTIES = {
-			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+	protected static final String[]				PROPERTIES	= {
+		"title", "abstractSession", "description", "start", "end", "link", "additional"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private CompanySessionPracticumRepository repository;
+	private CompanySessionPracticumRepository	repository;
 
 
 	// AbstractService Interface ----------------------------------------------
@@ -37,18 +38,16 @@ public class CompanySessionPracticumShowService extends AbstractService<Company,
 	public void authorise() {
 		boolean status;
 		int sessionPracticumId;
-		SessionPracticum sessionPracticum;
 		Practicum practicum;
 		Principal principal;
 		Company company;
 
 		principal = super.getRequest().getPrincipal();
 		sessionPracticumId = super.getRequest().getData("id", int.class);
-		sessionPracticum = this.repository.findOneSessionPracticumById(sessionPracticumId);
 		practicum = this.repository.findOnePracticumBySessionPracticumId(sessionPracticumId);
 		company = practicum == null ? null : practicum.getCompany();
 
-		status = practicum != null && (!practicum.isDraftMode() && sessionPracticum.isConfirmed() || principal.hasRole(company));
+		status = practicum != null && principal.hasRole(company);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -72,7 +71,7 @@ public class CompanySessionPracticumShowService extends AbstractService<Company,
 		Tuple tuple;
 
 		practicum = sessionPracticum.getPracticum();
-		tuple = super.unbind(sessionPracticum, CompanySessionPracticumUpdateService.PROPERTIES_UNBIND);
+		tuple = super.unbind(sessionPracticum, PROPERTIES);
 		tuple.put("masterId", practicum.getId());
 		tuple.put("draftMode", practicum.isDraftMode());
 

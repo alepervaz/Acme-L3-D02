@@ -24,7 +24,7 @@ public class CompanySessionPracticumUpdateService extends AbstractService<Compan
 			"title", "abstractSession", "description", "start", "end", "link"
 	};
 	protected static final String[] PROPERTIES_UNBIND = {
-			"title", "abstractSession", "description", "start", "end", "link", "additional", "confirmed"
+			"title", "abstractSession", "description", "start", "end", "link", "additional"
 	};
 
 	// Internal state ---------------------------------------------------------

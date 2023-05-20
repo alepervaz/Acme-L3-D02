@@ -37,6 +37,7 @@ master.menu.authenticated.all-bulletins = Ver todos los boletines
 master.menu.authenticated.all-practicums = Ver todas las prácticas
 master.menu.authenticated.all-audits = Ver todos los audits
 master.menu.authenticated.Tutorial = Listado de tutoriales
+master.menu.authenticated.offer = Listado de ofertas
 
 
 
@@ -52,6 +53,7 @@ master.menu.administrator.shut-down = Parar el sistema
 master.menu.administrator.banner = Listar banners
 master.menu.administrator.configuration = Configuración
 master.menu.administrator.create.bulletin = Crear bulletin
+master.menu.administrator.offer = Listar ofertas
 
 
 

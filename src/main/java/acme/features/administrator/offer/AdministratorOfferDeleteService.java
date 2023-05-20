@@ -1,30 +1,29 @@
 
-package acme.features.authenticated.offer;
+package acme.features.administrator.offer;
 
+import acme.entities.banner.Banner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.offer.Offer;
 import acme.framework.components.accounts.Administrator;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.MomentHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 
 @Service
-public class AuthenticatedOfferDeleteService extends AbstractService<Authenticated, Offer> {
+public class AdministratorOfferDeleteService extends AbstractService<Administrator, Offer> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]			PROPERTIES	= {
-		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link", "draftMode"
+	protected static final String[]			PROPERTIES	= {
+		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedOfferRepository	repository;
+	protected AdministratorOfferRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -40,14 +39,14 @@ public class AuthenticatedOfferDeleteService extends AbstractService<Authenticat
 
 	@Override
 	public void authorise() {
-		boolean status;
 		int id;
+		boolean status;
 		Offer offer;
 
 		id = super.getRequest().getData("id", int.class);
 		offer = this.repository.findOneOfferById(id);
 		status = offer != null;
-		status = status && super.getRequest().getPrincipal().hasRole(Authenticated.class);
+
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -58,19 +57,20 @@ public class AuthenticatedOfferDeleteService extends AbstractService<Authenticat
 
 		id = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneOfferById(id);
+
 		super.getBuffer().setData(object);
 	}
 
 	@Override
 	public void perform(final Offer object) {
 		assert object != null;
+
 		this.repository.delete(object);
 	}
 
 	@Override
 	public void validate(final Offer object) {
 		assert object != null;
-		object.setInstantiation(MomentHelper.getCurrentMoment());
 	}
 
 	@Override
@@ -79,11 +79,8 @@ public class AuthenticatedOfferDeleteService extends AbstractService<Authenticat
 
 		Tuple tuple;
 
-		boolean isAdmin;
-		isAdmin = super.getRequest().getPrincipal().hasRole(Administrator.class);
-		tuple = super.unbind(object, AuthenticatedOfferCreateService.PROPERTIES);
-		tuple.put("editable", object.isDraftMode() && isAdmin);
-		tuple.put("isAdmin", isAdmin);
+		tuple = super.unbind(object, AdministratorOfferCreateService.PROPERTIES);
+
 		super.getResponse().setData(tuple);
 	}
 
@@ -97,6 +94,6 @@ public class AuthenticatedOfferDeleteService extends AbstractService<Authenticat
 	public void bind(final Offer object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedOfferCreateService.PROPERTIES);
+		super.bind(object, AdministratorOfferCreateService.PROPERTIES);
 	}
 }

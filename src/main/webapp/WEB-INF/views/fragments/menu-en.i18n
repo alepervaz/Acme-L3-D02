@@ -48,6 +48,7 @@ master.menu.authenticated.all-bulletins = List all bulletins
 master.menu.authenticated.all-practicums = List all practicums
 master.menu.authenticated.all-audits = List all audits
 master.menu.authenticated.Tutorial = Tutorial List
+master.menu.authenticated.offer = Offer List
 
 # master.menu.administrator ###################################################
 
@@ -57,11 +58,10 @@ master.menu.administrator.user-accounts = User accounts
 master.menu.administrator.populate-initial = Populate DB (initial)
 master.menu.administrator.populate-sample = Populate DB (samples)
 master.menu.administrator.shut-down = Shut down
-
 master.menu.administrator.banner = List banners
 master.menu.administrator.configuration = Configuration
-
 master.menu.administrator.create.bulletin = Create bulletin
+master.menu.administrator.offer = Offer List
 
 
 

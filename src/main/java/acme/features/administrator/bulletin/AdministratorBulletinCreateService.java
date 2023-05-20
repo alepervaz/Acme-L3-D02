@@ -1,27 +1,26 @@
 
 package acme.features.administrator.bulletin;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import acme.entities.bulletin.Bulletin;
 import acme.framework.components.accounts.Administrator;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AdministratorBulletinCreateService extends AbstractService<Administrator, Bulletin> {
 
 	// Constants -------------------------------------------------------------
-	public static final String[]				PROPERTIES	= {
-		"moment", "title", "message", "flags", "link"
+	protected static final String[] PROPERTIES = {
+			"moment", "title", "message", "flags", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AdministratorBulletinRepository	repository;
+	protected AdministratorBulletinRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -58,8 +57,10 @@ public class AdministratorBulletinCreateService extends AbstractService<Administ
 
 		boolean confirmation;
 
-		confirmation = super.getRequest().getData("confirmation", boolean.class);
-		super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
+		if (!super.getBuffer().getErrors().hasErrors("confirmation")) {
+			confirmation = super.getRequest().getData("confirmation", boolean.class);
+			super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
+		}
 	}
 
 	@Override

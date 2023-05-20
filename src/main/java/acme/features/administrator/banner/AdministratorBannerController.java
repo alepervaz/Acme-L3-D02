@@ -10,33 +10,33 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.banner;
+package acme.features.administrator.banner;
 
 import javax.annotation.PostConstruct;
 
+import acme.framework.components.accounts.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import acme.entities.banner.Banner;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.controllers.AbstractController;
 
 @Controller
-public class AuthenticatedBannerController extends AbstractController<Authenticated, Banner> {
+public class AdministratorBannerController extends AbstractController<Administrator, Banner> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedCreateBannerService	createService;
+	protected AdministratorCreateBannerService createService;
 
 	@Autowired
-	protected AuthenticatedUpdateBannerService	updateService;
+	protected AdministratorUpdateBannerService updateService;
 	@Autowired
-	protected AuthenticatedDeleteBannerService	deleteService;
+	protected AdministratorDeleteBannerService deleteService;
 	@Autowired
-	protected AuthenticatedListBannerService	listService;
+	protected AdministratorListBannerService listService;
 	@Autowired
-	protected AuthenticatedShowBannerService	showService;
+	protected AdministratorShowBannerService showService;
 
 	// Constructors -----------------------------------------------------------
 

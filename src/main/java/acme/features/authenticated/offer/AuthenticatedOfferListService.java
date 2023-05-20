@@ -2,7 +2,9 @@
 package acme.features.authenticated.offer;
 
 import java.util.Collection;
+import java.util.Date;
 
+import acme.framework.helpers.MomentHelper;
 import acme.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +19,13 @@ import acme.framework.services.AbstractService;
 public class AuthenticatedOfferListService extends AbstractService<Authenticated, Offer> {
 
 	// Constants -------------------------------------------------------------
-	protected static final String[]			PROPERTIES	= {
-		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link", "draftMode"
+	protected static final String[] PROPERTIES = {
+			"instantiation", "heading", "summary", "startDate", "endDate", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AuthenticatedOfferRepository	repository;
+	protected AuthenticatedOfferRepository repository;
 	@Autowired
 	protected CurrencyService currencyService;
 
@@ -37,16 +39,15 @@ public class AuthenticatedOfferListService extends AbstractService<Authenticated
 
 	@Override
 	public void authorise() {
-		boolean status;
-		status = super.getRequest().getPrincipal().hasRole(Authenticated.class);
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override
 	public void load() {
 		final Collection<Offer> objects;
+		Date currentMoment = MomentHelper.getCurrentMoment();
 
-		objects = this.repository.findManyOffer();
+		objects = this.repository.findAllNotFinishedOffers(currentMoment);
 
 		super.getBuffer().setData(objects);
 	}
@@ -63,11 +64,10 @@ public class AuthenticatedOfferListService extends AbstractService<Authenticated
 		assert object != null;
 
 		Tuple tuple;
-		boolean isAdmin;
-		isAdmin = super.getRequest().getPrincipal().hasRole(Administrator.class);
+
 		tuple = super.unbind(object, PROPERTIES);
 		tuple.put("price", this.currencyService.changeIntoSystemCurrency(object.getPrice()));
-		tuple.put("isAdmin", isAdmin);
+
 		super.getResponse().setData(tuple);
 	}
 
@@ -75,10 +75,6 @@ public class AuthenticatedOfferListService extends AbstractService<Authenticated
 	public void unbind(final Collection<Offer> objects) {
 		assert objects != null;
 
-		boolean isAdmin;
-		isAdmin = super.getRequest().getPrincipal().hasRole(Administrator.class);
-
-		super.getResponse().setGlobal("isAdmin", isAdmin);
 		super.unbind(objects);
 	}
 }

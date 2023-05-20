@@ -1,28 +1,25 @@
 
-package acme.features.authenticated.offer;
+package acme.features.administrator.offer;
 
-import acme.services.CurrencyService;
+import acme.entities.offer.Offer;
+import acme.framework.components.accounts.Administrator;
+import acme.framework.components.models.Tuple;
+import acme.framework.services.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.offer.Offer;
-import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.models.Tuple;
-import acme.framework.services.AbstractService;
-
 @Service
-public class AuthenticatedOfferShowService extends AbstractService<Authenticated, Offer> {
+public class AdministratorOfferShowService extends AbstractService<Administrator, Offer> {
 
 	// Constants -------------------------------------------------------------
-	protected static final String[] PROPERTIES = {
-			"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
+	protected static final String[]			PROPERTIES	= {
+		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
+
 	@Autowired
-	protected AuthenticatedOfferRepository repository;
-	@Autowired
-	protected CurrencyService currencyService;
+	protected AdministratorOfferRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -38,8 +35,8 @@ public class AuthenticatedOfferShowService extends AbstractService<Authenticated
 
 	@Override
 	public void authorise() {
-		boolean status;
 		int id;
+		boolean status;
 		Offer offer;
 
 		id = super.getRequest().getData("id", int.class);
@@ -65,9 +62,8 @@ public class AuthenticatedOfferShowService extends AbstractService<Authenticated
 		assert object != null;
 
 		Tuple tuple;
-
+		super.getRequest().getPrincipal().hasRole(Administrator.class);
 		tuple = super.unbind(object, PROPERTIES);
-		tuple.put("price", this.currencyService.changeIntoSystemCurrency(object.getPrice()));
 
 		super.getResponse().setData(tuple);
 	}

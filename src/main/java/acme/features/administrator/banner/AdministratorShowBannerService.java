@@ -10,14 +10,13 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.banner;
+package acme.features.administrator.banner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.banner.Banner;
 import acme.framework.components.accounts.Administrator;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.PrincipalHelper;
@@ -25,25 +24,29 @@ import acme.framework.services.AbstractService;
 import acme.repositories.BannerRepository;
 
 @Service
-public class AuthenticatedShowBannerService extends AbstractService<Authenticated, Banner> {
+public class AdministratorShowBannerService extends AbstractService<Administrator, Banner> {
 
 	// Internal state ---------------------------------------------------------
 
-	public final static String[]	PROPERTIES	= {
-		"instant", "displayStart", "displayEnd", "picture", "slogan", "link"
+	protected static final String[] PROPERTIES = {
+			"instant", "displayStart", "displayEnd", "picture", "slogan", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected BannerRepository		repository;
+	protected BannerRepository repository;
 
 
 	@Override
 	public void authorise() {
+		int id;
 		boolean status;
+		Banner banner;
 
-		status = super.getRequest().getPrincipal().hasRole(Administrator.class);
+		id = super.getRequest().getData("id", int.class);
+		banner = this.repository.findOneBannerById(id);
+		status = banner != null;
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -70,7 +73,7 @@ public class AuthenticatedShowBannerService extends AbstractService<Authenticate
 	public void bind(final Banner object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedShowBannerService.PROPERTIES);
+		super.bind(object, AdministratorShowBannerService.PROPERTIES);
 	}
 
 	@Override
@@ -83,7 +86,7 @@ public class AuthenticatedShowBannerService extends AbstractService<Authenticate
 	public void unbind(final Banner object) {
 		Tuple tuple;
 
-		tuple = super.unbind(object, AuthenticatedShowBannerService.PROPERTIES);
+		tuple = super.unbind(object, AdministratorShowBannerService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

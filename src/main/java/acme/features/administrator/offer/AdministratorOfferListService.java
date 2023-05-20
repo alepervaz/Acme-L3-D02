@@ -1,21 +1,23 @@
 
-package acme.features.authenticated.offer;
+package acme.features.administrator.offer;
 
+import acme.entities.offer.Offer;
+import acme.features.authenticated.offer.AuthenticatedOfferRepository;
+import acme.framework.components.accounts.Administrator;
+import acme.framework.components.models.Tuple;
+import acme.framework.services.AbstractService;
 import acme.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.entities.offer.Offer;
-import acme.framework.components.accounts.Authenticated;
-import acme.framework.components.models.Tuple;
-import acme.framework.services.AbstractService;
+import java.util.Collection;
 
 @Service
-public class AuthenticatedOfferShowService extends AbstractService<Authenticated, Offer> {
+public class AdministratorOfferListService extends AbstractService<Administrator, Offer> {
 
 	// Constants -------------------------------------------------------------
 	protected static final String[] PROPERTIES = {
-			"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
+			"instantiation", "heading", "summary", "startDate", "endDate", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
@@ -29,35 +31,28 @@ public class AuthenticatedOfferShowService extends AbstractService<Authenticated
 
 	@Override
 	public void check() {
-		boolean status;
-
-		status = super.getRequest().hasData("id", int.class);
-
-		super.getResponse().setChecked(status);
+		super.getResponse().setChecked(true);
 	}
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int id;
-		Offer offer;
-
-		id = super.getRequest().getData("id", int.class);
-		offer = this.repository.findOneOfferById(id);
-		status = offer != null;
-
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override
 	public void load() {
-		Offer object;
-		int id;
+		final Collection<Offer> objects;
 
-		id = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneOfferById(id);
+		objects = this.repository.findManyOffer();
 
-		super.getBuffer().setData(object);
+		super.getBuffer().setData(objects);
+	}
+
+	@Override
+	public void bind(final Offer object) {
+		assert object != null;
+
+		super.bind(object, PROPERTIES);
 	}
 
 	@Override
@@ -70,5 +65,12 @@ public class AuthenticatedOfferShowService extends AbstractService<Authenticated
 		tuple.put("price", this.currencyService.changeIntoSystemCurrency(object.getPrice()));
 
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void unbind(final Collection<Offer> objects) {
+		assert objects != null;
+
+		super.unbind(objects);
 	}
 }

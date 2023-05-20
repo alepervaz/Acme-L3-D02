@@ -10,17 +10,13 @@
  * they accept any liabilities with respect to them.
  */
 
-package acme.features.authenticated.banner;
-
-import java.time.Instant;
-import java.util.Date;
+package acme.features.administrator.banner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.banner.Banner;
 import acme.framework.components.accounts.Administrator;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.PrincipalHelper;
@@ -28,40 +24,47 @@ import acme.framework.services.AbstractService;
 import acme.repositories.BannerRepository;
 
 @Service
-public class AuthenticatedCreateBannerService extends AbstractService<Authenticated, Banner> {
+public class AdministratorDeleteBannerService extends AbstractService<Administrator, Banner> {
 
 	// Internal state ---------------------------------------------------------
 
-	public final static String[]	PROPERTIES	= {
-		"instant", "displayStart", "displayEnd", "picture", "slogan", "link"
+	protected static final String[] PROPERTIES = {
+			"instant", "displayStart", "displayEnd", "picture", "slogan", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected BannerRepository		repository;
+	protected BannerRepository repository;
 
 
 	@Override
 	public void authorise() {
+		int id;
 		boolean status;
+		Banner banner;
 
-		status = super.getRequest().getPrincipal().hasRole(Administrator.class);
+		id = super.getRequest().getData("id", int.class);
+		banner = this.repository.findOneBannerById(id);
+		status = banner != null;
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void check() {
-
-		super.getResponse().setChecked(true);
+		boolean status;
+		status = super.getRequest().hasData("id", int.class);
+		super.getResponse().setChecked(status);
 	}
 
 	@Override
 	public void load() {
 		Banner object;
+		int bannerId;
 
-		object = new Banner();
+		bannerId = super.getRequest().getData("id", int.class);
+		object = this.repository.findOneBannerById(bannerId);
 
 		super.getBuffer().setData(object);
 	}
@@ -70,14 +73,12 @@ public class AuthenticatedCreateBannerService extends AbstractService<Authentica
 	public void bind(final Banner object) {
 		assert object != null;
 
-		super.bind(object, AuthenticatedCreateBannerService.PROPERTIES);
+		super.bind(object, AdministratorDeleteBannerService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Banner object) {
 		assert object != null;
-		final Instant now = Instant.now();
-		object.setInstant(Date.from(now));
 
 	}
 
@@ -85,14 +86,14 @@ public class AuthenticatedCreateBannerService extends AbstractService<Authentica
 	public void perform(final Banner object) {
 		assert object != null;
 
-		this.repository.save(object);
+		this.repository.delete(object);
 	}
 
 	@Override
 	public void unbind(final Banner object) {
 		Tuple tuple;
 
-		tuple = super.unbind(object, AuthenticatedCreateBannerService.PROPERTIES);
+		tuple = super.unbind(object, AdministratorDeleteBannerService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

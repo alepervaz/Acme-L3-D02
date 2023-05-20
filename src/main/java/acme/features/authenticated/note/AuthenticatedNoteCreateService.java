@@ -72,10 +72,15 @@ public class AuthenticatedNoteCreateService extends AbstractService<Authenticate
 	public void validate(final Note note) {
 		assert note != null;
 
-		boolean confirmation;
 
-		confirmation = super.getRequest().getData("confirmation", boolean.class);
-		super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
+
+		if (!super.getBuffer().getErrors().hasErrors("confirmation")) {
+			boolean confirmation;
+
+			confirmation = super.getRequest().getData("confirmation", boolean.class);
+
+			super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
+		}
 	}
 
 	@Override

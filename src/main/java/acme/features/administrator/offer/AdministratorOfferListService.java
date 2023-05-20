@@ -1,30 +1,30 @@
 
 package acme.features.administrator.offer;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.entities.offer.Offer;
-import acme.features.authenticated.offer.AuthenticatedOfferRepository;
 import acme.framework.components.accounts.Administrator;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.services.CurrencyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class AdministratorOfferListService extends AbstractService<Administrator, Offer> {
 
 	// Constants -------------------------------------------------------------
-	protected static final String[] PROPERTIES = {
-			"instantiation", "heading", "summary", "startDate", "endDate", "link"
+	protected static final String[]			PROPERTIES	= {
+		"instantiation", "heading", "summary", "startDate", "endDate", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	protected AuthenticatedOfferRepository repository;
+	protected AdministratorOfferRepository	repository;
 	@Autowired
-	protected CurrencyService currencyService;
+	protected CurrencyService				currencyService;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -52,7 +52,7 @@ public class AdministratorOfferListService extends AbstractService<Administrator
 	public void bind(final Offer object) {
 		assert object != null;
 
-		super.bind(object, PROPERTIES);
+		super.bind(object, AdministratorOfferListService.PROPERTIES);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class AdministratorOfferListService extends AbstractService<Administrator
 
 		Tuple tuple;
 
-		tuple = super.unbind(object, PROPERTIES);
+		tuple = super.unbind(object, AdministratorOfferListService.PROPERTIES);
 		tuple.put("price", this.currencyService.changeIntoSystemCurrency(object.getPrice()));
 
 		super.getResponse().setData(tuple);

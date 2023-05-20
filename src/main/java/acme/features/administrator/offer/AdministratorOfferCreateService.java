@@ -1,31 +1,31 @@
 
 package acme.features.administrator.offer;
 
+import java.time.temporal.ChronoUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import acme.entities.offer.Offer;
-import acme.features.authenticated.offer.AuthenticatedOfferRepository;
 import acme.framework.components.accounts.Administrator;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.temporal.ChronoUnit;
 
 @Service
 public class AdministratorOfferCreateService extends AbstractService<Administrator, Offer> {
 
 	// Constants -------------------------------------------------------------
-	protected static final String[] PROPERTIES = {
-			"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
+	protected static final String[]			PROPERTIES	= {
+		"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
 	};
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedOfferRepository repository;
+	protected AdministratorOfferRepository	repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -72,9 +72,9 @@ public class AdministratorOfferCreateService extends AbstractService<Administrat
 			super.state(MomentHelper.isLongEnough(object.getStartDate(), object.getEndDate(), 7, ChronoUnit.DAYS), "startDate", "administrator.offer.error.code.short-availability");
 			super.state(MomentHelper.isLongEnough(object.getStartDate(), object.getEndDate(), 1, ChronoUnit.DAYS), "endDate", "administrator.offer.error.code.short-start");
 		}
-		if(!super.getBuffer().getErrors().hasErrors("price"))
-			super.state(object.getPrice().getAmount() >=0,"price","administrator.offer.error.code.price-negative");
-}
+		if (!super.getBuffer().getErrors().hasErrors("price"))
+			super.state(object.getPrice().getAmount() >= 0, "price", "administrator.offer.error.code.price-negative");
+	}
 
 	@Override
 	public void perform(final Offer object) {

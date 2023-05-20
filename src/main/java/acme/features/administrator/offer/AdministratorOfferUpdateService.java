@@ -1,21 +1,19 @@
 
 package acme.features.administrator.offer;
 
-import acme.features.authenticated.offer.AuthenticatedOfferRepository;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.entities.offer.Offer;
 import acme.framework.components.accounts.Administrator;
-import acme.framework.components.accounts.Authenticated;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
-
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 @Service
 public class AdministratorOfferUpdateService extends AbstractService<Administrator, Offer> {
@@ -28,7 +26,7 @@ public class AdministratorOfferUpdateService extends AbstractService<Administrat
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AuthenticatedOfferRepository repository;
+	protected AdministratorOfferRepository	repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -94,8 +92,8 @@ public class AdministratorOfferUpdateService extends AbstractService<Administrat
 			super.state(MomentHelper.isLongEnough(start, end, 7, ChronoUnit.DAYS), "startDate", "administrator.offer.error.code.short-availability");
 			super.state(MomentHelper.isLongEnough(object.getInstantiation(), start, 1, ChronoUnit.DAYS), "endDate", "administrator.offer.error.code.short-start");
 		}
-		if(!super.getBuffer().getErrors().hasErrors("price"))
-			super.state(object.getPrice().getAmount() >=0,"price","administrator.offer.error.code.price-negative");
+		if (!super.getBuffer().getErrors().hasErrors("price"))
+			super.state(object.getPrice().getAmount() >= 0, "price", "administrator.offer.error.code.price-negative");
 	}
 
 	@Override

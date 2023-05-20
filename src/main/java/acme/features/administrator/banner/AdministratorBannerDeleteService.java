@@ -24,7 +24,7 @@ import acme.framework.services.AbstractService;
 import acme.repositories.BannerRepository;
 
 @Service
-public class AdministratorShowBannerService extends AbstractService<Administrator, Banner> {
+public class AdministratorBannerDeleteService extends AbstractService<Administrator, Banner> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -73,7 +73,7 @@ public class AdministratorShowBannerService extends AbstractService<Administrato
 	public void bind(final Banner object) {
 		assert object != null;
 
-		super.bind(object, AdministratorShowBannerService.PROPERTIES);
+		super.bind(object, AdministratorBannerDeleteService.PROPERTIES);
 	}
 
 	@Override
@@ -83,10 +83,17 @@ public class AdministratorShowBannerService extends AbstractService<Administrato
 	}
 
 	@Override
+	public void perform(final Banner object) {
+		assert object != null;
+
+		this.repository.delete(object);
+	}
+
+	@Override
 	public void unbind(final Banner object) {
 		Tuple tuple;
 
-		tuple = super.unbind(object, AdministratorShowBannerService.PROPERTIES);
+		tuple = super.unbind(object, AdministratorBannerDeleteService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

@@ -1,5 +1,5 @@
 /*
- * AuthenticatedUpdateBannerService.java
+ * AuthenticatedConsumerCreateService.java
  *
  * Copyright (C) 2012-2023 Rafael Corchuelo.
  *
@@ -12,10 +12,9 @@
 
 package acme.features.administrator.banner;
 
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.Collection;
+import java.util.List;
 
-import acme.framework.helpers.MomentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,52 +22,41 @@ import acme.entities.banner.Banner;
 import acme.framework.components.accounts.Administrator;
 import acme.framework.components.models.Tuple;
 import acme.framework.controllers.HttpMethod;
-import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.repositories.BannerRepository;
 
 @Service
-public class AdministratorUpdateBannerService extends AbstractService<Administrator, Banner> {
+public class AdministratorBannerListService extends AbstractService<Administrator, Banner> {
+
+	// Internal state ---------------------------------------------------------
 
 	protected static final String[] PROPERTIES = {
 			"instant", "displayStart", "displayEnd", "picture", "slogan", "link"
 	};
+
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
 	protected BannerRepository repository;
 
-	// AbstractService interface ----------------------------------------------ç
-
 
 	@Override
 	public void authorise() {
-		int id;
-		boolean status;
-		Banner banner;
-
-		id = super.getRequest().getData("id", int.class);
-		banner = this.repository.findOneBannerById(id);
-		status = banner != null;
-
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override
 	public void check() {
-		boolean status;
-		status = super.getRequest().hasData("id", int.class);
-		super.getResponse().setChecked(status);
+
+		super.getResponse().setChecked(true);
 	}
 
 	@Override
 	public void load() {
-		Banner object;
-		final int bannerId;
+		List<Banner> object;
 
-		bannerId = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneBannerById(bannerId);
+		object = this.repository.findAllBanner();
 
 		super.getBuffer().setData(object);
 	}
@@ -77,44 +65,34 @@ public class AdministratorUpdateBannerService extends AbstractService<Administra
 	public void bind(final Banner object) {
 		assert object != null;
 
-		super.bind(object, AdministratorUpdateBannerService.PROPERTIES);
+		super.bind(object, AdministratorBannerListService.PROPERTIES);
 	}
 
 	@Override
 	public void validate(final Banner object) {
 		assert object != null;
 
-		Date start;
-		Date end;
-
-		start = object.getDisplayStart();
-		end = object.getDisplayEnd();
-
-		if (!super.getBuffer().getErrors().hasErrors("displayStart"))
-			super.state(MomentHelper.isAfterOrEqual(start, MomentHelper.getCurrentMoment()), "displayStart", "administrator.banner.error.startDate.beforeInstantiation");
-
-		if (!super.getBuffer().getErrors().hasErrors("displayEnd")) {
-			super.state(MomentHelper.isAfter(end, start), "displayEnd", "administrator.banner.error.finishDate.beforeStartDate");
-			super.state(MomentHelper.isLongEnough(start, end, 7, ChronoUnit.DAYS), "displayEnd", "administrator.banner.error.finishDate.notLongEnough");
-		}
 	}
 
 	@Override
 	public void perform(final Banner object) {
 		assert object != null;
 
-		object.setInstant(MomentHelper.getCurrentMoment());
-
 		this.repository.save(object);
 	}
 
 	@Override
-	public void unbind(final Banner object) {
-		assert object != null;
+	public void unbind(final Collection<Banner> objects) {
+		assert objects != null;
 
+		super.unbind(objects);
+	}
+
+	@Override
+	public void unbind(final Banner object) {
 		Tuple tuple;
 
-		tuple = BinderHelper.unbind(object, AdministratorUpdateBannerService.PROPERTIES);
+		tuple = super.unbind(object, AdministratorBannerListService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

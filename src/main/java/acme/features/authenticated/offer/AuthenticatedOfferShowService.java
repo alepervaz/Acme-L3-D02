@@ -15,7 +15,7 @@ public class AuthenticatedOfferShowService extends AbstractService<Authenticated
 
 	// Constants -------------------------------------------------------------
 	protected static final String[] PROPERTIES = {
-			"instantiation", "heading", "summary", "startDate", "endDate", "price", "link"
+			"instantiation", "heading", "summary", "startDate", "endDate", "link"
 	};
 
 	// Internal state ---------------------------------------------------------

@@ -16,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import acme.framework.helpers.MomentHelper;
+import acme.services.SpamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ import acme.framework.services.AbstractService;
 import acme.repositories.BannerRepository;
 
 @Service
-public class AdministratorCreateBannerService extends AbstractService<Administrator, Banner> {
+public class AdministratorBannerCreateService extends AbstractService<Administrator, Banner> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -40,6 +41,8 @@ public class AdministratorCreateBannerService extends AbstractService<Administra
 
 	@Autowired
 	protected BannerRepository repository;
+	@Autowired
+	protected SpamService spamDetector;
 
 
 	@Override
@@ -55,8 +58,11 @@ public class AdministratorCreateBannerService extends AbstractService<Administra
 	@Override
 	public void load() {
 		Banner object;
+		Date now;
 
+		now = MomentHelper.getCurrentMoment();
 		object = new Banner();
+		object.setInstant(now);
 
 		super.getBuffer().setData(object);
 	}
@@ -65,7 +71,7 @@ public class AdministratorCreateBannerService extends AbstractService<Administra
 	public void bind(final Banner object) {
 		assert object != null;
 
-		super.bind(object, AdministratorCreateBannerService.PROPERTIES);
+		super.bind(object, AdministratorBannerCreateService.PROPERTIES);
 	}
 
 	@Override
@@ -85,6 +91,14 @@ public class AdministratorCreateBannerService extends AbstractService<Administra
 			super.state(MomentHelper.isAfter(end, start), "displayEnd", "administrator.banner.error.finishDate.beforeStartDate");
 			super.state(MomentHelper.isLongEnough(start, end, 7, ChronoUnit.DAYS), "displayEnd", "administrator.banner.error.finishDate.notLongEnough");
 		}
+
+		// Spam validation
+		if (!super.getBuffer().getErrors().hasErrors("slogan"))
+			super.state(this.spamDetector.validateTextInput(object.getSlogan()), "slogan", "administrator.banner.form.error.spam.slogan");
+		if (!super.getBuffer().getErrors().hasErrors("picture"))
+			super.state(this.spamDetector.validateTextInput(object.getPicture()), "picture", "administrator.banner.form.error.spam.picture");
+		if (!super.getBuffer().getErrors().hasErrors("link"))
+			super.state(this.spamDetector.validateTextInput(object.getLink()), "link", "administrator.banner.error.form.spam.link");
 	}
 
 	@Override
@@ -98,7 +112,7 @@ public class AdministratorCreateBannerService extends AbstractService<Administra
 	public void unbind(final Banner object) {
 		Tuple tuple;
 
-		tuple = super.unbind(object, AdministratorCreateBannerService.PROPERTIES);
+		tuple = super.unbind(object, AdministratorBannerCreateService.PROPERTIES);
 		super.getResponse().setData(tuple);
 	}
 

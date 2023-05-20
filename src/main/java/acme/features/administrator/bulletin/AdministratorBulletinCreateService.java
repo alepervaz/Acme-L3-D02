@@ -6,6 +6,7 @@ import acme.framework.components.accounts.Administrator;
 import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
+import acme.services.SpamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class AdministratorBulletinCreateService extends AbstractService<Administ
 
 	@Autowired
 	protected AdministratorBulletinRepository repository;
+	@Autowired
+	protected SpamService spamDetector;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -49,6 +52,7 @@ public class AdministratorBulletinCreateService extends AbstractService<Administ
 		assert object != null;
 
 		super.bind(object, AdministratorBulletinCreateService.PROPERTIES);
+		object.setMoment(MomentHelper.getCurrentMoment());
 	}
 
 	@Override
@@ -61,6 +65,18 @@ public class AdministratorBulletinCreateService extends AbstractService<Administ
 			confirmation = super.getRequest().getData("confirmation", boolean.class);
 			super.state(confirmation, "confirmation", "javax.validation.constraints.AssertTrue.message");
 		}
+
+		// Spam validation
+		if (!super.getBuffer().getErrors().hasErrors("title")) {
+			super.state(this.spamDetector.validateTextInput(object.getTitle()), "title", "administrator.bulletin.form.error.spam.title");
+		}
+		if (!super.getBuffer().getErrors().hasErrors("message")) {
+			super.state(this.spamDetector.validateTextInput(object.getMessage()), "message", "administrator.bulletin.form.error.spam.message");
+		}
+		if (!super.getBuffer().getErrors().hasErrors("link")) {
+			super.state(this.spamDetector.validateTextInput(object.getLink()), "link", "administrator.bulletin.form.error.spam.link");
+		}
+
 	}
 
 	@Override

@@ -62,7 +62,7 @@ public class AdministratorOfferShowService extends AbstractService<Administrator
 		assert object != null;
 
 		Tuple tuple;
-		super.getRequest().getPrincipal().hasRole(Administrator.class);
+
 		tuple = super.unbind(object, PROPERTIES);
 
 		super.getResponse().setData(tuple);

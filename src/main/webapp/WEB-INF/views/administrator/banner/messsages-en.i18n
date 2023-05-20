@@ -24,3 +24,6 @@ administrator.banner.error.finishDate.beforeStartDate = The banner must be displ
 administrator.banner.error.finishDate.notLongEnough = The banner must be displayed for at least 1 week
 
 banner.error.spam = The text contents Spam
+administrator.banner.form.error.spam.slogan = The slogan cannot be spam
+administrator.banner.form.error.spam.link = The link cannot be spam
+administrator.banner.form.error.spam.picture = The picture cannot be spam

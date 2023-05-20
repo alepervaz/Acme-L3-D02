@@ -4,6 +4,8 @@ package acme.features.company.sessionPracticum;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import acme.framework.controllers.HttpMethod;
+import acme.framework.helpers.PrincipalHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -158,5 +160,11 @@ public class CompanySessionPracticumCreateService extends AbstractService<Compan
 		tuple.put("draftMode", practicum.isDraftMode());
 
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void onSuccess() {
+		if (super.getRequest().getMethod().equals(HttpMethod.POST))
+			PrincipalHelper.handleUpdate();
 	}
 }

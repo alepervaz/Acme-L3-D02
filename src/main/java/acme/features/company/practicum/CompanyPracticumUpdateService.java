@@ -3,6 +3,8 @@ package acme.features.company.practicum;
 
 import java.util.Collection;
 
+import acme.framework.controllers.HttpMethod;
+import acme.framework.helpers.PrincipalHelper;
 import acme.services.SpamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,5 +138,11 @@ public class CompanyPracticumUpdateService extends AbstractService<Company, Prac
 		tuple.put("courses", courses);
 
 		super.getResponse().setData(tuple);
+	}
+
+	@Override
+	public void onSuccess() {
+		if (super.getRequest().getMethod().equals(HttpMethod.POST))
+			PrincipalHelper.handleUpdate();
 	}
 }

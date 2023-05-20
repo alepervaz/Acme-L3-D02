@@ -26,4 +26,7 @@ administrator.offer.error.code.short-start = La oferta debe comenzar al menos 1 
 administrator.offer.error.code.price-negative = El precio no puede ser negativo
 
 administrator.error.spam = El texto contiene Spam
+administrator.offer.form.error.spam.heading = La cabecera no puede ser spam
+administrator.offer.form.error.spam.summary = El mensaje no puede ser spam
+administrator.offer.error.form.spam.link = El enlace no puede ser spam
 

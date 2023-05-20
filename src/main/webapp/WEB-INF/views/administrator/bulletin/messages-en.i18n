@@ -7,3 +7,6 @@ administrator.bulletin.form.label.confirmation = Confirmation
 administrator.bulletin.form.button.create = Create
 
 bulletin.error.spam = The text contents Spam
+administrator.bulletin.form.error.spam.title = The title cannot be spam
+administrator.bulletin.form.error.spam.message = The message cannot be spam
+administrator.bulletin.form.error.spam.link = The link cannot be spam

@@ -4,6 +4,7 @@ package acme.features.administrator.offer;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import acme.services.SpamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,8 @@ public class AdministratorOfferUpdateService extends AbstractService<Administrat
 
 	@Autowired
 	protected AdministratorOfferRepository	repository;
+	@Autowired
+	protected SpamService spamDetector;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -94,6 +97,14 @@ public class AdministratorOfferUpdateService extends AbstractService<Administrat
 		}
 		if (!super.getBuffer().getErrors().hasErrors("price"))
 			super.state(object.getPrice().getAmount() >= 0, "price", "administrator.offer.error.code.price-negative");
+
+		// Spam validation
+		if (!super.getBuffer().getErrors().hasErrors("heading"))
+			super.state(this.spamDetector.validateTextInput(object.getHeading()), "heading", "administrator.offer.form.error.spam.heading");
+		if (!super.getBuffer().getErrors().hasErrors("summary"))
+			super.state(this.spamDetector.validateTextInput(object.getSummary()), "summary", "administrator.offer.form.error.spam.summary");
+		if (!super.getBuffer().getErrors().hasErrors("link"))
+			super.state(this.spamDetector.validateTextInput(object.getLink()), "link", "administrator.offer.error.form.spam.link");
 	}
 
 	@Override

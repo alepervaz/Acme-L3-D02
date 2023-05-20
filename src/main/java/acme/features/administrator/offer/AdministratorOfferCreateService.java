@@ -2,7 +2,10 @@
 package acme.features.administrator.offer;
 
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
+import acme.framework.components.models.Errors;
+import acme.services.SpamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,8 @@ public class AdministratorOfferCreateService extends AbstractService<Administrat
 
 	@Autowired
 	protected AdministratorOfferRepository	repository;
+	@Autowired
+	protected SpamService spamDetector;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -62,18 +67,34 @@ public class AdministratorOfferCreateService extends AbstractService<Administrat
 	public void validate(final Offer object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("startDate"))
-			super.state(MomentHelper.isFuture(object.getStartDate()), "startDate", "administrator.offer.error.code.start-future");
-		if (!super.getBuffer().getErrors().hasErrors("startDate"))
-			super.state(MomentHelper.isFuture(object.getEndDate()), "endDate", "administrator.offer.error.code.end-future");
-		if (!super.getBuffer().getErrors().hasErrors("startDate") && !super.getBuffer().getErrors().hasErrors("availabilityEnd"))
-			super.state(MomentHelper.isBefore(object.getStartDate(), object.getEndDate()), "startDate", "administrator.offer.error.code.start-before-end");
-		if (!super.getBuffer().getErrors().hasErrors("startDate") && !super.getBuffer().getErrors().hasErrors("availabilityEnd")) {
-			super.state(MomentHelper.isLongEnough(object.getStartDate(), object.getEndDate(), 7, ChronoUnit.DAYS), "startDate", "administrator.offer.error.code.short-availability");
-			super.state(MomentHelper.isLongEnough(object.getStartDate(), object.getEndDate(), 1, ChronoUnit.DAYS), "endDate", "administrator.offer.error.code.short-start");
+		Date start;
+		Date end;
+		Errors errors;
+
+		start = object.getStartDate();
+		end = object.getEndDate();
+		errors = super.getBuffer().getErrors();
+
+		if (!errors.hasErrors("startDate"))
+			super.state(MomentHelper.isFuture(start), "startDate", "administrator.offer.error.code.start-future");
+		if (!errors.hasErrors("startDate"))
+			super.state(MomentHelper.isFuture(end), "endDate", "administrator.offer.error.code.end-future");
+		if (!errors.hasErrors("startDate") && !errors.hasErrors("endDate"))
+			super.state(MomentHelper.isBefore(start, end), "startDate", "administrator.offer.error.code.start-before-end");
+		if (!errors.hasErrors("startDate") && !errors.hasErrors("endDate")) {
+			super.state(MomentHelper.isLongEnough(start, end, 7, ChronoUnit.DAYS), "startDate", "administrator.offer.error.code.short-availability");
+			super.state(MomentHelper.isLongEnough(start, MomentHelper.getCurrentMoment(), 1, ChronoUnit.DAYS), "endDate", "administrator.offer.error.code.short-start");
 		}
 		if (!super.getBuffer().getErrors().hasErrors("price"))
 			super.state(object.getPrice().getAmount() >= 0, "price", "administrator.offer.error.code.price-negative");
+
+		// Spam validation
+		if (!super.getBuffer().getErrors().hasErrors("heading"))
+			super.state(this.spamDetector.validateTextInput(object.getHeading()), "heading", "administrator.offer.form.error.spam.heading");
+		if (!super.getBuffer().getErrors().hasErrors("summary"))
+			super.state(this.spamDetector.validateTextInput(object.getSummary()), "summary", "administrator.offer.form.error.spam.summary");
+		if (!super.getBuffer().getErrors().hasErrors("link"))
+			super.state(this.spamDetector.validateTextInput(object.getLink()), "link", "administrator.offer.error.form.spam.link");
 	}
 
 	@Override

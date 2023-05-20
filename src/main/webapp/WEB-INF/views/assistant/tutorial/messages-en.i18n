@@ -20,3 +20,5 @@ assistant.tutorial.form.button.delete = Delete Tutorial
 assistant.tutorial.form.button.publish = Publish Tutorial
 assistant.session.form.button.session = Session List
 assistant.session.form.button.create = Create Session
+
+assistant.error.spam = El texto contiene Spam

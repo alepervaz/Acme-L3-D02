@@ -25,3 +25,5 @@ administrator.offer.error.code.short-availability = La oferta debe estar disponi
 administrator.offer.error.code.short-start = La oferta debe comenzar al menos 1 día después de su creación
 administrator.offer.error.code.price-negative = El precio no puede ser negativo
 
+administrator.error.spam = El texto contiene Spam
+

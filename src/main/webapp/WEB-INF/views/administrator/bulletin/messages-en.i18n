@@ -5,3 +5,5 @@ administrator.bulletin.form.label.flags = Flag
 administrator.bulletin.form.label.link = Url
 administrator.bulletin.form.label.confirmation = Confirmation
 administrator.bulletin.form.button.create = Create
+
+bulletin.error.spam = The text contents Spam

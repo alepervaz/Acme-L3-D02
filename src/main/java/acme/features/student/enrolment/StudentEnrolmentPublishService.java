@@ -19,6 +19,7 @@ import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Student;
+import acme.services.SpamService;
 
 @Service
 public class StudentEnrolmentPublishService extends AbstractService<Student, Enrolment> {
@@ -31,6 +32,8 @@ public class StudentEnrolmentPublishService extends AbstractService<Student, Enr
 	// Internal state ---------------------------------------------------------
 	@Autowired
 	protected StudentEnrolmentRepository	repository;
+	@Autowired
+	protected SpamService					spamService;
 
 
 	// AbstractService <Student,Enrolment> ----------------------------------------------
@@ -89,30 +92,46 @@ public class StudentEnrolmentPublishService extends AbstractService<Student, Enr
 	public void validate(final Enrolment enrolment) {
 		assert enrolment != null;
 
-		String locale;
-		SimpleDateFormat dateFormat;
-		String dateString;
+		final String locale;
+		final SimpleDateFormat dateFormat;
+		final String dateString;
 		Date expirationDate;
-		Errors errors;
+		final Errors errors;
 		final String nullError = "student.enrolment.form.error.null";
 
-		boolean hasExpirationDateErrors;
+		final boolean hasExpirationDateErrors;
 		final String holderName = enrolment.getCardHolderName();
+		if (!super.getBuffer().getErrors().hasErrors("code"))
+			super.state(this.spamService.validateTextInput(enrolment.getCode()), "code", "enrolment.error.spam");
 
-		if (!super.getBuffer().getErrors().hasErrors("cardHolderName")) {
+		if (!super.getBuffer().getErrors().hasErrors("motivation"))
+			super.state(this.spamService.validateTextInput(enrolment.getMotivation()), "motivation", "activity.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("goals"))
+			super.state(this.spamService.validateTextInput(enrolment.getGoals()), "goals", "activity.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("cardLowerNibble"))
+			super.state(this.spamService.validateTextInput(enrolment.getCardLowerNibble()), "cardLowerNibble", "enrolment.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("expirationDate"))
+			super.state(this.spamService.validateTextInput(enrolment.getExpirationDate()), "expirationDate", "enrolment.error.spam");
+
+		if (!super.getBuffer().getErrors().hasErrors("cardHolderName"))
+
+		{
 			final boolean validCardHolderName = holderName != null && !holderName.isEmpty();
 
 			super.state(validCardHolderName, "cardHolderName", nullError);
+			super.state(this.spamService.validateTextInput(enrolment.getCardHolderName()), "cardHolderName", "enrolment.error.spam");
+
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("cardNumber")) {
 			final boolean validCardNumber = enrolment.getCardNumber() != null;
-
+			super.state(this.spamService.validateTextInput(enrolment.getCardNumber()), "cardNumber", "enrolment.error.spam");
 			super.state(validCardNumber, "cardNumber", nullError);
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("cvv")) {
 			final boolean validCVV = enrolment.getCvv() != null;
+			super.state(this.spamService.validateTextInput(enrolment.getCvv()), "cvv", "enrolment.error.spam");
 
 			super.state(validCVV, "cvv", nullError);
 		}

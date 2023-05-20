@@ -13,6 +13,7 @@ import acme.framework.components.jsp.SelectChoices;
 import acme.framework.components.models.Tuple;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
+import acme.services.SpamService;
 
 @Service
 public class AssistantTutorialPublishService extends AbstractService<Assistant, Tutorial> {
@@ -26,6 +27,8 @@ public class AssistantTutorialPublishService extends AbstractService<Assistant, 
 
 	@Autowired
 	protected AssistantTutorialRepository	repository;
+	@Autowired
+	protected SpamService					spamService;
 
 
 	// AbstractService interface ----------------------------------------------
@@ -89,7 +92,15 @@ public class AssistantTutorialPublishService extends AbstractService<Assistant, 
 
 			tutorial = this.repository.findOneTutorialByCode(object.getCode());
 			super.state(tutorial == null || tutorial.getId() == object.getId(), "code", "assistant.tutorial.form.error.not-unique-code");
+			super.state(this.spamService.validateTextInput(object.getCode()), "code", "tutorial.error.spam");
+
 		}
+		if (!super.getBuffer().getErrors().hasErrors("title"))
+			super.state(this.spamService.validateTextInput(object.getTitle()), "title", "tutorial.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("summary"))
+			super.state(this.spamService.validateTextInput(object.getSummary()), "summary", "tutorial.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("goals"))
+			super.state(this.spamService.validateTextInput(object.getGoals()), "goals", "tutorial.error.spam");
 
 	}
 

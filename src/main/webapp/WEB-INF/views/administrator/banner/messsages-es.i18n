@@ -22,3 +22,5 @@ administrator.banner.form.button.delete = Eliminar
 administrator.banner.error.startDate.beforeInstantiation = El banner debe ser mostrado después de su creación o su actualización
 administrator.banner.error.finishDate.beforeStartDate = El banner debe ser mostrado antes de su finalización
 administrator.banner.error.finishDate.notLongEnough = El banner debe ser mostrado durante al menos 1 semana
+
+banner.error.spam = El texto contiene Spam

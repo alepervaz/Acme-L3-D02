@@ -23,6 +23,7 @@ import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
+import acme.services.SpamService;
 
 @Service
 public class AuditorUpdateService extends AbstractService<Authenticated, Auditor> {
@@ -37,6 +38,8 @@ public class AuditorUpdateService extends AbstractService<Authenticated, Auditor
 
 	@Autowired
 	protected AuditorRepository		repository;
+	@Autowired
+	protected SpamService			spamService;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -74,6 +77,15 @@ public class AuditorUpdateService extends AbstractService<Authenticated, Auditor
 	@Override
 	public void validate(final Auditor object) {
 		assert object != null;
+		if (!super.getBuffer().getErrors().hasErrors("firm"))
+			super.state(this.spamService.validateTextInput(object.getFirm()), "firm", "auditor.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("proffesionalId"))
+			super.state(this.spamService.validateTextInput(object.getProffesionalId()), "proffesionalId", "auditor.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("certifications"))
+			super.state(this.spamService.validateTextInput(object.getCertifications()), "certifications", "auditor.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("link"))
+			super.state(this.spamService.validateTextInput(object.getLink()), "link", "auditor.error.spam");
+
 	}
 
 	@Override

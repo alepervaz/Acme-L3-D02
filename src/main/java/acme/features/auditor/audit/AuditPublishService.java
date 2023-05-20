@@ -24,6 +24,7 @@ import acme.framework.helpers.BinderHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
+import acme.services.SpamService;
 
 @Service
 public class AuditPublishService extends AbstractService<Auditor, Audit> {
@@ -38,6 +39,8 @@ public class AuditPublishService extends AbstractService<Auditor, Audit> {
 
 	@Autowired
 	protected AuditRepository		repository;
+	@Autowired
+	protected SpamService			spamService;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -98,7 +101,15 @@ public class AuditPublishService extends AbstractService<Auditor, Audit> {
 
 			isUnique = this.repository.isUniqueCodeAudit(object.getCode());
 			super.state(isUnique, "code", "audit.error.exist-code");
+			super.state(this.spamService.validateTextInput(object.getCode()), "code", "audit.error.spam");
+
 		}
+		if (!super.getBuffer().getErrors().hasErrors("conclusion"))
+			super.state(this.spamService.validateTextInput(object.getConclusion()), "conclusion", "audit.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("strongPoints"))
+			super.state(this.spamService.validateTextInput(object.getStrongPoints()), "strongPoints", "audit.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("weakPoints"))
+			super.state(this.spamService.validateTextInput(object.getWeakPoints()), "weakPoints", "audit.error.spam");
 	}
 
 	@Override

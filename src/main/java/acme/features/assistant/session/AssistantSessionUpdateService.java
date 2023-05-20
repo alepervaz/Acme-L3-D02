@@ -17,6 +17,7 @@ import acme.framework.components.models.Tuple;
 import acme.framework.helpers.MomentHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
+import acme.services.SpamService;
 
 @Service
 public class AssistantSessionUpdateService extends AbstractService<Assistant, Session> {
@@ -29,6 +30,8 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 
 	@Autowired
 	protected AssistantSessionRepository	repository;
+	@Autowired
+	protected SpamService					spamService;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -95,6 +98,13 @@ public class AssistantSessionUpdateService extends AbstractService<Assistant, Se
 			condition2 = MomentHelper.computeDuration(session.getStart(), session.getEnd()).getSeconds() <= Duration.ofHours(5).getSeconds();
 			super.state(condition1 && condition2, "end", "assistant.session.error-end-time");
 		}
+		if (!super.getBuffer().getErrors().hasErrors("title"))
+			super.state(this.spamService.validateTextInput(session.getTitle()), "title", "session.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("summary"))
+			super.state(this.spamService.validateTextInput(session.getSummary()), "summary", "session.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("link"))
+			super.state(this.spamService.validateTextInput(session.getLink()), "link", "session.error.spam");
+
 	}
 
 	@Override

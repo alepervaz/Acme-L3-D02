@@ -31,3 +31,5 @@ audit.error.not-exist-curse = El curso no existe
 audit.error.edit-draftMode = No puedes actualizar un audit público
 auditingRecord.error.not-valid-mark = Debes introducir una calificación tal que A+/A/B/C/F/F-
 auditingRecord.error.not-enougth-time = Duración mínima 30 minutos
+
+offer.error.spam = El texto contiene Spam

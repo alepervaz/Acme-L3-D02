@@ -23,3 +23,5 @@ administrator.offer.error.code.start-before-end = The start date must be before 
 administrator.offer.error.code.short-availability = The offer must be available for at least 1 week
 administrator.offer.error.code.short-start = The offer must be available for at least 1 day
 administrator.offer.error.code.price-negative = The price must be positive
+
+offer.error.spam = The text contents Spam

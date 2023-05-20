@@ -15,6 +15,7 @@ import acme.framework.controllers.HttpMethod;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Assistant;
+import acme.services.SpamService;
 
 @Service
 public class AssistantTutorialCreateService extends AbstractService<Assistant, Tutorial> {
@@ -27,6 +28,8 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 	// Internal state ---------------------------------------------------------
 	@Autowired
 	protected AssistantTutorialRepository	repository;
+	@Autowired
+	protected SpamService					spamService;
 
 
 	// AbstractService interface ----------------------------------------------
@@ -84,7 +87,16 @@ public class AssistantTutorialCreateService extends AbstractService<Assistant, T
 
 			tutorial = this.repository.findOneTutorialByCode(object.getCode());
 			super.state(tutorial == null || tutorial.getId() == object.getId(), "code", "assistant.tutorial.form.error.not-unique-code");
+			super.state(this.spamService.validateTextInput(object.getCode()), "code", "tutorial.error.spam");
+
 		}
+		if (!super.getBuffer().getErrors().hasErrors("title"))
+			super.state(this.spamService.validateTextInput(object.getTitle()), "title", "tutorial.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("summary"))
+			super.state(this.spamService.validateTextInput(object.getSummary()), "summary", "tutorial.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("goals"))
+			super.state(this.spamService.validateTextInput(object.getGoals()), "goals", "tutorial.error.spam");
+
 	}
 
 	@Override

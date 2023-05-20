@@ -27,6 +27,7 @@ import acme.framework.helpers.MomentHelper;
 import acme.framework.helpers.PrincipalHelper;
 import acme.framework.services.AbstractService;
 import acme.roles.Auditor;
+import acme.services.SpamService;
 
 @Service
 public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor, AuditingRecord> {
@@ -41,6 +42,9 @@ public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor,
 
 	@Autowired
 	protected AuditorAuditingRecordRepository	repository;
+
+	@Autowired
+	protected SpamService						spamService;
 
 	// AbstractService interface ----------------------------------------------ç
 
@@ -101,6 +105,11 @@ public class AuditorAuditingRecordUpdateService extends AbstractService<Auditor,
 			super.state(MomentHelper.isBefore(start, end), "mark", "auditingRecord.error.not-valid-mark");
 		if (!super.getBuffer().getErrors().hasErrors("endAudit"))
 			super.state(duration.toMinutes() >= 30, "endAudit", "auditingRecord.error.not-enougth-time");
+		if (!super.getBuffer().getErrors().hasErrors("subject"))
+			super.state(this.spamService.validateTextInput(object.getSubject()), "subject", "auditingRecord.error.spam");
+		if (!super.getBuffer().getErrors().hasErrors("assessment"))
+			super.state(this.spamService.validateTextInput(object.getAssessment()), "assessment", "auditingRecord.error.spam");
+
 	}
 
 	@Override

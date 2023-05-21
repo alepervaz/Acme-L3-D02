@@ -36,9 +36,9 @@
 			<acme:menu-suboption code="master.menu.authenticated.all-notes" action="/authenticated/note/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-bulletins" action="/authenticated/bulletin/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-practicums" action="/authenticated/practicum/list"/>
+			<acme:menu-suboption code="master.menu.authenticated.offer" action="/authenticated/offer/list"/>
 			<acme:menu-suboption code="master.menu.authenticated.all-audits" action="/authenticated/audit/list-publish"/>
 			<acme:menu-suboption code="master.menu.auditor.list-by-course" action="/authenticated/course/list-course"/>
-			<acme:menu-suboption code="master.menu.authenticated.offer" action="/authenticated/offer/list"/>
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.administrator" access="hasRole('Administrator')">
